@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MPAI – AI stöd för ledning och team</title>
+<style>
+:root{
+  --bg:#111827;
+  --bg-soft:#1a2436;
+  --panel:rgba(30,41,59,.70);
+  --panel-strong:rgba(30,41,59,.86);
+  --panel-light:rgba(51,65,85,.70);
+  --text:#e8f0fa;
+  --muted:#a8bbd2;
+  --line:rgba(148,163,184,.20);
+  --line-strong:rgba(148,163,184,.34);
+  --green:#4ade80;
+  --green-strong:#22c55e;
+  --green-glow:rgba(74,222,128,.22);
+  --blue:rgba(96,165,250,.25);
+  --shadow:0 18px 50px rgba(2,6,23,.30);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(74,222,128,.10), transparent 30%),
+    radial-gradient(circle at top right, rgba(96,165,250,.10), transparent 32%),
+    linear-gradient(180deg,#0f172a 0%, #111827 45%, #1e293b 100%);
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  pointer-events:none;
+  z-index:0;
+}
+.neural-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.18;
+  overflow:hidden;
+}
+.net{
+  position:absolute;
+  width:260px;
+  height:220px;
+  animation:floatA 40s ease-in-out infinite alternate;
+  filter:blur(.2px);
+}
+.net:nth-child(2){animation:floatB 55s ease-in-out infinite alternate}
+.net:nth-child(3){animation:floatC 60s ease-in-out infinite alternate}
+.net:nth-child(4){animation:floatB 50s ease-in-out infinite alternate}
+.net:nth-child(5){animation:floatA 70s ease-in-out infinite alternate}
+.net svg{width:100%;height:100%}
+.neural-line{stroke:rgba(148,163,184,.26);stroke-width:1.1}
+.neural-node{fill:rgba(74,222,128,.42);animation:nodeFloat 18s ease-in-out infinite alternate}
+.neural-node.alt{fill:rgba(96,165,250,.30);animation:nodeFloat 22s ease-in-out infinite alternate}
+@keyframes floatA{0%{transform:translate(0,0)}50%{transform:translate(120px,-80px)}100%{transform:translate(-80px,120px)}}
+@keyframes floatB{0%{transform:translate(0,0)}50%{transform:translate(-140px,60px)}100%{transform:translate(80px,-120px)}}
+@keyframes floatC{0%{transform:translate(0,0)}50%{transform:translate(100px,120px)}100%{transform:translate(-120px,-60px)}}
+@keyframes nodeFloat{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(6px)}}
+.header,.hero,.section,.footer{position:relative;z-index:1}
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,17,31,.68);
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  border-bottom:1px solid rgba(148,163,184,.10);
+}
+.nav{
+  max-width:1150px;
+  margin:0 auto;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{
+  font-weight:800;
+  letter-spacing:.04em;
+  color:#f8fafc;
+}
+.nav > div:last-child{display:flex;align-items:center;gap:10px}
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:.96rem;
+  padding:10px 12px;
+  border-radius:999px;
+  transition:all .2s ease;
+}
+.nav a:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav a.cta{
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  color:#04110a;
+  font-weight:800;
+  box-shadow:0 10px 24px rgba(34,197,94,.22);
+}
+.hero{
+  max-width:1150px;
+  margin:0 auto;
+  padding:72px 24px 36px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:30px;
+  align-items:start;
+}
+.hero-copy h1{
+  font-size:clamp(2.6rem,4.8vw,4.6rem);
+  line-height:1.02;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+  max-width:720px;
+}
+.hero-copy p{
+  color:var(--muted);
+  font-size:1.08rem;
+  line-height:1.7;
+  max-width:720px;
+}
+.quick-points,
+.situations-grid,
+.cards,
+.how{
+  display:grid;
+  gap:16px;
+}
+.quick-points{grid-template-columns:repeat(2,minmax(0,1fr));margin:24px 0 24px}
+.situations{margin:10px 0 24px}
+.situations h3{
+  margin:0 0 12px;
+  font-size:1rem;
+  color:#d7e3f1;
+  font-weight:700;
+}
+.situations-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.point,.situation,.card,.step,.form-card{
+  background:linear-gradient(180deg,rgba(30,41,59,.72),rgba(30,41,59,.90));
+  border:1px solid rgba(148,163,184,.16);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.point{
+  border-radius:16px;
+  padding:16px 18px;
+  color:#deebf8;
+}
+.situation{
+  border-radius:14px;
+  padding:14px 16px;
+  color:#d6e2ef;
+  font-size:.96rem;
+}
+.btn,.small-btn,.submit{
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:999px;
+  padding:14px 20px;
+  font-weight:700;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  color:#04110a;
+  box-shadow:0 14px 28px rgba(34,197,94,.25);
+}
+.btn-secondary{
+  color:var(--text);
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(255,255,255,.03);
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.form-card{
+  border-radius:24px;
+  padding:28px;
+  background:linear-gradient(180deg,rgba(30,41,59,.82),rgba(30,41,59,.95));
+  border:1px solid rgba(148,163,184,.18);
+}
+.form-card h2{margin:0 0 8px;font-size:1.45rem}
+.form-card p{margin:0 0 18px;color:var(--muted);line-height:1.6}
+label{display:block;margin:14px 0 6px;color:#dbe7f3;font-size:.94rem}
+input,textarea,select{
+  appearance:none;
+
+  width:100%;
+  padding:14px 14px;
+  border-radius:12px;
+  border:1px solid rgba(148,163,184,.18);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font:inherit;
+  transition:border .2s ease, box-shadow .2s ease, background .2s ease, transform .2s ease;
+}
+select{
+  background:rgba(15,23,42,.85);
+  color:#e5eef8;
+}
+
+select option{
+  background:#0f172a;
+  color:#e5eef8;
+}
+
+input::placeholder,textarea::placeholder{color:#7f93ab}
+input:focus,textarea:focus,select:focus{
+  outline:none;
+  border-color:rgba(74,222,128,.55);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 0 0 4px rgba(74,222,128,.12);
+}
+textarea{min-height:124px;resize:vertical}
+.submit{
+  margin-top:18px;
+  width:100%;
+  border:none;
+  padding:15px;
+  border-radius:14px;
+  font-weight:800;
+  color:#04110a;
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  box-shadow:0 14px 30px rgba(34,197,94,.22);
+}
+.section{
+  max-width:1150px;
+  margin:0 auto;
+  padding:28px 24px 60px;
+}
+.section h2{
+  margin:0 0 10px;
+  font-size:2rem;
+  letter-spacing:-.03em;
+}
+.section-intro{
+  margin:0 0 24px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:740px;
+}
+.cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{
+  border-radius:18px;
+  padding:24px;
+}
+.card h3{margin:0 0 10px;font-size:1.2rem}
+.card p{margin:0 0 14px;color:var(--muted);line-height:1.6}
+.card ul{margin:0 0 18px 18px;padding:0;color:#d9e5f3;line-height:1.7}
+.badge{display:inline-block;background:linear-gradient(135deg,var(--green),var(--green-strong));color:#04110a;font-weight:800;font-size:.75rem;padding:6px 10px;border-radius:999px;margin-bottom:10px;box-shadow:0 6px 16px rgba(34,197,94,.25);letter-spacing:.02em}
+.small-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:999px;
+  padding:11px 14px;
+  font-weight:800;
+  color:#04110a;
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+}
+.how{grid-template-columns:repeat(3,minmax(0,1fr))}
+.step{border-radius:18px;padding:22px}
+.step-number{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:12px;
+  font-weight:800;
+  color:#c9ffd8;
+  background:rgba(74,222,128,.12);
+  border:1px solid rgba(74,222,128,.18);
+}
+.footer{
+  max-width:1150px;
+  margin:0 auto;
+  padding:0 24px 44px;
+  color:#8ea2ba;
+}
+.btn:hover,.small-btn:hover,.submit:hover{
+  transform:translateY(-2px) scale(1.01);
+  box-shadow:0 16px 34px rgba(34,197,94,.26);
+}
+.card:hover,.point:hover,.step:hover,.situation:hover,.form-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(74,222,128,.22);
+  box-shadow:0 24px 56px rgba(2,6,23,.42), 0 0 0 1px rgba(74,222,128,.06) inset;
+}
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;padding:44px 20px 28px}
+  .cards,.how{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav{padding:14px 20px}
+}
+@media(max-width:768px){
+  .nav{padding:12px 16px;gap:12px;align-items:flex-start;flex-direction:column}
+  .nav > div:last-child{display:flex;flex-wrap:wrap;gap:8px}
+  .hero{padding:32px 16px 20px}
+  .hero-copy h1{font-size:clamp(2.1rem,10vw,3.2rem)}
+  .hero-copy p{font-size:1rem}
+  .quick-points,.situations-grid,.cards,.how{grid-template-columns:1fr}
+  .section{padding:22px 16px 42px}
+  .section h2{font-size:1.65rem}
+  .form-card{padding:20px;border-radius:20px}
+  input,textarea,select{font-size:16px}
+  .btn,.small-btn,.submit{width:100%}
+  .hero-actions{flex-direction:column}
+  .net{width:180px;height:150px;opacity:.9}
+}
+@media(max-width:480px){
+  .brand{font-size:1rem}
+  .hero-copy h1{font-size:2rem}
+  .point,.situation,.card,.step{border-radius:16px}
+}
+.cursor-light{
+  position:fixed;
+  width:420px;
+  height:420px;
+  pointer-events:none;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(74,222,128,.18) 0%, rgba(74,222,128,.08) 35%, rgba(74,222,128,0) 70%);
+  transform:translate(-50%,-50%);
+  z-index:0;
+  mix-blend-mode:screen;
+}
+
+</style>
+</head>
+<body>
+<div class="neural-bg" aria-hidden="true">
+
+<div class="net" style="top:10%;left:8%">
+<svg viewBox="0 0 200 160">
+<line class="neural-line" x1="20" y1="40" x2="80" y2="60"/>
+<line class="neural-line" x1="80" y1="60" x2="140" y2="30"/>
+<line class="neural-line" x1="80" y1="60" x2="120" y2="110"/>
+<circle class="neural-node" cx="20" cy="40" r="3"/>
+<circle class="neural-node alt" cx="80" cy="60" r="4"/>
+<circle class="neural-node" cx="140" cy="30" r="3"/>
+<circle class="neural-node alt" cx="120" cy="110" r="4"/>
+</svg>
+</div>
+
+<div class="net" style="top:30%;left:70%">
+<svg viewBox="0 0 200 160">
+<line class="neural-line" x1="30" y1="50" x2="100" y2="40"/>
+<line class="neural-line" x1="100" y1="40" x2="150" y2="90"/>
+<line class="neural-line" x1="100" y1="40" x2="70" y2="120"/>
+<circle class="neural-node" cx="30" cy="50" r="3"/>
+<circle class="neural-node alt" cx="100" cy="40" r="4"/>
+<circle class="neural-node" cx="150" cy="90" r="3"/>
+<circle class="neural-node alt" cx="70" cy="120" r="4"/>
+</svg>
+</div>
+
+<div class="net" style="top:70%;left:20%">
+<svg viewBox="0 0 200 160">
+<line class="neural-line" x1="40" y1="30" x2="100" y2="70"/>
+<line class="neural-line" x1="100" y1="70" x2="160" y2="40"/>
+<line class="neural-line" x1="100" y1="70" x2="120" y2="130"/>
+<circle class="neural-node" cx="40" cy="30" r="3"/>
+<circle class="neural-node alt" cx="100" cy="70" r="4"/>
+<circle class="neural-node" cx="160" cy="40" r="3"/>
+<circle class="neural-node alt" cx="120" cy="130" r="4"/>
+</svg>
+</div>
+
+<div class="net" style="top:75%;left:75%">
+<svg viewBox="0 0 200 160">
+<line class="neural-line" x1="20" y1="90" x2="90" y2="40"/>
+<line class="neural-line" x1="90" y1="40" x2="160" y2="80"/>
+<line class="neural-line" x1="90" y1="40" x2="100" y2="130"/>
+<circle class="neural-node" cx="20" cy="90" r="3"/>
+<circle class="neural-node alt" cx="90" cy="40" r="4"/>
+<circle class="neural-node" cx="160" cy="80" r="3"/>
+<circle class="neural-node alt" cx="100" cy="130" r="4"/>
+</svg>
+</div>
+
+<div class="net" style="top:50%;left:45%">
+<svg viewBox="0 0 200 160">
+<line class="neural-line" x1="30" y1="40" x2="100" y2="80"/>
+<line class="neural-line" x1="100" y1="80" x2="150" y2="30"/>
+<line class="neural-line" x1="100" y1="80" x2="150" y2="120"/>
+<circle class="neural-node" cx="30" cy="40" r="3"/>
+<circle class="neural-node alt" cx="100" cy="80" r="4"/>
+<circle class="neural-node" cx="150" cy="30" r="3"/>
+<circle class="neural-node alt" cx="150" cy="120" r="4"/>
+</svg>
+</div>
+
+</div>
+
+<header class="header">
+  <div class="nav">
+    <div class="brand">MPAI</div>
+    <div>
+      <a href="#tjanster">Tjänster</a>
+      <a href="#dokument">Dokument</a>
+      <a href="#priser">Priser</a>
+      <a href="#kontakt" class="cta">Be om offert</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+
+<div class="hero-copy">
+<h1>AI-stöd för chefer, ledningsgrupper och team</h1>
+<p>
+Jag hjälper ledningsgrupper och team att förstå hur AI kan användas i verksamheten.
+Fokus ligger inte på teknik – utan på hur AI faktiskt kan stötta beslut, effektivitet och arbetssätt.
+De flesta uppdrag och utbildningar kan även genomföras på kvällar och helger om det passar organisationen bättre.
+</p>
+
+<div class="quick-points">
+<div class="point">AI för chefer och ledningsgrupper</div>
+<div class="point">Strategi och förståelse för AI</div>
+<div class="point">Workshops och praktiska genomgångar</div>
+<div class="point">Färdiga dokument och mallar för företag</div>
+</div>
+
+<div class="situations">
+<h3>Vanliga situationer jag hjälper till med</h3>
+<div class="situations-grid">
+<div class="situation">"Vi vet att AI är viktigt men vet inte var vi ska börja"</div>
+<div class="situation">"Ledningen vill förstå vad AI betyder för oss"</div>
+<div class="situation">"Vi testar AI men får inte riktigt ut värde"</div>
+<div class="situation">"Vi vill förstå Copilot / ChatGPT bättre"</div>
+</div>
+</div>
+
+<div class="hero-actions">
+<a class="btn btn-primary" href="#kontakt">Be om offert</a>
+<a class="btn btn-secondary" href="#tjanster">Se tjänster</a>
+</div>
+
+</div>
+
+<div class="form-card" id="kontakt">
+<h2>Beskriv ert behov</h2>
+<p>Berätta kort om er situation så återkommer jag med ett förslag.</p>
+<form>
+
+<label>Företag</label>
+<input type="text" placeholder="Företagsnamn">
+
+<label>Namn</label>
+<input type="text" placeholder="Ditt namn">
+
+<label>Email</label>
+<input type="email" placeholder="namn@foretag.se">
+
+<label>Vad gäller det?</label>
+<select>
+<option>Välj</option>
+<option>AI introduktion för ledning</option>
+<option>AI workshop</option>
+<option>AI strategi / rådgivning</option>
+<option>AI just nu</option>
+<option>Utbildning i Copilot 365 och ChatGPT</option>
+<option>Dokument och mallar</option>
+</select>
+
+<label>Beskriv kort situationen</label>
+<textarea placeholder="Vad vill ni förstå eller komma vidare med?"></textarea>
+
+<button class="submit" type="button">Skicka förfrågan</button>
+<p style="margin-top:10px;font-size:.9rem;color:var(--muted);text-align:center">Jag återkommer normalt inom 24 timmar. Möten kan ske digitalt eller på plats.</p>
+
+</form>
+</div>
+
+</section>
+
+<section class="section" id="tjanster">
+
+<h2>Tjänster</h2>
+<p class="section-intro">
+Stöd för organisationer som vill förstå och börja använda AI på ett praktiskt sätt.
+Fokus ligger ofta på chefer och ledningsgrupper.
+</p>
+
+<div class="cards">
+
+<article class="card">
+<h3>AI just nu</h3>
+<p>En tjänst för ledning och team som vill få hjälp att förstå trender, nyheter och vad som händer inom AI just nu.</p>
+<ul>
+<li>Aktuella AI-trender</li>
+<li>Vad som påverkar företag just nu</li>
+<li>Sammanfattat för ledning och verksamhet</li>
+</ul>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>AI‑översikt för ledning</h3>
+<p>En tydlig introduktion till AI för chefer och ledningsgrupper.</p>
+<ul>
+<li>Vad AI är och inte är</li>
+<li>Risker och möjligheter</li>
+<li>Hur AI påverkar organisationer</li>
+</ul>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Verksamhetsanpassad AI‑demo</h3>
+<p>Konkreta exempel på hur AI kan användas i just er organisation.</p>
+<ul>
+<li>Genomgång av er situation</li>
+<li>Konkreta AI‑exempel</li>
+<li>Förslag på nästa steg</li>
+</ul>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Utbildning i Copilot 365 och ChatGPT</h3>
+<p>En praktisk utbildning för chefer, ledningsgrupper och team som vill förstå hur Copilot 365 och ChatGPT kan användas i arbetet.</p>
+<ul>
+<li>Grundläggande genomgång av Copilot 365 och ChatGPT</li>
+<li>Praktiska exempel och användningsområden</li>
+<li>Hur man skriver bättre prompts i vardagen</li>
+</ul>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Workshop för team</h3>
+<p>Praktisk workshop där vi identifierar AI‑möjligheter.</p>
+<ul>
+<li>Kartläggning av behov</li>
+<li>Prioritering av use cases</li>
+<li>Tydlig riktning framåt</li>
+</ul>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+</div>
+
+</section>
+
+<section class="section" id="dokument">
+
+<h2>Dokument & mallar</h2>
+<p class="section-intro">
+Jag säljer även färdiga dokument och mallar som hjälper företag att börja arbeta strukturerat med AI.
+<br><span style="font-size:.9rem;color:var(--muted)">Materialet är generellt och baserat på offentlig information om AI‑styrning och EU AI Act.</span>
+</p>
+
+<div class="cards">
+
+<article class="card">
+<span class="badge">Mest efterfrågad just nu</span>
+<h3>AI Policy & EU AI Act paket</h3>
+<p>Ett komplett paket med dokument och verktyg för organisationer som vill börja arbeta strukturerat med AI och följa EU AI Act.</p>
+<ul>
+<li>AI‑policy mall</li>
+<li>EU AI Act struktur</li>
+<li>AI system register</li>
+<li>Riskklassning enligt EU AI Act</li>
+<li>Excel‑verktyg för AI governance</li>
+</ul>
+<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ner paket</a>
+</article>
+
+<article class="card">
+<h3>AI‑policy mall</h3>
+<p>En enkel policy som företag kan använda när de börjar använda AI.</p>
+<ul>
+<li>Användningspolicy</li>
+<li>Dataskydd</li>
+<li>Roller och ansvar</li>
+</ul>
+<a class="small-btn" href="#kontakt">Beställ</a>
+</article>
+
+<article class="card">
+<h3>Copilot introduktion</h3>
+<p>Ett färdigt utbildningsmaterial för företag som vill börja använda Copilot.</p>
+<ul>
+<li>Presentation</li>
+<li>Workshopmaterial</li>
+<li>Introduktion till prompts</li>
+</ul>
+<a class="small-btn" href="#kontakt">Beställ</a>
+</article>
+
+</div>
+
+</section>
+
+<section class="section" id="priser">
+
+<h2>Exempel på priser</h2>
+<p class="section-intro">
+Nedan är ungefärliga prisnivåer för att ge en känsla för vad olika typer av AI‑stöd kan kosta. Mindre introduktioner kan ofta göras billigare, eller räknas per person om det gäller ett team.
+</p>
+
+<div class="cards">
+
+<article class="card">
+<h3>AI‑översikt för ledning</h3>
+<p>Introduktion till AI för chefer och ledningsgrupper.</p>
+<ul>
+<li>2–3 timmars genomgång</li>
+<li>Frågor och diskussion</li>
+<li>Exempel från verkliga organisationer</li>
+</ul>
+<p><strong>Ca 8 000 – 18 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 900 – 1 500 kr per person</span></p>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Workshop för team</h3>
+<p>Praktisk workshop där team identifierar hur AI kan användas i arbetet.</p>
+<ul>
+<li>Halvdag eller heldag</li>
+<li>Identifiering av use cases</li>
+<li>Konkreta nästa steg</li>
+</ul>
+<p><strong>Ca 15 000 – 35 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 1 200 – 2 000 kr per person</span></p>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Utbildning i Copilot 365 / ChatGPT</h3>
+<p>Praktisk utbildning för organisationer som vill börja använda AI i vardagen.</p>
+<ul>
+<li>Genomgång av verktygen</li>
+<li>Praktiska exempel</li>
+<li>Prompt‑metodik</li>
+</ul>
+<p><strong>Ca 12 000 – 28 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 900 – 1 800 kr per person</span></p>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>AI just nu</h3>
+<p>Löpande uppdateringar för ledning om AI‑trender och vad som händer just nu.</p>
+<ul>
+<li>Trendgenomgång</li>
+<li>Vad som påverkar företag</li>
+<li>Strategisk kontext</li>
+</ul>
+<p><strong>Ca 5 000 – 15 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 500 – 1 200 kr per person</span></p>
+<a class="small-btn" href="#kontakt">Be om offert</a>
+</article>
+
+<article class="card">
+<h3>Dokument och mallar</h3>
+<p>Färdiga dokument för organisationer som vill arbeta strukturerat med AI.</p>
+<ul>
+<li>AI‑policy</li>
+<li>EU AI Act mall</li>
+<li>Copilot introduktion</li>
+</ul>
+<p><strong>Ca 900 – 4 000 kr</strong></p>
+<a class="small-btn" href="#kontakt">Beställ</a>
+</article>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Så fungerar det</h2>
+<p class="section-intro">Ni beskriver er situation – jag återkommer med ett förslag och offert.</p>
+
+<div class="how">
+
+<div class="step">
+<div class="step-number">1</div>
+<h3>Ni beskriver läget</h3>
+<p>Berätta vad ni vill förstå eller förbättra.</p>
+</div>
+
+<div class="step">
+<div class="step-number">2</div>
+<h3>Jag föreslår upplägg</h3>
+<p>Ni får ett enkelt förslag på hur vi kan arbeta.</p>
+</div>
+
+<div class="step">
+<div class="step-number">3</div>
+<h3>Ni får en offert</h3>
+<p>När upplägget känns rätt skickas en offert.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="faq">
+
+<h2>Vanliga frågor</h2>
+<p class="section-intro">Några vanliga frågor från organisationer som börjar arbeta med AI.</p>
+
+<div class="cards">
+
+<article class="card">
+<h3>Måste företag följa EU AI Act?</h3>
+<p>Ja. EU AI Act gäller organisationer som utvecklar eller använder AI‑system inom EU. För många företag innebär det främst att ha kontroll över vilka AI‑system som används och hur de används.</p>
+</article>
+
+<article class="card">
+<h3>Behöver vi en AI‑policy?</h3>
+<p>När organisationer börjar använda verktyg som Copilot eller ChatGPT är det bra att ha en enkel AI‑policy. Den beskriver vilka verktyg som får användas, hur data hanteras och vilket ansvar medarbetare har.</p>
+</article>
+
+<article class="card">
+<h3>Vad innehåller AI Policy & EU AI Act paketet?</h3>
+<p>Paketet innehåller bland annat AI‑policy, AI system register, riskklassning enligt EU AI Act och ett Excel‑verktyg för att hålla ordning på AI‑användning i organisationen.</p>
+</article>
+
+</div>
+
+</section>
+
+<div class="footer">
+MPAI hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.
+</div>
+
+<div class="cursor-light" id="cursorLight"></div>
+
+<script>
+const light=document.getElementById('cursorLight');
+
+window.addEventListener('mousemove',e=>{
+  light.style.left=e.clientX+'px';
+  light.style.top=e.clientY+'px';
+});
+
+window.addEventListener('touchmove',e=>{
+  const t=e.touches[0];
+  if(!t) return;
+  light.style.left=t.clientX+'px';
+  light.style.top=t.clientY+'px';
+});
+</script>
+
+</body>
+</html>
