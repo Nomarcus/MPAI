@@ -255,6 +255,36 @@ textarea{min-height:124px;resize:vertical}
   max-width:740px;
 }
 .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.service-download{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 20px;
+  margin:0 0 20px;
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(30,41,59,.78),rgba(30,41,59,.92));
+  border:1px solid rgba(74,222,128,.35);
+  box-shadow:var(--shadow);
+}
+.service-download p{
+  margin:0;
+  color:#dce8f6;
+  max-width:620px;
+  line-height:1.6;
+}
+.service-download .actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.service-download .file-name{
+  display:inline-block;
+  margin-top:6px;
+  font-size:.88rem;
+  color:var(--muted);
+}
 .card{
   border-radius:18px;
   padding:24px;
@@ -497,6 +527,15 @@ De flesta uppdrag och utbildningar kan även genomföras på kvällar och helger
 Stöd för organisationer som vill förstå och börja använda AI på ett praktiskt sätt.
 Fokus ligger ofta på chefer och ledningsgrupper.
 </p>
+
+<div class="service-download">
+<p><strong>EU AI Act komplett Excel-fil:</strong> Se eller ladda ner arbetsboken direkt.
+<br><span class="file-name">Fil: MPAI_AI_Compliance_Workbook.xlsx</span></p>
+<div class="actions">
+<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" target="_blank" rel="noopener">Se filen</a>
+<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ner filen</a>
+</div>
+</div>
 
 <div class="cards">
 
