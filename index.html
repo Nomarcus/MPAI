@@ -593,6 +593,104 @@ body::before{
   mix-blend-mode:screen;
 }
 
+/* === FÖRHANDSGRANSKNING MODAL === */
+.preview-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:rgba(6,14,26,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  align-items:center;
+  justify-content:center;
+  padding:24px 20px;
+}
+.preview-overlay.open{display:flex}
+.preview-box{
+  position:relative;
+  max-width:860px;
+  width:100%;
+  max-height:88vh;
+  display:flex;
+  flex-direction:column;
+  border-radius:22px;
+  border:1px solid rgba(74,222,128,.35);
+  box-shadow:0 0 0 1px rgba(74,222,128,.10),
+             0 0 40px rgba(74,222,128,.18),
+             0 0 80px rgba(74,222,128,.08),
+             0 32px 80px rgba(2,6,23,.70);
+  background:rgba(22,35,55,.98);
+  overflow:hidden;
+  animation:previewIn .22s ease;
+}
+@keyframes previewIn{
+  from{opacity:0;transform:scale(.96) translateY(12px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.preview-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px 14px;
+  border-bottom:1px solid rgba(74,222,128,.15);
+  flex-shrink:0;
+}
+.preview-header h3{
+  margin:0;
+  font-size:1rem;
+  color:#d4e8f8;
+  font-weight:700;
+}
+.preview-header span{
+  font-size:.82rem;
+  color:var(--muted);
+  margin-left:10px;
+  font-weight:400;
+}
+.preview-close{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-size:1.5rem;
+  cursor:pointer;
+  line-height:1;
+  padding:4px 8px;
+  border-radius:8px;
+  transition:color .2s, background .2s;
+  flex-shrink:0;
+}
+.preview-close:hover{color:var(--text);background:rgba(255,255,255,.06)}
+.preview-scroll{
+  overflow-y:auto;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(74,222,128,.30) transparent;
+}
+.preview-scroll::-webkit-scrollbar{width:6px}
+.preview-scroll::-webkit-scrollbar-track{background:transparent}
+.preview-scroll::-webkit-scrollbar-thumb{background:rgba(74,222,128,.30);border-radius:3px}
+.preview-img{
+  width:100%;
+  border-radius:12px;
+  border:1px solid rgba(148,163,184,.14);
+  display:block;
+  box-shadow:0 8px 24px rgba(2,6,23,.40);
+}
+.preview-footer{
+  padding:14px 20px;
+  border-top:1px solid rgba(74,222,128,.15);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+  gap:12px;
+}
+.preview-footer p{margin:0;font-size:.85rem;color:var(--muted)}
+
 /* === MODAL === */
 .modal-overlay{
   display:none;
@@ -841,7 +939,7 @@ Fokus ligger ofta på chefer och ledningsgrupper.
 <p><strong>Förhandsgranska Excel-paketet:</strong> Öppna och utforska innehållet i AI Compliance-arbetsboken gratis. Fullt paket med alla flikar och instruktioner köps nedan.
 <br><span class="file-name">Fil: MPAI_AI_Compliance_Workbook.xlsx</span></p>
 <div class="actions">
-<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" target="_blank" rel="noopener">Förhandsgranska (gratis)</a>
+<a class="small-btn" href="#" onclick="openPreview(); return false;">Förhandsgranska (gratis)</a>
 </div>
 </div>
 
@@ -1108,6 +1206,27 @@ Färdiga dokument och mallar som hjälper företag att börja arbeta strukturera
   </div>
 </footer>
 
+<!-- ===== BILDFÖRHANDSGRANSKNING (MODAL) ===== -->
+<div id="previewModal" class="preview-overlay" role="dialog" aria-modal="true" aria-label="Förhandsgranskning av Excel-paketet">
+  <div class="preview-box">
+    <div class="preview-header">
+      <div>
+        <h3>AI Compliance Excel-paket <span>— förhandsgranskning</span></h3>
+      </div>
+      <button class="preview-close" onclick="closePreview()" aria-label="Stäng">&times;</button>
+    </div>
+    <div class="preview-scroll">
+      <img class="preview-img" src="euact_screen1.png" alt="EU AI Act skärmbild 1" loading="lazy">
+      <img class="preview-img" src="euact_screen2.png" alt="EU AI Act skärmbild 2" loading="lazy">
+      <img class="preview-img" src="euact_screen3.png" alt="EU AI Act skärmbild 3" loading="lazy">
+    </div>
+    <div class="preview-footer">
+      <p>Fullt paket med alla flikar och instruktioner köps nedan.</p>
+      <a class="small-btn" href="#" onclick="closePreview(); preselectExcel(); return false;" style="white-space:nowrap;flex-shrink:0">Köp nu – 990 kr</a>
+    </div>
+  </div>
+</div>
+
 <!-- ===== KONTAKTFORMULÄR (MODAL) ===== -->
 <div id="kontaktModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Kontaktformulär">
   <div class="modal-box">
@@ -1175,6 +1294,19 @@ window.addEventListener('touchmove', e => {
   light.style.top  = t.clientY + 'px';
 });
 
+// Bildförhandsgranskning
+function openPreview() {
+  document.getElementById('previewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('previewModal').addEventListener('click', function(e) {
+  if (e.target === this) closePreview();
+});
+
 // Modal
 function openModal(preselect) {
   const modal = document.getElementById('kontaktModal');
@@ -1194,7 +1326,12 @@ document.getElementById('kontaktModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 // Stäng med Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('previewModal').classList.contains('open')) closePreview();
+    else closeModal();
+  }
+});
 
 // Förifyll Excel-mallen och öppna modalen
 function preselectExcel() {
