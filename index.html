@@ -207,6 +207,17 @@ body::before{
   background:rgba(255,255,255,.03);
 }
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-seo-link{
+  display:inline-flex;align-items:center;gap:7px;
+  margin-top:18px;
+  font-size:.85rem;
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px solid rgba(148,163,184,.2);
+  padding-bottom:2px;
+  transition:color .2s, border-color .2s;
+}
+.hero-seo-link:hover{color:var(--accent);border-color:var(--accent)}
 .section{
   max-width:1150px;
   margin:0 auto;
@@ -919,6 +930,11 @@ Fokus ligger inte på teknik – utan på hur AI faktiskt kan stötta beslut, ef
 <a class="btn btn-primary" href="#tjanster">Se tjänster</a>
 <a class="btn btn-secondary" href="#" onclick="openModal(); return false;">Be om offert</a>
 </div>
+
+<a class="hero-seo-link" href="https://seo-insight-pro-indol.vercel.app/" target="_blank" rel="noopener">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  Vill du också synas bättre på Google? Testa SEO Insight Pro →
+</a>
 </div>
 </section>
 
