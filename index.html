@@ -553,6 +553,87 @@ textarea{min-height:124px;resize:vertical}
   .product-hero{padding:24px 20px}
   .price-tag{font-size:2.2rem}
 }
+/* === OM MIG === */
+.about-card{
+  background:linear-gradient(135deg,rgba(30,41,59,.85) 0%,rgba(17,26,46,.92) 100%);
+  border:1px solid rgba(74,222,128,.22);
+  border-radius:24px;
+  padding:40px 44px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:start;
+  box-shadow:var(--shadow);
+}
+.about-name{
+  font-size:1.8rem;
+  font-weight:900;
+  letter-spacing:-.03em;
+  margin:0 0 8px;
+}
+.about-title{
+  color:var(--green);
+  font-size:1rem;
+  font-weight:700;
+  margin:0 0 16px;
+  letter-spacing:.02em;
+}
+.about-bio{
+  color:var(--muted);
+  line-height:1.75;
+  margin:0 0 20px;
+  font-size:.97rem;
+}
+.about-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.about-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  color:#d4e2f0;
+  font-size:.95rem;
+  line-height:1.5;
+}
+.about-list li::before{
+  content:"→";
+  color:var(--green);
+  font-weight:800;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.about-focus h3{
+  margin:0 0 16px;
+  font-size:1.1rem;
+  color:#d7e3f1;
+  font-weight:700;
+}
+.about-focus-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.focus-item{
+  background:rgba(74,222,128,.06);
+  border:1px solid rgba(74,222,128,.18);
+  border-radius:14px;
+  padding:16px;
+}
+.focus-item .fi-icon{font-size:1.3rem;margin-bottom:6px}
+.focus-item p{margin:0;font-size:.88rem;color:#c9d9ea;line-height:1.5}
+.focus-item strong{color:#e5f0fa;display:block;margin-bottom:2px;font-size:.92rem}
+@media(max-width:768px){
+  .about-card{grid-template-columns:1fr;padding:28px 24px}
+  .about-focus-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .about-focus-grid{grid-template-columns:1fr}
+}
 .cursor-light{
   position:fixed;
   width:420px;
@@ -629,6 +710,7 @@ textarea{min-height:124px;resize:vertical}
   <div class="nav">
     <div class="brand">MPAI</div>
     <div>
+      <a href="#om-mig">Om mig</a>
       <a href="#tjanster">Tjänster</a>
       <a href="#excel-mall" class="cta-outline">Köp Excel-mallen</a>
       <a href="#kontakt" class="cta">Be om offert</a>
@@ -644,12 +726,11 @@ textarea{min-height:124px;resize:vertical}
 <p>
 Jag hjälper ledningsgrupper och team att förstå hur AI kan användas i verksamheten.
 Fokus ligger inte på teknik – utan på hur AI faktiskt kan stötta beslut, effektivitet och arbetssätt.
-De flesta uppdrag och utbildningar kan även genomföras på kvällar och helger om det passar organisationen bättre.
 </p>
 
 <div class="hero-actions">
-<a class="btn btn-primary" href="#excel-mall">Köp Excel-mallen – 990 kr</a>
-<a class="btn btn-secondary" href="#tjanster">Se tjänster</a>
+<a class="btn btn-primary" href="#tjanster">Se tjänster</a>
+<a class="btn btn-secondary" href="#kontakt">Be om offert</a>
 </div>
 
 </div>
@@ -773,11 +854,10 @@ Fokus ligger ofta på chefer och ledningsgrupper.
 </p>
 
 <div class="service-download">
-<p><strong>EU AI Act komplett Excel-fil:</strong> Se eller ladda ner arbetsboken direkt.
+<p><strong>Förhandsgranska Excel-paketet:</strong> Öppna och utforska innehållet i AI Compliance-arbetsboken gratis. Fullt paket med alla flikar och instruktioner köps nedan.
 <br><span class="file-name">Fil: MPAI_AI_Compliance_Workbook.xlsx</span></p>
 <div class="actions">
-<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" target="_blank" rel="noopener">Se filen</a>
-<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ner filen</a>
+<a class="small-btn" href="MPAI_AI_Compliance_Workbook.xlsx" target="_blank" rel="noopener">Förhandsgranska (gratis)</a>
 </div>
 </div>
 
@@ -835,11 +915,12 @@ Fokus ligger ofta på chefer och ledningsgrupper.
 
 <article class="card">
   <h3>AI just nu</h3>
-  <p>En tjänst för ledning och team som vill följa trender och förstå vad som händer inom AI just nu.</p>
+  <p>En återkommande genomgång för ledning och team som vill hålla sig uppdaterade utan att behöva följa allt själva. Jag sammanfattar de viktigaste AI-händelserna och vad de konkret betyder för er verksamhet.</p>
   <ul>
-    <li>Aktuella AI-trender</li>
-    <li>Vad som påverkar företag just nu</li>
-    <li>Sammanfattat för ledning och verksamhet</li>
+    <li>Aktuella AI-trender och nyheter</li>
+    <li>Vad som påverkar er bransch just nu</li>
+    <li>Anpassat för ledningsgrupper – inte tekniskt</li>
+    <li>Digitalt möte, ca 60 minuter</li>
   </ul>
   <p><strong>Ca 5 000–15 000 kr</strong> <span style="color:var(--muted);font-size:.9rem">eller ca 500–1 200 kr/person</span></p>
   <a class="small-btn" href="#kontakt">Be om offert</a>
@@ -859,22 +940,47 @@ Fokus ligger ofta på chefer och ledningsgrupper.
 </div>
 </section>
 
-<!-- ===== SOCIAL PROOF ===== -->
-<section class="testimonial-section">
-<h2 style="margin:0 0 10px;font-size:2rem;letter-spacing:-.03em">Vad organisationer brukar säga</h2>
-<p class="section-intro">Vanliga reaktioner från chefer och team efter genomgångar och workshops.</p>
-<div class="testimonials">
-  <div class="testimonial">
-    <blockquote>"Äntligen en genomgång av AI som inte handlade om teknik. Vi förstod direkt vad det innebär för oss som ledning."</blockquote>
-    <cite>VD, tjänsteföretag med 40 anställda</cite>
+
+<!-- ===== OM MIG ===== -->
+<section class="section" id="om-mig">
+<h2>Om mig</h2>
+<p class="section-intro">Personen bakom MPAI – vem du faktiskt anlitar.</p>
+
+<div class="about-card">
+  <div class="about-copy">
+    <div class="about-name">Marcus Petersson</div>
+    <div class="about-title">AI-specialist · Generativ AI, Machine Learning &amp; RL</div>
+    <p class="about-bio">
+      Jag har de senaste åren specialiserat mig på Generativ AI, Machine Learning och Reinforcement Learning — med ett tydligt fokus på hur AI kan användas som ett praktiskt hjälpmedel i verkliga organisationer.
+      Mitt mål är att göra AI begripligt och användbart, inte imponerande. Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker.
+    </p>
+    <ul class="about-list">
+      <li>Specialiserad på Generativ AI och Large Language Models i praktiken</li>
+      <li>Erfarenhet av Machine Learning och Reinforcement Learning</li>
+      <li>Fokus på AI som verktyg – inte teknik för teknikens skull</li>
+      <li>Arbetar med allt från ledningsgrupper till operativa team</li>
+    </ul>
   </div>
-  <div class="testimonial">
-    <blockquote>"Excel-mallen sparade oss flera dagars arbete med EU AI Act-dokumentationen. Enkel att förstå och anpassa."</blockquote>
-    <cite>IT-chef, medelstort bolag</cite>
-  </div>
-  <div class="testimonial">
-    <blockquote>"Workshopen gav oss konkreta nästa steg. Inte bara teori – vi visste vad vi skulle göra måndag morgon."</blockquote>
-    <cite>Verksamhetschef, offentlig sektor</cite>
+  <div class="about-focus">
+    <h3>Fokusområden</h3>
+    <div class="about-focus-grid">
+      <div class="focus-item">
+        <div class="fi-icon">🤖</div>
+        <p><strong>Generativ AI</strong>ChatGPT, Copilot och LLM-verktyg i praktiken</p>
+      </div>
+      <div class="focus-item">
+        <div class="fi-icon">📊</div>
+        <p><strong>Machine Learning</strong>Förståelse för ML-system och beslutsstöd</p>
+      </div>
+      <div class="focus-item">
+        <div class="fi-icon">⚖️</div>
+        <p><strong>AI-styrning</strong>EU AI Act, policy och governance</p>
+      </div>
+      <div class="focus-item">
+        <div class="fi-icon">🎯</div>
+        <p><strong>Ledningsstöd</strong>AI-strategi för chefer och beslutsfattare</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -932,81 +1038,6 @@ Färdiga dokument och mallar som hjälper företag att börja arbeta strukturera
 </div>
 </section>
 
-<!-- ===== PRISER ===== -->
-<section class="section" id="priser">
-
-<h2>Exempel på priser</h2>
-<p class="section-intro">
-Nedan är ungefärliga prisnivåer för tjänster. Excel-mallen och dokument har fasta priser och kan beställas direkt.
-</p>
-
-<div class="cards">
-
-<article class="card">
-  <span class="badge">Fast pris</span>
-  <h3>Excel-mallen</h3>
-  <p>AI Policy & EU AI Act paket – komplett Excel-verktyg för AI-styrning.</p>
-  <ul>
-    <li>Direkt nedladdning efter betalning</li>
-    <li>Swish eller faktura</li>
-    <li>Leverans via email inom 24h</li>
-  </ul>
-  <p><strong>990 kr</strong> <span style="color:var(--muted);font-size:.9rem">exkl. moms</span></p>
-  <a class="small-btn" href="#kontakt" onclick="preselectExcel()">Köp nu</a>
-</article>
-
-<article class="card">
-  <span class="badge">Fast pris</span>
-  <h3>AI-introduktion halvdag</h3>
-  <p>3 timmars genomgång för team på upp till 8 personer.</p>
-  <ul>
-    <li>Digitalt eller på plats</li>
-    <li>Fungerar på kvällar och helger</li>
-    <li>Faktura efter genomfört tillfälle</li>
-  </ul>
-  <p><strong>9 900 kr</strong> <span style="color:var(--muted);font-size:.9rem">exkl. moms · upp till 8 pers</span></p>
-  <a class="small-btn" href="#kontakt">Boka nu</a>
-</article>
-
-<article class="card">
-  <h3>AI‑översikt för ledning</h3>
-  <p>Introduktion till AI för chefer och ledningsgrupper.</p>
-  <ul>
-    <li>2–3 timmars genomgång</li>
-    <li>Frågor och diskussion</li>
-    <li>Exempel från verkliga organisationer</li>
-  </ul>
-  <p><strong>Ca 8 000–18 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 900–1 500 kr per person</span></p>
-  <a class="small-btn" href="#kontakt">Be om offert</a>
-</article>
-
-<article class="card">
-  <h3>Workshop för team</h3>
-  <p>Praktisk workshop där team identifierar hur AI kan användas i arbetet.</p>
-  <ul>
-    <li>Halvdag eller heldag</li>
-    <li>Identifiering av use cases</li>
-    <li>Konkreta nästa steg</li>
-  </ul>
-  <p><strong>Ca 15 000–35 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 1 200–2 000 kr per person</span></p>
-  <a class="small-btn" href="#kontakt">Be om offert</a>
-</article>
-
-<article class="card">
-  <h3>Utbildning i Copilot 365 / ChatGPT</h3>
-  <p>Praktisk utbildning för organisationer som vill börja använda AI i vardagen.</p>
-  <ul>
-    <li>Genomgång av verktygen</li>
-    <li>Praktiska exempel</li>
-    <li>Prompt‑metodik</li>
-  </ul>
-  <p><strong>Ca 12 000–28 000 kr</strong><br><span style="color:var(--muted);font-size:.9rem">eller ca 900–1 800 kr per person</span></p>
-  <a class="small-btn" href="#kontakt">Be om offert</a>
-</article>
-
-</div>
-
-</section>
 
 <!-- ===== SÅ FUNGERAR DET ===== -->
 <section class="section">
@@ -1080,9 +1111,18 @@ Nedan är ungefärliga prisnivåer för tjänster. Excel-mallen och dokument har
 
 </section>
 
-<div class="footer">
-MPAI hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.
-</div>
+<footer class="footer" style="border-top:1px solid rgba(148,163,184,.12);padding-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+  <div>
+    <div style="font-weight:900;font-size:1.1rem;color:#f8fafc;margin-bottom:8px">MPAI</div>
+    <p style="margin:0 0 6px;line-height:1.7;font-size:.9rem">MPAI hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.</p>
+    <p style="margin:0;font-size:.82rem;color:#6b7fa0">Org.nr: 556XXX-XXXX &nbsp;·&nbsp; © 2025 MPAI – Marcus Petersson</p>
+  </div>
+  <div style="text-align:right">
+    <p style="margin:0 0 6px;font-weight:700;color:#d4e2f0;font-size:.92rem">Kontakt</p>
+    <p style="margin:0 0 4px;font-size:.9rem"><a href="mailto:info@mpai.se" style="color:var(--muted);text-decoration:none">info@mpai.se</a></p>
+    <p style="margin:0;font-size:.9rem;color:var(--muted)">070-XXX XX XX</p>
+  </div>
+</footer>
 
 <div class="cursor-light" id="cursorLight"></div>
 
