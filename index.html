@@ -220,6 +220,45 @@ body{
 .card h3{margin:0 0 10px;font-size:1.2rem}
 .card p{margin:0 0 14px;color:var(--muted);line-height:1.6}
 .card ul{margin:0 0 18px 18px;padding:0;color:#3a4a5e;line-height:1.7}
+.card-featured{
+  background:linear-gradient(135deg, rgba(22,163,74,.04) 0%, rgba(22,163,74,.09) 100%);
+  border:1px solid rgba(22,163,74,.22);
+  position:relative;
+  overflow:hidden;
+}
+.card-featured::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,var(--green),var(--green-strong));
+}
+.featured-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  color:#fff;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:5px 11px;
+  border-radius:999px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px rgba(22,163,74,.22);
+}
+.featured-inner{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:28px;
+  align-items:start;
+  margin-bottom:6px;
+}
+.featured-inner h3{font-size:1.45rem;letter-spacing:-.02em}
+.featured-inner ul{margin:4px 0 0 20px;color:#3a4a5e;line-height:1.75;font-size:.96rem}
+.featured-inner ul li{margin-bottom:3px}
+@media(max-width:768px){
+  .featured-inner{grid-template-columns:1fr;gap:14px}
+}
 .badge{display:inline-block;background:linear-gradient(135deg,var(--green),var(--green-strong));color:#fff;font-weight:800;font-size:.75rem;padding:6px 10px;border-radius:999px;margin-bottom:10px;box-shadow:0 2px 8px rgba(22,163,74,.18);letter-spacing:.02em}
 .badge-outline{display:inline-block;border:1px solid rgba(22,163,74,.30);color:var(--green);font-weight:700;font-size:.75rem;padding:5px 10px;border-radius:999px;margin-bottom:10px;letter-spacing:.02em}
 .small-btn{
@@ -740,6 +779,26 @@ Berätta vad ni behöver – jag anpassar upplägget efter er situation. Nedan �
 </p>
 
 <div class="cards">
+
+<article class="card card-featured" style="grid-column:1/-1">
+  <div class="featured-badge">Expertkunskap</div>
+  <div class="featured-inner">
+    <div>
+      <h3>Copilot 365 – få ut full effekt</h3>
+      <p>De flesta organisationer som betalar för Copilot 365 använder bara en bråkdel av möjligheterna. Jag hjälper er få ut den verkliga nyttan — från vardagsbruk i Outlook och Teams till avancerade arbetsflöden i Excel, Word och SharePoint.</p>
+      <p>Upplägget anpassas efter er mognad och era verktyg. Allt från "kom igång"-genomgång till skräddarsydda workshopar där vi bygger konkreta arbetsflöden tillsammans.</p>
+    </div>
+    <ul>
+      <li>Skriv bättre prompts som faktiskt ger användbara svar</li>
+      <li>Automatisera mötesanteckningar och sammanfattningar i Teams</li>
+      <li>Låt Copilot jobba med era egna dokument i SharePoint</li>
+      <li>Avancerad dataanalys och rapporter i Excel</li>
+      <li>Bygga specialiserade Copilot Agents för er verksamhet</li>
+      <li>Digitalt eller på plats — anpassas efter er</li>
+    </ul>
+  </div>
+  <a class="small-btn" href="#" onclick="openModal(); return false;">Boka Copilot-genomgång</a>
+</article>
 
 <article class="card">
   <h3>Vad händer inom AI just nu?</h3>
