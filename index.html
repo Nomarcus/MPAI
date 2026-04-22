@@ -540,6 +540,91 @@ body{
 }
 .badge{display:inline-block;background:linear-gradient(135deg,var(--green),var(--green-strong));color:#fff;font-weight:800;font-size:.75rem;padding:6px 10px;border-radius:999px;margin-bottom:10px;box-shadow:0 2px 8px rgba(22,163,74,.18);letter-spacing:.02em}
 .badge-outline{display:inline-block;border:1px solid rgba(22,163,74,.30);color:var(--green);font-weight:700;font-size:.75rem;padding:5px 10px;border-radius:999px;margin-bottom:10px;letter-spacing:.02em}
+/* ===== SÅ HÄR ARBETAR JAG ===== */
+.approach-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:8px;
+}
+.approach-grid .approach-card.wide{grid-column:1/-1}
+.approach-grid.bottom{grid-template-columns:repeat(3,1fr)}
+.approach-card{
+  position:relative;
+  padding:26px 24px;
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(22,163,74,.04) 0%, rgba(22,163,74,.09) 100%);
+  border:1px solid rgba(22,163,74,.22);
+  overflow:hidden;
+}
+.approach-card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,var(--green),var(--green-strong));
+}
+.approach-icon{
+  width:42px;height:42px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#fff;
+  margin-bottom:14px;
+  box-shadow:0 4px 12px rgba(22,163,74,.25);
+}
+.approach-icon svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.approach-card h3{margin:0 0 10px;font-size:1.25rem;letter-spacing:-.01em}
+.approach-card h3 .accent{color:var(--green);display:block;font-weight:600;font-size:.95rem;margin-top:2px;letter-spacing:0}
+.approach-card p{margin:0;color:var(--muted);line-height:1.6}
+.approach-features{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+.approach-feature{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.6);
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(22,163,74,.15);
+  font-size:.88rem;
+  color:var(--text);
+  font-weight:600;
+}
+.approach-feature svg{width:16px;height:16px;stroke:var(--green);stroke-width:2.5;fill:none;flex-shrink:0}
+.approach-steps{
+  display:flex;align-items:center;gap:10px;
+  margin-top:18px;
+}
+.approach-step{
+  flex:1;
+  text-align:center;
+  position:relative;
+}
+.approach-step-num{
+  width:36px;height:36px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--green),var(--green-strong));
+  color:#fff;
+  font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:8px;
+  box-shadow:0 4px 10px rgba(22,163,74,.28);
+}
+.approach-step-label{font-size:.82rem;font-weight:700;color:var(--text)}
+.approach-step-connector{
+  flex:0 0 auto;
+  height:2px;width:24px;
+  background:linear-gradient(90deg,var(--green),rgba(22,163,74,.2));
+}
+@media(max-width:768px){
+  .approach-grid,
+  .approach-grid.bottom{grid-template-columns:1fr}
+  .approach-features{grid-template-columns:1fr}
+}
+
 .small-btn{
   display:inline-flex;
   align-items:center;
@@ -1002,6 +1087,82 @@ Jag hjälper organisationer att förstå och använda AI i praktiken – och utv
 <a class="btn btn-secondary" href="#" onclick="openModal(); return false;">Be om offert</a>
 <a class="btn btn-secondary" href="MPAI_Tjanster.pdf" target="_blank" rel="noopener">Ladda ner broschyr (PDF)</a>
 </div>
+
+</div>
+</section>
+
+<!-- ===== SÅ HÄR ARBETAR JAG ===== -->
+<section class="section" id="sa-har-arbetar-jag">
+<h2>Så här arbetar jag</h2>
+<p class="section-intro">Från förståelse till resultat – praktisk AI som skapar nytta i er verksamhet.</p>
+
+<div class="approach-grid">
+
+  <article class="approach-card">
+    <div class="approach-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2Z"/><path d="M10 22h4"/></svg>
+    </div>
+    <h3>AI som fungerar – på riktigt<span class="accent">Verkliga problem, konkreta resultat</span></h3>
+    <p>Jag hjälper dig och ditt företag att använda AI för att lösa verkliga problem och skapa mätbara resultat – inte bara prata om potentialen.</p>
+  </article>
+
+  <article class="approach-card">
+    <div class="approach-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-6"/></svg>
+    </div>
+    <h3>AI i praktiken – inte bara i teorin<span class="accent">Från ineffektiva processer till smarta lösningar</span></h3>
+    <p>Jag hjälper dig hitta rätt användningsområden, verktyg och arbetssätt för just er verksamhet.</p>
+    <div class="approach-features">
+      <div class="approach-feature"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Automatisera</div>
+      <div class="approach-feature"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Analysera</div>
+      <div class="approach-feature"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Förbättra</div>
+      <div class="approach-feature"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Skapa</div>
+    </div>
+  </article>
+
+</div>
+
+<div class="approach-grid bottom" style="margin-top:18px">
+
+  <article class="approach-card">
+    <div class="approach-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+    <h3>AI-verktyg som gör skillnad</h3>
+    <p>Jag hjälper dig använda kraften i Microsoft Copilot, ChatGPT och andra AI-lösningar – integrerat i din vardag.</p>
+  </article>
+
+  <article class="approach-card">
+    <div class="approach-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 11h-6"/><path d="M18 8v6"/></svg>
+    </div>
+    <h3>Utbildning som skapar förståelse</h3>
+    <p>Jag utbildar och coachar dig och ditt team så att ni kan använda AI smart, säkert och effektivt – via workshops, föreläsningar och coaching.</p>
+  </article>
+
+  <article class="approach-card">
+    <div class="approach-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h3>En tydlig process</h3>
+    <p>Min 3-stegsmodell gör det enkelt att komma igång och skapa verklig nytta.</p>
+    <div class="approach-steps">
+      <div class="approach-step">
+        <div class="approach-step-num">1</div>
+        <div class="approach-step-label">Kartläggning</div>
+      </div>
+      <div class="approach-step-connector"></div>
+      <div class="approach-step">
+        <div class="approach-step-num">2</div>
+        <div class="approach-step-label">Strategi &amp; Plan</div>
+      </div>
+      <div class="approach-step-connector"></div>
+      <div class="approach-step">
+        <div class="approach-step-num">3</div>
+        <div class="approach-step-label">Implementering</div>
+      </div>
+    </div>
+  </article>
 
 </div>
 </section>
