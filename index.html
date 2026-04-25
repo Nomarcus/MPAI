@@ -1,1418 +1,1080 @@
 <!DOCTYPE html>
 <!-- ================================================================
-  MPAI – index.html
-  ================================================================
-  VIKTIGT – två saker du behöver ställa in innan du publiserar:
-
-  1. FORMSPREE (kontaktformuläret):
-     a) Gå till https://formspree.io och skapa ett gratis konto
-     b) Skapa ett nytt formulär, kopiera ditt Form-ID (ser ut som "abcdefgh")
-     c) Byt ut FORMSPREE_ID nedan mot ditt ID (ca rad 500)
-        Sök på:  action="https://formspree.io/f/mzdjgang"
-
-  2. SWISH-nummer (för Excel-betalning):
-     a) Sök på: 0727202618 och byt mot ditt riktiga nummer
-        (visas i bekräftelsetexten efter formuläret)
+  MPAI – index.html  (editorial redesign, GitHub-kompatibel)
+  Formspree: byt action="https://formspree.io/f/mzdjgang"
 ================================================================ -->
 <html lang="sv">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MPAI – AI stöd för ledning och team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet"/>
 
-<!-- Primary SEO -->
-<title>MPAI – AI-konsult & Copilot 365-expert | Marcus Petersson</title>
-<meta name="description" content="AI-konsult som hjälper chefer och team förstå och använda Microsoft Copilot 365, Generativ AI och EU AI Act i praktiken. Workshops, strategi & Excel-paket." />
-<meta name="author" content="Marcus Petersson" />
-<meta name="keywords" content="AI-konsult, Copilot 365, Microsoft Copilot, Generativ AI, EU AI Act, AI-strategi, AI-policy, AI-governance, Marcus Petersson, MPAI, AI-workshop, AI-rådgivning, ChatGPT, Large Language Models" />
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-<meta name="googlebot" content="index, follow" />
-<meta name="format-detection" content="telephone=yes" />
-<link rel="canonical" href="https://mpai.se/" />
-
-<!-- Article / freshness signals -->
-<meta property="article:published_time" content="2025-01-15T08:00:00+00:00" />
-<meta property="article:modified_time" content="2026-04-21T12:00:00+00:00" />
-<meta property="article:author" content="Marcus Petersson" />
-
-<!-- Open Graph -->
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="sv_SE" />
-<meta property="og:site_name" content="MPAI" />
-<meta property="og:title" content="MPAI – AI-konsult & Copilot 365-expert | Marcus Petersson" />
-<meta property="og:description" content="AI-konsult som hjälper organisationer få ut full effekt av Microsoft Copilot 365, Generativ AI och EU AI Act. Workshops, strategi & Excel-paket." />
-<meta property="og:url" content="https://mpai.se/" />
-<meta property="og:image" content="https://mpai.se/og-image.png" />
-<meta property="og:image:secure_url" content="https://mpai.se/og-image.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="MPAI – AI-konsult Marcus Petersson, expert på Copilot 365 och Generativ AI" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="MPAI – AI-konsult & Copilot 365-expert" />
-<meta name="twitter:description" content="AI-konsult som hjälper organisationer få ut full effekt av Copilot 365 och Generativ AI." />
-<meta name="twitter:image" content="https://mpai.se/og-image.png" />
-<meta name="twitter:image:alt" content="MPAI – Marcus Petersson" />
-
-<!-- Favicon / icons -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-
-<!-- Language alternatives -->
-<link rel="alternate" hreflang="sv" href="https://mpai.se/" />
-<link rel="alternate" hreflang="x-default" href="https://mpai.se/" />
-
-<!-- Performance hints -->
-<meta name="theme-color" content="#16a34a" />
-<meta name="msapplication-TileColor" content="#16a34a" />
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-<link rel="preconnect" href="https://formspree.io" crossorigin />
-
-<!-- JSON-LD: Professional Service / Organization -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": "https://mpai.se/#organization",
-  "name": "MPAI – Marcus Petersson",
-  "alternateName": "MPAI",
-  "legalName": "Marcus Petersson Enskild Firma",
-  "url": "https://mpai.se/",
-  "logo": "https://mpai.se/og-image.png",
-  "image": "https://mpai.se/og-image.png",
-  "description": "Enskild firma som hjälper organisationer att förstå och använda AI i praktiken – med djup expertis inom Microsoft Copilot 365 och Generativ AI.",
-  "slogan": "AI-kompetens för organisationer och AI-drivna produkter",
-  "foundingDate": "2025",
-  "telephone": "+46-79-356-29-46",
-  "email": "marcus.mpar@gmail.com",
-  "taxID": "810926-2710",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "SE"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "Sweden"
-  },
-  "founder": { "@id": "https://mpai.se/#person" },
-  "employee": { "@id": "https://mpai.se/#person" },
-  "knowsAbout": [
-    "Microsoft Copilot 365",
-    "Generativ AI",
-    "Large Language Models",
-    "EU AI Act",
-    "AI-policy",
-    "AI-governance",
-    "AI-strategi",
-    "Machine Learning"
-  ],
-  "serviceType": [
-    "AI-konsultation",
-    "Copilot 365-utbildning",
-    "AI-strategi",
-    "EU AI Act-compliance"
-  ],
-  "priceRange": "€€"
-}
-</script>
-
-<!-- JSON-LD: Person (Marcus Petersson) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": "https://mpai.se/#person",
-  "name": "Marcus Petersson",
-  "url": "https://mpai.se/",
-  "image": "https://mpai.se/og-image.png",
-  "jobTitle": "AI-konsult",
-  "description": "Enskild konsult med djup expertis inom Microsoft Copilot 365 och Generativ AI. Hjälper organisationer att förstå och använda AI i praktiken.",
-  "email": "marcus.mpar@gmail.com",
-  "telephone": "+46-79-356-29-46",
-  "nationality": { "@type": "Country", "name": "Sweden" },
-  "knowsAbout": [
-    "Microsoft Copilot 365",
-    "Generativ AI",
-    "Large Language Models",
-    "EU AI Act",
-    "AI-strategi",
-    "Machine Learning",
-    "Reinforcement Learning"
-  ],
-  "worksFor": { "@id": "https://mpai.se/#organization" }
-}
-</script>
-
-<!-- JSON-LD: WebSite -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": "https://mpai.se/#website",
-  "url": "https://mpai.se/",
-  "name": "MPAI",
-  "description": "AI-kompetens för organisationer och AI-drivna produkter",
-  "inLanguage": "sv-SE",
-  "publisher": { "@id": "https://mpai.se/#organization" }
-}
-</script>
-
-<!-- JSON-LD: Services & Product -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "name": "Copilot 365 – få ut full effekt",
-      "serviceType": "Microsoft Copilot 365-konsultation och utbildning",
-      "provider": { "@id": "https://mpai.se/#organization" },
-      "areaServed": { "@type": "Country", "name": "Sweden" },
-      "description": "Expertstöd för organisationer som vill få ut maximal nytta av Microsoft Copilot 365 – från grundanvändning i Outlook och Teams till avancerade arbetsflöden i Excel, Word och SharePoint."
-    },
-    {
-      "@type": "Service",
-      "name": "Vad händer inom AI just nu?",
-      "serviceType": "AI-trendbrief",
-      "provider": { "@id": "https://mpai.se/#organization" },
-      "areaServed": { "@type": "Country", "name": "Sweden" },
-      "description": "Konkret genomgång av aktuell AI-utveckling – Copilot 365, GPT-modeller, agenter – och vad det faktiskt innebär för er verksamhet."
-    },
-    {
-      "@type": "Service",
-      "name": "Verksamhetsanpassad AI-genomgång",
-      "serviceType": "Skräddarsydd AI-workshop",
-      "provider": { "@id": "https://mpai.se/#organization" },
-      "areaServed": { "@type": "Country", "name": "Sweden" },
-      "description": "Anpassade AI-workshops där upplägget utgår från er verksamhet och era faktiska frågor."
-    },
-    {
-      "@type": "Service",
-      "name": "AI-strategi & rådgivning",
-      "serviceType": "AI-strategi",
-      "provider": { "@id": "https://mpai.se/#organization" },
-      "areaServed": { "@type": "Country", "name": "Sweden" },
-      "description": "Oberoende rådgivning kring AI-beslut, teknikval, leverantörer och implementation."
-    },
-    {
-      "@type": "Product",
-      "name": "AI Policy & EU AI Act Excel-paket",
-      "description": "Komplett Excel-verktyg för organisationer som vill arbeta strukturerat med AI-styrning och följa EU AI Act. Innehåller AI-policy-mall, riskklassning, AI-systemregister och governance-checklista.",
-      "category": "AI governance / compliance",
-      "brand": { "@id": "https://mpai.se/#organization" },
-      "offers": {
-        "@type": "Offer",
-        "price": "990",
-        "priceCurrency": "SEK",
-        "availability": "https://schema.org/InStock",
-        "url": "https://mpai.se/#produkter"
-      }
-    }
-  ]
-}
-</script>
-
-<!-- JSON-LD: FAQPage -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Måste företag följa EU AI Act?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ja. EU AI Act gäller organisationer som utvecklar eller använder AI-system inom EU. För många företag innebär det främst att ha kontroll över vilka AI-system som används och hur de används."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Behöver vi en AI-policy?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "När organisationer börjar använda verktyg som Copilot eller ChatGPT är det bra att ha en enkel AI-policy. Den beskriver vilka verktyg som får användas, hur data hanteras och vilket ansvar medarbetare har."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Vad innehåller Excel-mallen?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Paketet innehåller AI-policy, AI-systemregister, riskklassning enligt EU AI Act, governance-checklista och ett Excel-verktyg för att hålla ordning på AI-användning i organisationen. Leverans via email inom 24h."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Hur betalar jag?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Betalning sker via Swish eller faktura. Inga kortuppgifter behövs. Du anger ditt önskemål i formuläret och får betalningsinstruktion via email."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Kan genomgångarna ske på kvällar?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ja, de flesta uppdrag och utbildningar kan genomföras på kvällar och helger om det passar organisationen bättre."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Vad kan Copilot 365 faktiskt göra?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Microsoft Copilot 365 är integrerat i hela Office-sviten — Outlook, Teams, Word, Excel och SharePoint. De flesta organisationer använder bara en bråkdel av möjligheterna. Med rätt upplägg kan Copilot sammanfatta möten, skriva utkast, analysera data och automatisera återkommande uppgifter."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Vad är MPAI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "MPAI är en enskild firma driven av Marcus Petersson som hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt, med fokus på chefer och ledningsgrupper – inte på teknisk implementation."
-      }
-    }
-  ]
-}
-</script>
-
-<!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Hem", "item": "https://mpai.se/" },
-    { "@type": "ListItem", "position": 2, "name": "Tjänster", "item": "https://mpai.se/#tjanster" },
-    { "@type": "ListItem", "position": 3, "name": "Produkter", "item": "https://mpai.se/#produkter" },
-    { "@type": "ListItem", "position": 4, "name": "FAQ", "item": "https://mpai.se/#faq" }
-  ]
-}
-</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
 <style>
-:root{
-  --bg:#eff3f7;
-  --bg-soft:#e5eaf0;
-  --panel:rgba(255,255,255,.85);
-  --panel-strong:rgba(255,255,255,.95);
-  --panel-light:rgba(240,244,248,.90);
-  --text:#1a2332;
-  --muted:#5a6b7f;
-  --line:rgba(30,50,80,.10);
-  --line-strong:rgba(30,50,80,.18);
-  --green:#16a34a;
-  --green-strong:#15803d;
-  --green-glow:rgba(22,163,74,.12);
-  --blue:rgba(59,130,246,.15);
-  --shadow:0 4px 24px rgba(0,0,0,.06);
-  --radius:18px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:Inter,Arial,sans-serif;
-  margin:0;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(22,163,74,.06), transparent 30%),
-    radial-gradient(circle at top right, rgba(59,130,246,.06), transparent 32%),
-    linear-gradient(180deg,#eff3f7 0%, #e8edf4 45%, #e5eaf0 100%);
-  position:relative;
-  overflow-x:hidden;
-}
-.neural-bg{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.08;
-  overflow:hidden;
-}
-.net{
-  position:absolute;
-  width:260px;
-  height:220px;
-  animation:floatA 40s ease-in-out infinite alternate;
-  filter:blur(.2px);
-}
-.net:nth-child(2){animation:floatB 55s ease-in-out infinite alternate}
-.net:nth-child(3){animation:floatC 60s ease-in-out infinite alternate}
-.net:nth-child(4){animation:floatB 50s ease-in-out infinite alternate}
-.net:nth-child(5){animation:floatA 70s ease-in-out infinite alternate}
-.net svg{width:100%;height:100%}
-.neural-line{stroke:rgba(22,163,74,.18);stroke-width:1.1}
-.neural-node{fill:rgba(22,163,74,.25);animation:nodeFloat 18s ease-in-out infinite alternate}
-.neural-node.alt{fill:rgba(59,130,246,.18);animation:nodeFloat 22s ease-in-out infinite alternate}
-@keyframes floatA{0%{transform:translate(0,0)}50%{transform:translate(120px,-80px)}100%{transform:translate(-80px,120px)}}
-@keyframes floatB{0%{transform:translate(0,0)}50%{transform:translate(-140px,60px)}100%{transform:translate(80px,-120px)}}
-@keyframes floatC{0%{transform:translate(0,0)}50%{transform:translate(100px,120px)}100%{transform:translate(-120px,-60px)}}
-@keyframes nodeFloat{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(6px)}}
-.header,.hero,.section,.footer{position:relative;z-index:1}
-.header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(255,255,255,.82);
-  backdrop-filter:blur(16px) saturate(130%);
-  -webkit-backdrop-filter:blur(16px) saturate(130%);
-  border-bottom:1px solid rgba(0,0,0,.06);
-}
-.nav{
-  max-width:1150px;
-  margin:0 auto;
-  padding:16px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.brand{
-  font-weight:900;
-  letter-spacing:.05em;
-  font-size:clamp(1.15rem,1.1vw + .85rem,1.7rem);
-  color:#1a2332;
-}
-.nav > div:last-child{display:flex;align-items:center;gap:10px}
-.nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:.96rem;
-  padding:10px 12px;
-  border-radius:999px;
-  transition:all .2s ease;
-}
-.nav a:hover{color:var(--text);background:rgba(0,0,0,.04)}
-.nav a.cta{
-  background:linear-gradient(135deg,var(--green),var(--green-strong));
-  color:#fff;
-  font-weight:800;
-  box-shadow:0 4px 12px rgba(22,163,74,.20);
-}
-.hero{
-  max-width:1150px;
-  margin:0 auto;
-  padding:80px 24px 56px;
-  text-align:center;
-}
-.hero-copy h1{
-  font-size:clamp(2.6rem,4.8vw,4.6rem);
-  line-height:1.02;
-  letter-spacing:-.04em;
-  margin:0 0 20px;
-}
-.hero-copy p{
-  color:var(--muted);
-  font-size:1.1rem;
-  line-height:1.7;
-  max-width:640px;
-  margin:0 auto 32px;
-}
-.quick-points,
-.situations-grid,
-.cards,
-.how{
-  display:grid;
-  gap:16px;
-}
-.quick-points{grid-template-columns:repeat(2,minmax(0,1fr));margin:24px 0 24px}
-.situations{margin:10px 0 24px}
-.situations h3{
-  margin:0 0 12px;
-  font-size:1rem;
-  color:#2a3a4e;
-  font-weight:700;
-}
-.situations-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.point,.situation,.card,.step{
-  background:rgba(255,255,255,.80);
-  border:1px solid rgba(0,0,0,.06);
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-}
-.point{
-  border-radius:16px;
-  padding:16px 18px;
-  color:#2a3a4e;
-}
-.situation{
-  border-radius:14px;
-  padding:14px 16px;
-  color:#2a3a4e;
-  font-size:.96rem;
-}
-.btn,.small-btn,.submit{
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
-}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  border-radius:999px;
-  padding:14px 20px;
-  font-weight:700;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--green),var(--green-strong));
-  color:#fff;
-  box-shadow:0 4px 14px rgba(22,163,74,.20);
-}
-.btn-secondary{
-  color:var(--text);
-  border:1px solid rgba(0,0,0,.12);
-  background:rgba(255,255,255,.70);
-}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.section{
-  max-width:1150px;
-  margin:0 auto;
-  padding:28px 24px 60px;
-}
-.section h2{
-  margin:0 0 10px;
-  font-size:2rem;
-  letter-spacing:-.03em;
-}
-.section-intro{
-  margin:0 0 24px;
-  color:var(--muted);
-  line-height:1.7;
-  max-width:740px;
-}
-.cards{grid-template-columns:repeat(3,minmax(0,1fr))}
-.card{
-  border-radius:18px;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-}
-.card .small-btn:first-of-type{margin-top:auto}
-.card h3{margin:0 0 10px;font-size:1.2rem}
-.card p{margin:0 0 14px;color:var(--muted);line-height:1.6}
-.card ul{margin:0 0 18px 18px;padding:0;color:#3a4a5e;line-height:1.7}
-.card-featured{
-  background:linear-gradient(135deg, rgba(22,163,74,.04) 0%, rgba(22,163,74,.09) 100%);
-  border:1px solid rgba(22,163,74,.22);
-  position:relative;
-  overflow:hidden;
-}
-.card-featured::before{
-  content:"";
-  position:absolute;
-  top:0;left:0;bottom:0;
-  width:4px;
-  background:linear-gradient(180deg,var(--green),var(--green-strong));
-}
-.featured-badge{
-  display:inline-block;
-  background:linear-gradient(135deg,var(--green),var(--green-strong));
-  color:#fff;
-  font-size:.72rem;
-  font-weight:800;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  padding:5px 11px;
-  border-radius:999px;
-  margin-bottom:14px;
-  box-shadow:0 2px 8px rgba(22,163,74,.22);
-}
-.featured-inner{
-  display:grid;
-  grid-template-columns:1.3fr 1fr;
-  gap:28px;
-  align-items:start;
-  margin-bottom:6px;
-}
-.featured-inner h3{font-size:1.45rem;letter-spacing:-.02em}
-.featured-inner ul{margin:4px 0 0 20px;color:#3a4a5e;line-height:1.75;font-size:.96rem}
-.featured-inner ul li{margin-bottom:3px}
-.featured-title{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-.featured-title h3{margin:0}
-@media(max-width:768px){
-  .featured-inner{grid-template-columns:1fr;gap:14px}
-}
-.badge{display:inline-block;background:linear-gradient(135deg,var(--green),var(--green-strong));color:#fff;font-weight:800;font-size:.75rem;padding:6px 10px;border-radius:999px;margin-bottom:10px;box-shadow:0 2px 8px rgba(22,163,74,.18);letter-spacing:.02em}
-.badge-outline{display:inline-block;border:1px solid rgba(22,163,74,.30);color:var(--green);font-weight:700;font-size:.75rem;padding:5px 10px;border-radius:999px;margin-bottom:10px;letter-spacing:.02em}
+/* ─ TOKENS ─────────────────────────────────────── */
+:root {
+  --cream:      #EEE9DF;
+  --cream-2:    #E5DFD3;
+  --cream-3:    #DCD5C7;
+  --ink:        #141009;
+  --ink-2:      #3B3630;
+  --muted:      #7D7367;
+  --muted-2:    #A8A098;
+  --green:      #1A5C34;
+  --green-2:    #266B3E;
+  --green-pale: rgba(26,92,52,.08);
+  --green-glow: rgba(26,92,52,.18);
+  --line:       rgba(20,16,9,.09);
+  --line-2:     rgba(20,16,9,.15);
+  --max:        1180px;
+  --font-h:     Georgia, "Times New Roman", serif;
+  --font-b:     -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
-.small-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  border-radius:999px;
-  padding:11px 14px;
-  font-weight:800;
-  color:#fff;
-  background:linear-gradient(135deg,var(--green),var(--green-strong));
-}
-.how{grid-template-columns:repeat(3,minmax(0,1fr))}
-.step{border-radius:18px;padding:22px}
-.step-number{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:12px;
-  font-weight:800;
-  color:var(--green-strong);
-  background:rgba(22,163,74,.08);
-  border:1px solid rgba(22,163,74,.18);
-}
-.footer{
-  max-width:1150px;
-  margin:0 auto;
-  padding:32px 24px 44px;
-  color:#5a6b7f;
-  border-top:1px solid rgba(0,0,0,.08);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  align-items:start;
-}
-.footer-brand{font-weight:900;font-size:1.1rem;color:#1a2332;margin-bottom:8px}
-.footer-desc{margin:0 0 6px;line-height:1.7;font-size:.9rem}
-.footer-meta{margin:0;font-size:.82rem;color:#8694a5}
-.footer-right{text-align:right}
-.footer-right p{margin:0 0 4px;font-size:.9rem}
-.footer-contact-label{font-weight:700;color:#2a3a4e;font-size:.92rem;margin:0 0 6px}
-.footer a{color:var(--muted);text-decoration:none}
-@media(max-width:768px){
-  .footer{grid-template-columns:1fr}
-  .footer-right{text-align:left}
+  --sp-sm:  16px;
+  --sp-md:  40px;
+  --sp-lg:  80px;
+  --sp-xl:  128px;
 }
 
+/* spacing tweaks */
+body.sp-compact { --sp-sm:12px; --sp-md:28px; --sp-lg:56px; --sp-xl:96px; }
+body.sp-airy    { --sp-sm:22px; --sp-md:52px; --sp-lg:104px; --sp-xl:160px; }
 
+/* font tweaks */
+body.font-inter    { --font-b:"Inter",sans-serif; }
+body.font-dm-sans  { --font-b:"DM Sans",sans-serif; }
 
-/* === FORM SUCCESS === */
-.form-success{
-  display:none;
-  text-align:center;
-  padding:32px 20px;
-}
-.form-success .success-icon{font-size:2.6rem;margin-bottom:12px}
-.form-success h3{margin:0 0 8px;font-size:1.3rem;color:var(--green)}
-.form-success p{margin:0;color:var(--muted);line-height:1.6}
+/* accent tweaks */
+body.acc-slate { --green:#2A4A72; --green-2:#3360A0; --green-pale:rgba(42,74,114,.08); --green-glow:rgba(42,74,114,.18); }
+body.acc-sienna{ --green:#7C3A1A; --green-2:#9B4B22; --green-pale:rgba(124,58,26,.08); --green-glow:rgba(124,58,26,.18); }
 
-.btn:hover,.small-btn:hover,.submit:hover{
-  transform:translateY(-2px) scale(1.01);
-  box-shadow:0 8px 20px rgba(22,163,74,.22);
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: var(--font-b);
+  font-size: 1.02rem;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
 }
-.card:hover,.point:hover,.step:hover,.situation:hover{
-  transform:translateY(-3px);
-  border-color:rgba(22,163,74,.18);
-  box-shadow:0 8px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(22,163,74,.06) inset;
-}
-@media(max-width:1024px){
-  .hero{padding:56px 20px 40px}
-  .cards,.how{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .nav{padding:14px 20px}
-}
-@media(max-width:768px){
-  .nav{padding:12px 16px;gap:12px;align-items:flex-start;flex-direction:column}
-  .nav > div:last-child{display:flex;flex-wrap:wrap;gap:8px}
-  .hero{padding:40px 16px 28px}
-  .hero-copy h1{font-size:clamp(2.1rem,10vw,3.2rem)}
-  .hero-copy p{font-size:1rem}
-  .quick-points,.situations-grid,.cards,.how{grid-template-columns:1fr}
-  .section{padding:22px 16px 42px}
-  .section h2{font-size:1.65rem}
-  input,textarea,select{font-size:16px}
-  .btn,.small-btn,.submit{width:100%}
-  .hero-actions{flex-direction:column;align-items:center}
-  .net{width:180px;height:150px;opacity:.9}
-}
-@media(max-width:480px){
-  .brand{font-size:1rem}
-  .hero-copy h1{font-size:2rem}
-  .point,.situation,.card,.step{border-radius:16px}
-}
-/* === OM MIG === */
-.about-card{
-  background:rgba(255,255,255,.85);
-  border:1px solid rgba(22,163,74,.12);
-  border-radius:24px;
-  padding:40px 44px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  align-items:start;
-  box-shadow:var(--shadow);
-}
-.about-name{
-  font-size:1.8rem;
-  font-weight:900;
-  letter-spacing:-.03em;
-  margin:0 0 8px;
-}
-.about-title{
-  color:var(--green);
-  font-size:1rem;
-  font-weight:700;
-  margin:0 0 16px;
-  letter-spacing:.02em;
-}
-.about-bio{
-  color:var(--muted);
-  line-height:1.75;
-  margin:0 0 20px;
-  font-size:.97rem;
-}
-.about-list{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.about-list li{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  color:#3a4a5e;
-  font-size:.95rem;
-  line-height:1.5;
-}
-.about-list li::before{
-  content:"→";
-  color:var(--green);
-  font-weight:800;
-  flex-shrink:0;
-  margin-top:1px;
-}
-.about-focus h3{
-  margin:0 0 16px;
-  font-size:1.1rem;
-  color:#2a3a4e;
-  font-weight:700;
-}
-.about-focus-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.focus-item{
-  background:rgba(255,255,255,.70);
-  border:1px solid rgba(22,163,74,.14);
-  border-left:3px solid rgba(22,163,74,.55);
-  border-radius:12px;
-  padding:14px 16px;
-}
-.focus-item.focus-featured{
-  background:rgba(22,163,74,.06);
-  border-color:rgba(22,163,74,.22);
-  border-left-color:var(--green);
-  padding:16px 18px;
-}
-.focus-item p{margin:0;font-size:.88rem;color:#5a6b7f;line-height:1.55}
-.focus-item strong{color:#1a2332;display:block;margin-bottom:4px;font-size:.95rem;letter-spacing:-.01em}
-@media(max-width:768px){
-  .about-card{grid-template-columns:1fr;padding:28px 24px}
-  .about-focus-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:480px){
-  .about-focus-grid{grid-template-columns:1fr}
-}
-.cursor-light{
-  position:fixed;
-  width:420px;
-  height:420px;
-  pointer-events:none;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(22,163,74,.06) 0%, rgba(22,163,74,.03) 35%, rgba(22,163,74,0) 70%);
+
+/* ─ CURSOR ── */
+#cursor {
+  position:fixed; pointer-events:none; z-index:9999;
+  width:10px; height:10px; border-radius:50%;
+  background: var(--green);
   transform:translate(-50%,-50%);
-  z-index:0;
-  mix-blend-mode:multiply;
+  transition:transform .1s ease, width .25s ease, height .25s ease, opacity .25s ease;
+  mix-blend-mode: multiply;
 }
+#cursor.big { width:40px; height:40px; opacity:.35; }
+body:not(:hover) #cursor { opacity:0; }
 
-
-/* === FÖRHANDSGRANSKNING MODAL === */
-.preview-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:300;
-  background:rgba(0,0,0,.50);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  align-items:center;
-  justify-content:center;
-  padding:16px 12px;
+/* ─ NAV ─────────────────────────────────────── */
+.nav-wrap {
+  position:sticky; top:0; z-index:50;
+  background:rgba(238,233,223,.9);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .3s;
 }
-.preview-overlay.open{display:flex}
-.preview-box{
-  position:relative;
-  max-width:1100px;
-  width:100%;
-  max-height:94vh;
-  display:flex;
-  flex-direction:column;
-  border-radius:22px;
-  border:1px solid rgba(0,0,0,.08);
-  box-shadow:0 8px 40px rgba(0,0,0,.12);
-  background:#fff;
-  overflow:hidden;
-  animation:previewIn .22s ease;
+.nav-wrap.scrolled { box-shadow:0 4px 24px rgba(20,16,9,.06); }
+nav {
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  height:66px; display:flex; align-items:center; justify-content:space-between; gap:20px;
 }
-@keyframes previewIn{
-  from{opacity:0;transform:scale(.96) translateY(12px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
-}
-.preview-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:16px 20px 14px;
-  border-bottom:1px solid rgba(0,0,0,.08);
-  flex-shrink:0;
-}
-.preview-header h3{
-  margin:0;
-  font-size:1rem;
-  color:#1a2332;
-  font-weight:700;
-}
-.preview-header span{
-  font-size:.82rem;
-  color:var(--muted);
-  margin-left:10px;
-  font-weight:400;
-}
-.preview-close{
-  background:none;
-  border:none;
-  color:var(--muted);
-  font-size:1.5rem;
-  cursor:pointer;
-  line-height:1;
-  padding:4px 8px;
-  border-radius:8px;
-  transition:color .2s, background .2s;
-  flex-shrink:0;
-}
-.preview-close:hover{color:var(--text);background:rgba(0,0,0,.04)}
-.preview-scroll{
-  overflow-y:auto;
-  padding:24px 28px;
-  display:flex;
-  flex-direction:column;
-  gap:24px;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(0,0,0,.15) transparent;
-}
-.preview-scroll::-webkit-scrollbar{width:6px}
-.preview-scroll::-webkit-scrollbar-track{background:transparent}
-.preview-scroll::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
-.preview-img{
-  width:100%;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.08);
-  display:block;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-.preview-footer{
-  padding:14px 20px;
-  border-top:1px solid rgba(0,0,0,.08);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-shrink:0;
-  gap:12px;
-}
-.preview-footer p{margin:0;font-size:.85rem;color:var(--muted)}
-
-/* === MODAL === */
-.modal-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:rgba(0,0,0,.40);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.modal-overlay.open{display:flex}
-.modal-box{
-  background:#fff;
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:24px;
-  padding:36px 36px 28px;
-  max-width:520px;
-  width:100%;
-  position:relative;
-  max-height:90vh;
-  overflow-y:auto;
-  box-shadow:0 8px 40px rgba(0,0,0,.12);
-}
-.modal-box h2{margin:0 0 6px;font-size:1.45rem}
-.modal-box > p{margin:0 0 18px;color:var(--muted);line-height:1.6}
-.modal-close{
-  position:absolute;
-  top:16px;
-  right:18px;
-  background:none;
-  border:none;
-  color:var(--muted);
-  font-size:1.6rem;
-  cursor:pointer;
-  line-height:1;
-  padding:4px 8px;
-  border-radius:8px;
+.brand { font-family:var(--font-h); font-weight:800; font-size:1.4rem; color:var(--ink); text-decoration:none; letter-spacing:-.02em; }
+.nav-links { display:flex; align-items:center; gap:4px; }
+.nav-links a {
+  font-size:.875rem; color:var(--muted); text-decoration:none;
+  padding:8px 15px; border-radius:999px;
   transition:color .2s, background .2s;
 }
-.modal-close:hover{color:var(--text);background:rgba(0,0,0,.04)}
-label{display:block;margin:14px 0 6px;color:#2a3a4e;font-size:.94rem}
-input,textarea,select{
-  appearance:none;
-  width:100%;
-  padding:14px 14px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.12);
-  background:#f8fafb;
-  color:var(--text);
-  font:inherit;
-  transition:border .2s ease, box-shadow .2s ease, background .2s ease, transform .2s ease;
+.nav-links a:hover { color:var(--ink); background:rgba(20,16,9,.05); }
+.btn-ghost-nav {
+  border:1px solid var(--line-2) !important;
+  color:var(--ink) !important;
 }
-select{
-  background:#f8fafb;
-  color:#1a2332;
+.btn-cta-nav {
+  background:var(--green) !important; color:#fff !important; font-weight:600 !important;
+  transition:background .2s, transform .18s !important;
 }
-select option{
-  background:#fff;
-  color:#1a2332;
+.btn-cta-nav:hover { background:var(--green-2) !important; transform:translateY(-1px) !important; }
+
+/* ─ BUTTONS ─────────────────────────────────── */
+.btn {
+  display:inline-flex; align-items:center; gap:9px;
+  text-decoration:none; font-family:var(--font-b); font-weight:600; font-size:.9rem;
+  padding:14px 28px; border-radius:999px; border:none; cursor:pointer;
+  transition:transform .2s, background .2s, box-shadow .2s, color .2s;
 }
-input::placeholder,textarea::placeholder{color:#8694a5}
-input:focus,textarea:focus,select:focus{
-  outline:none;
-  border-color:rgba(22,163,74,.50);
-  background:#fff;
-  box-shadow:0 0 0 4px rgba(22,163,74,.08);
+.btn:hover { transform:translateY(-2px); }
+.btn-primary { background:var(--green); color:#fff; box-shadow:0 6px 22px var(--green-glow); }
+.btn-primary:hover { background:var(--green-2); box-shadow:0 10px 30px var(--green-glow); }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid var(--line-2); }
+.btn-outline:hover { background:rgba(20,16,9,.04); border-color:var(--line-2); }
+
+/* ─ SCROLL REVEALS ───────────────────────────── */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
 }
-textarea{min-height:124px;resize:vertical}
-.submit{
-  margin-top:18px;
-  width:100%;
-  border:none;
-  padding:15px;
-  border-radius:14px;
-  font-weight:800;
-  color:#fff;
-  background:linear-gradient(135deg,var(--green),var(--green-strong));
-  box-shadow:0 4px 14px rgba(22,163,74,.18);
-  cursor:pointer;
-  font-size:1rem;
+.reveal.vis { opacity:1; transform:none; }
+.d1 { transition-delay:.08s; }
+.d2 { transition-delay:.16s; }
+.d3 { transition-delay:.24s; }
+.d4 { transition-delay:.32s; }
+
+/* clip-path line reveals (for hr lines) */
+.line-reveal {
+  transform-origin:left;
+  transform:scaleX(0);
+  transition:transform .9s cubic-bezier(.16,1,.3,1);
 }
-@media(max-width:600px){
-  .modal-box{padding:28px 20px 24px;border-radius:20px}
+.line-reveal.vis { transform:scaleX(1); }
+
+/* ─ HERO ─────────────────────────────────────── */
+.hero {
+  min-height:calc(100vh - 66px);
+  display:flex; flex-direction:column; justify-content:center;
+  padding:var(--sp-xl) 0 var(--sp-lg);
+  position:relative; overflow:hidden;
+}
+/* faint watermark */
+.hero-mark {
+  position:absolute; right:-80px; top:50%;
+  transform:translateY(-50%);
+  font-family:var(--font-h); font-weight:800; font-size:clamp(200px,28vw,380px);
+  color:var(--ink); opacity:.028; line-height:1; pointer-events:none;
+  user-select:none; letter-spacing:-.05em;
+}
+.hero-inner {
+  max-width:var(--max); margin:0 auto; padding:0 40px; position:relative; z-index:2; width:100%;
+}
+/* eyebrow */
+.eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--green); margin-bottom:var(--sp-md);
+}
+.eyebrow hr { width:32px; border:none; border-top:1.5px solid var(--green); }
+/* heading */
+.hero h1 {
+  font-family:var(--font-h); font-weight:800;
+  font-size:clamp(3.2rem,7vw,7rem);
+  line-height:1.0; letter-spacing:-.04em;
+  max-width:900px; margin-bottom:var(--sp-md);
+}
+.hero h1 em { font-style:normal; color:var(--green); }
+
+/* cycling word */
+.cycle-outer {
+  display:inline-block; position:relative;
+  height:1.15em; overflow:visible; vertical-align:bottom;
+  min-width:220px;
+}
+.cycle-item {
+  display:block; position:absolute; bottom:0; left:0;
+  opacity:0; transform:translateY(60%);
+  transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap; color:var(--green);
+}
+.cycle-item.active { opacity:1; transform:translateY(0); }
+
+/* hero bottom split */
+.hero-split {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:48px; align-items:end; margin-top:var(--sp-lg);
+  padding-top:var(--sp-md); border-top:1px solid var(--line);
+}
+.hero-lead { font-size:1.1rem; color:var(--muted); line-height:1.8; font-weight:300; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
+
+/* ─ MARQUEE ─────────────────────────────────── */
+.marquee-wrap {
+  background:var(--ink); overflow:hidden; padding:18px 0;
+  position:relative; z-index:1;
+}
+.marquee-track {
+  display:flex; gap:0; width:max-content;
+  animation:marqueeScroll 32s linear infinite;
+}
+.marquee-wrap:hover .marquee-track { animation-play-state:paused; }
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-item {
+  display:inline-flex; align-items:center; gap:24px;
+  padding:0 40px; font-size:.72rem; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(238,233,223,.5); white-space:nowrap;
+}
+.marquee-gem {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--green); flex-shrink:0;
+}
+
+/* ─ STATS ─────────────────────────────────────── */
+.stats-bar {
+  background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.stats-inner {
+  max-width:var(--max); margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
+}
+.stat {
+  padding:36px 40px; border-right:1px solid var(--line);
+  transition:background .2s;
+}
+.stat:last-child { border-right:none; }
+.stat:hover { background:var(--cream-3); }
+.stat-num {
+  font-family:var(--font-h); font-weight:800;
+  font-size:2.4rem; letter-spacing:-.05em; color:var(--ink); line-height:1;
+}
+.stat-num span { color:var(--green); }
+.stat-label { font-size:.82rem; color:var(--muted); margin-top:6px; }
+
+/* ─ SECTION COMMON ───────────────────────────── */
+.section { padding:var(--sp-xl) 0; }
+.section + .section { border-top:1px solid var(--line); }
+.section-sm { padding:var(--sp-lg) 0; border-top:1px solid var(--line); }
+.wrap { max-width:var(--max); margin:0 auto; padding:0 40px; }
+
+.s-label {
+  font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--green); margin-bottom:var(--sp-sm); display:block;
+}
+h2 {
+  font-family:var(--font-h); font-weight:800;
+  font-size:clamp(2.2rem,3.5vw,3.2rem); letter-spacing:-.04em; line-height:1.08;
+}
+.s-lead {
+  font-size:1.05rem; color:var(--muted); line-height:1.8; max-width:640px; font-weight:300;
+}
+
+/* ─ SERVICES (editorial rows) ──────────────────── */
+.services-list { margin-top:var(--sp-lg); }
+.service-row {
+  display:grid; grid-template-columns:80px 1fr 1fr auto;
+  align-items:start; gap:40px;
+  padding:var(--sp-md) 0; border-top:1px solid var(--line);
+  transition:background .2s;
+}
+.service-row:last-child { border-bottom:1px solid var(--line); }
+.service-row:hover { background:rgba(20,16,9,.02); margin:0 -24px; padding-left:24px; padding-right:24px; border-radius:4px; border-color:transparent; }
+.srow-num {
+  font-family:var(--font-h); font-size:2.5rem; font-weight:800;
+  letter-spacing:-.05em; color:var(--cream-3); line-height:1;
+  padding-top:4px;
+}
+.srow-title { font-family:var(--font-h); font-size:1.5rem; font-weight:700; letter-spacing:-.03em; line-height:1.2; padding-top:2px; }
+.srow-desc { font-size:.95rem; color:var(--muted); line-height:1.75; }
+.srow-list { list-style:none; margin-top:12px; }
+.srow-list li { font-size:.85rem; color:var(--muted-2); padding:5px 0; border-top:1px solid var(--line); display:flex; align-items:baseline; gap:9px; }
+.srow-list li::before { content:"→"; color:var(--green); font-size:.75rem; flex-shrink:0; }
+.srow-cta { padding-top:4px; }
+
+/* ─ PRODUCT STRIP (compact) ─ */
+.product-strip {
+  display:flex; align-items:center; justify-content:space-between; gap:40px;
+  background:var(--cream-2); border:1px solid var(--line-2);
+  border-radius:16px; padding:32px 40px; flex-wrap:wrap;
+}
+.product-strip-copy { flex:1; min-width:260px; }
+.product-badge {
+  display:inline-block;
+  background:var(--green); color:#fff;
+  font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 13px; border-radius:999px; margin-bottom:12px;
+}
+.product-strip-desc { font-size:.95rem; color:var(--muted); line-height:1.7; }
+.product-strip-right { display:flex; align-items:center; gap:28px; flex-wrap:wrap; flex-shrink:0; }
+.product-strip-price {
+  font-family:var(--font-h); font-size:2.2rem; font-weight:800;
+  letter-spacing:-.05em; color:var(--ink); line-height:1; white-space:nowrap;
+}
+.product-strip-vat { font-size:.72rem; color:var(--muted); font-family:var(--font-b); font-weight:400; vertical-align:middle; margin-left:4px; }
+  background:var(--cream-2); border:1px solid var(--line-2);
+  border-radius:24px; overflow:hidden; margin-top:var(--sp-lg);
+}
+.product-top {
+  display:grid; grid-template-columns:1fr auto;
+  border-bottom:1px solid var(--line);
+}
+.product-copy { padding:60px 60px; }
+.product-badge {
+  display:inline-block;
+  background:var(--green); color:#fff;
+  font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 13px; border-radius:999px; margin-bottom:var(--sp-md);
+}
+.product-copy h2 { font-size:clamp(1.8rem,2.8vw,2.6rem); margin-bottom:14px; }
+.product-desc { color:var(--muted); line-height:1.8; font-size:1rem; margin-bottom:var(--sp-md); max-width:500px; }
+.product-includes { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:10px 48px; margin-bottom:var(--sp-md); }
+.product-includes li { font-size:.9rem; color:var(--ink-2); display:flex; align-items:center; gap:10px; }
+.product-includes li::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.product-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:var(--sp-md); }
+.trust-row { display:flex; gap:36px; flex-wrap:wrap; padding-top:var(--sp-sm); border-top:1px solid var(--line); }
+.trust-item { font-size:.82rem; color:var(--muted); line-height:1.6; }
+.trust-item strong { display:block; color:var(--ink-2); font-weight:500; }
+
+.buy-panel {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:48px 44px; min-width:220px; gap:0;
+  border-left:1px solid var(--line);
+}
+.price-big { font-family:var(--font-h); font-size:3.8rem; font-weight:800; letter-spacing:-.06em; line-height:1; color:var(--ink); }
+.price-cur { font-size:1.1rem; vertical-align:super; font-weight:500; color:var(--muted); font-family:var(--font-b); }
+.price-vat { font-size:.78rem; color:var(--muted); margin-top:4px; margin-bottom:28px; }
+.delivery { margin-top:18px; font-size:.78rem; color:var(--muted); line-height:1.7; }
+.delivery strong { color:var(--ink-2); }
+
+.product-bottom {
+  display:flex; gap:0; padding:0;
+}
+.trust-cell {
+  flex:1; padding:28px 36px; border-right:1px solid var(--line);
+  display:flex; flex-direction:column; gap:4px;
+}
+.trust-cell:last-child { border-right:none; }
+.trust-cell strong { font-size:.85rem; font-weight:600; color:var(--ink-2); }
+.trust-cell span { font-size:.82rem; color:var(--muted); }
+
+/* ─ ABOUT ───────────────────────────────────── */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:var(--sp-lg); align-items:start; }
+.about-role { font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--green); margin-bottom:var(--sp-sm); }
+.about-pull {
+  font-family:var(--font-h); font-size:clamp(1.4rem,2vw,1.9rem);
+  font-weight:700; letter-spacing:-.03em; line-height:1.3;
+  color:var(--ink); margin-bottom:var(--sp-md);
+}
+.about-body { font-size:.97rem; color:var(--muted); line-height:1.85; margin-bottom:14px; }
+.about-list { list-style:none; margin-top:var(--sp-md); }
+.about-list li {
+  font-size:.9rem; color:var(--muted); padding:12px 0; border-top:1px solid var(--line);
+  display:flex; align-items:baseline; gap:12px; line-height:1.5;
+}
+.about-list li::before { content:"→"; color:var(--green); font-size:.75rem; flex-shrink:0; }
+.focus-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.focus-cell { background:var(--cream-2); padding:32px 28px; transition:background .2s; }
+.focus-cell:hover { background:var(--cream-3); }
+.focus-cell strong { display:block; font-family:var(--font-h); font-size:1rem; font-weight:700; letter-spacing:-.02em; margin-bottom:6px; color:var(--ink); }
+.focus-cell p { font-size:.84rem; color:var(--muted); line-height:1.6; }
+
+/* ─ PROCESS ─────────────────────────────────── */
+.process-list { margin-top:var(--sp-lg); display:flex; flex-direction:column; }
+.process-row {
+  display:grid; grid-template-columns:120px 1fr;
+  gap:48px; align-items:start;
+  padding:var(--sp-md) 0; border-top:1px solid var(--line);
+}
+.process-row:last-child { border-bottom:1px solid var(--line); }
+.p-num { font-family:var(--font-h); font-size:3.5rem; font-weight:800; letter-spacing:-.06em; color:var(--cream-3); line-height:1; }
+.p-body h3 { font-family:var(--font-h); font-size:1.3rem; font-weight:700; letter-spacing:-.02em; margin-bottom:8px; }
+.p-body p { font-size:.96rem; color:var(--muted); line-height:1.75; }
+
+/* ─ FAQ ─────────────────────────────────────── */
+.faq-list { margin-top:var(--sp-lg); border-top:1px solid var(--line); }
+.faq-item { border-bottom:1px solid var(--line); }
+.faq-q {
+  width:100%; text-align:left; background:none; border:none; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:26px 0; color:var(--ink); font-family:var(--font-b);
+  font-size:1rem; font-weight:500; gap:24px; transition:color .2s;
+}
+.faq-q:hover { color:var(--green); }
+.faq-icon {
+  width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line-2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:background .2s, border-color .2s, color .2s;
+  color:var(--muted); font-size:.95rem; line-height:1; font-weight:400;
+}
+.faq-item.open .faq-icon { background:var(--green-pale); border-color:rgba(26,92,52,.3); color:var(--green); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.faq-a-inner { padding-bottom:28px; color:var(--muted); font-size:.96rem; line-height:1.8; max-width:760px; }
+.faq-item.open .faq-a { max-height:300px; }
+.faq-plus { display:block; } .faq-item.open .faq-plus { display:none; }
+.faq-minus { display:none; } .faq-item.open .faq-minus { display:block; }
+
+/* ─ SEO CARD ────────────────────────────────── */
+.seo-card {
+  display:flex; align-items:center; gap:24px;
+  background:var(--cream-2); border:1px solid var(--line);
+  border-radius:16px; padding:28px 32px; text-decoration:none; color:inherit;
+  max-width:680px; margin-top:var(--sp-md);
+  transition:border-color .2s, transform .2s;
+}
+.seo-card:hover { border-color:rgba(26,92,52,.3); transform:translateY(-2px); }
+.seo-icon { width:46px; height:46px; border-radius:12px; background:var(--green-pale); border:1px solid rgba(26,92,52,.18); display:flex; align-items:center; justify-content:center; color:var(--green); flex-shrink:0; }
+.seo-body { flex:1; }
+.seo-tag { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-2); font-weight:600; }
+.seo-body h3 { font-size:1rem; font-weight:600; margin:3px 0 5px; }
+.seo-body p { font-size:.84rem; color:var(--muted); line-height:1.5; }
+.seo-arr { color:var(--muted); font-size:1.3rem; transition:transform .2s; }
+.seo-card:hover .seo-arr { transform:translateX(4px); color:var(--green); }
+
+/* ─ FOOTER ──────────────────────────────────── */
+footer { border-top:1px solid var(--line); padding:56px 0 48px; }
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+.f-brand { font-family:var(--font-h); font-size:1.3rem; font-weight:800; color:var(--ink); margin-bottom:10px; }
+.f-desc { font-size:.875rem; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+.f-copy { font-size:.75rem; color:var(--muted-2); }
+.f-right { text-align:right; }
+.f-right p { font-size:.875rem; color:var(--muted); line-height:1.9; }
+.f-right a { color:var(--ink-2); text-decoration:none; transition:color .2s; }
+.f-right a:hover { color:var(--green); }
+
+/* ─ MODALS ──────────────────────────────────── */
+.overlay {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(20,16,9,.7);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  align-items:center; justify-content:center; padding:24px;
+}
+.overlay.open { display:flex; }
+.modal-box {
+  background:var(--cream); border:1px solid var(--line-2); border-radius:24px;
+  padding:44px 44px 36px; max-width:500px; width:100%; position:relative;
+  max-height:92vh; overflow-y:auto; animation:slideUp .22s ease;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+.modal-close {
+  position:absolute; top:18px; right:20px; background:none; border:none;
+  color:var(--muted); font-size:1.6rem; cursor:pointer; line-height:1;
+  padding:5px 8px; border-radius:8px; transition:color .2s, background .2s;
+}
+.modal-close:hover { color:var(--ink); background:rgba(20,16,9,.05); }
+.modal-box h2 { font-family:var(--font-h); font-size:1.5rem; letter-spacing:-.03em; margin-bottom:6px; }
+.modal-sub { font-size:.9rem; color:var(--muted); line-height:1.65; margin-bottom:28px; }
+label { display:block; font-size:.8rem; font-weight:500; color:var(--muted); margin-bottom:6px; margin-top:16px; letter-spacing:.02em; }
+input, textarea, select {
+  appearance:none; width:100%; padding:13px 15px;
+  border-radius:10px; border:1.5px solid var(--line-2);
+  background:rgba(20,16,9,.03); color:var(--ink); font-family:var(--font-b); font-size:.95rem;
+  transition:border .2s, box-shadow .2s;
+}
+select { background:var(--cream-2); }
+select option { background:var(--cream); color:var(--ink); }
+input::placeholder, textarea::placeholder { color:var(--muted-2); }
+input:focus, textarea:focus, select:focus {
+  outline:none; border-color:rgba(26,92,52,.5);
+  box-shadow:0 0 0 3px rgba(26,92,52,.1);
+}
+textarea { min-height:120px; resize:vertical; }
+.submit {
+  margin-top:20px; width:100%; padding:15px; border-radius:999px;
+  background:var(--green); color:#fff; font-family:var(--font-b); font-size:.95rem;
+  font-weight:700; border:none; cursor:pointer;
+  transition:background .2s, transform .2s;
+}
+.submit:hover { background:var(--green-2); transform:translateY(-1px); }
+.form-success { display:none; text-align:center; padding:36px 0; }
+.form-success h3 { font-family:var(--font-h); font-size:1.3rem; color:var(--green); margin-bottom:10px; }
+.form-success p { font-size:.9rem; color:var(--muted); line-height:1.65; }
+
+/* preview modal */
+.prev-overlay {
+  display:none; position:fixed; inset:0; z-index:300;
+  background:rgba(20,16,9,.75);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.prev-overlay.open { display:flex; }
+.prev-box {
+  position:relative; max-width:1000px; width:100%; max-height:92vh;
+  display:flex; flex-direction:column;
+  background:var(--cream); border:1px solid var(--line-2); border-radius:20px;
+  overflow:hidden; animation:slideUp .22s ease;
+}
+.prev-head { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid var(--line); flex-shrink:0; }
+.prev-head h3 { font-family:var(--font-h); font-size:1rem; font-weight:700; }
+.prev-head span { font-size:.8rem; color:var(--muted); margin-left:8px; }
+.prev-body { overflow-y:auto; padding:24px; display:flex; flex-direction:column; gap:18px; }
+.prev-body img { width:100%; border-radius:8px; border:1px solid var(--line); display:block; }
+.prev-foot { padding:16px 28px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-shrink:0; }
+.prev-foot p { font-size:.82rem; color:var(--muted); }
+
+/* ─ RESPONSIVE ──────────────────────────────── */
+@media(max-width:1024px){
+  .hero-split{grid-template-columns:1fr; gap:28px}
+  .hero-actions{justify-content:flex-start}
+  .service-row{grid-template-columns:60px 1fr 1fr; }
+  .srow-cta{grid-column:3}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-top:1px solid var(--line)}
+  .stat:nth-child(4){border-top:1px solid var(--line); border-right:none}
+  .product-top{grid-template-columns:1fr}
+  .buy-panel{border-left:none; border-top:1px solid var(--line); width:100%; flex-direction:row; flex-wrap:wrap; justify-content:flex-start; padding:32px 48px; gap:28px}
+  .product-bottom{flex-wrap:wrap}
+  .trust-cell{min-width:calc(50% - 1px)}
+  .about-grid{grid-template-columns:1fr; gap:48px}
+  .footer-grid{grid-template-columns:1fr}
+  .f-right{text-align:left}
+}
+@media(max-width:768px){
+  nav{flex-wrap:wrap; height:auto; padding:14px 22px; gap:12px}
+  .nav-links{flex-wrap:wrap; gap:6px}
+  .hero{padding:72px 0 64px; min-height:auto}
+  .hero-inner, .wrap{padding:0 22px}
+  .hero h1{font-size:clamp(2.6rem,11vw,4rem)}
+  .service-row{grid-template-columns:1fr; gap:16px}
+  .srow-num{font-size:1.8rem; display:none}
+  .srow-cta{grid-column:auto}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .product-copy{padding:36px 28px}
+  .product-includes{grid-template-columns:1fr}
+  .process-row{grid-template-columns:1fr; gap:10px}
+  .p-num{font-size:2rem; display:none}
+  .product-bottom{flex-direction:column}
+  .trust-cell{min-width:100%; border-right:none; border-bottom:1px solid var(--line)}
+  .trust-cell:last-child{border-bottom:none}
+  .modal-box{padding:32px 24px 28px}
+  .buy-panel{padding:28px 30px; gap:16px}
+  .hero-mark{display:none}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.4rem}
+  .cycle-outer{display:block; position:relative; height:1.1em; overflow:hidden}
+  .stats-inner{grid-template-columns:1fr}
+  .stat{border-right:none; border-bottom:1px solid var(--line)}
+  .stat:last-child{border-bottom:none}
 }
 </style>
 </head>
+
 <body>
-<div class="neural-bg" aria-hidden="true">
-<div class="net" style="top:10%;left:8%">
-<svg viewBox="0 0 200 160">
-<line class="neural-line" x1="20" y1="40" x2="80" y2="60"/>
-<line class="neural-line" x1="80" y1="60" x2="140" y2="30"/>
-<line class="neural-line" x1="80" y1="60" x2="120" y2="110"/>
-<circle class="neural-node" cx="20" cy="40" r="3"/>
-<circle class="neural-node alt" cx="80" cy="60" r="4"/>
-<circle class="neural-node" cx="140" cy="30" r="3"/>
-<circle class="neural-node alt" cx="120" cy="110" r="4"/>
-</svg>
-</div>
-<div class="net" style="top:30%;left:70%">
-<svg viewBox="0 0 200 160">
-<line class="neural-line" x1="30" y1="50" x2="100" y2="40"/>
-<line class="neural-line" x1="100" y1="40" x2="150" y2="90"/>
-<line class="neural-line" x1="100" y1="40" x2="70" y2="120"/>
-<circle class="neural-node" cx="30" cy="50" r="3"/>
-<circle class="neural-node alt" cx="100" cy="40" r="4"/>
-<circle class="neural-node" cx="150" cy="90" r="3"/>
-<circle class="neural-node alt" cx="70" cy="120" r="4"/>
-</svg>
-</div>
-<div class="net" style="top:70%;left:20%">
-<svg viewBox="0 0 200 160">
-<line class="neural-line" x1="40" y1="30" x2="100" y2="70"/>
-<line class="neural-line" x1="100" y1="70" x2="160" y2="40"/>
-<line class="neural-line" x1="100" y1="70" x2="120" y2="130"/>
-<circle class="neural-node" cx="40" cy="30" r="3"/>
-<circle class="neural-node alt" cx="100" cy="70" r="4"/>
-<circle class="neural-node" cx="160" cy="40" r="3"/>
-<circle class="neural-node alt" cx="120" cy="130" r="4"/>
-</svg>
-</div>
-<div class="net" style="top:75%;left:75%">
-<svg viewBox="0 0 200 160">
-<line class="neural-line" x1="20" y1="90" x2="90" y2="40"/>
-<line class="neural-line" x1="90" y1="40" x2="160" y2="80"/>
-<line class="neural-line" x1="90" y1="40" x2="100" y2="130"/>
-<circle class="neural-node" cx="20" cy="90" r="3"/>
-<circle class="neural-node alt" cx="90" cy="40" r="4"/>
-<circle class="neural-node" cx="160" cy="80" r="3"/>
-<circle class="neural-node alt" cx="100" cy="130" r="4"/>
-</svg>
-</div>
-<div class="net" style="top:50%;left:45%">
-<svg viewBox="0 0 200 160">
-<line class="neural-line" x1="30" y1="40" x2="100" y2="80"/>
-<line class="neural-line" x1="100" y1="80" x2="150" y2="30"/>
-<line class="neural-line" x1="100" y1="80" x2="150" y2="120"/>
-<circle class="neural-node" cx="30" cy="40" r="3"/>
-<circle class="neural-node alt" cx="100" cy="80" r="4"/>
-<circle class="neural-node" cx="150" cy="30" r="3"/>
-<circle class="neural-node alt" cx="150" cy="120" r="4"/>
-</svg>
-</div>
-</div>
+<div id="cursor"></div>
 
-<header class="header">
-  <div class="nav">
-    <div class="brand">MPAI</div>
-    <div>
+<!-- ── NAV ── -->
+<div class="nav-wrap" id="navWrap">
+  <nav>
+    <a class="brand" href="#">MPAI - Marcus Petersson AI</a>
+    <div class="nav-links">
+      <a href="#om-mig">Om mig</a>
       <a href="#tjanster">Tjänster</a>
-      <a href="#produkter">Produkter</a>
-      <a href="#faq">FAQ</a>
-      <a href="#" onclick="openModal(); return false;" class="cta">Kontakt</a>
+      <a href="#excel-mall" class="btn-ghost-nav">Excel-mallen</a>
+      <a href="#" onclick="openModal(); return false;" class="btn-cta-nav">Be om offert</a>
     </div>
-  </div>
-</header>
-
-<!-- ===== HERO ===== -->
-<section class="hero">
-<div class="hero-copy">
-<h1>AI-kompetens för stora och små organisationer. Jag hjälper dig förstå AI enkelt.</h1>
-
-<div class="hero-actions">
-<a class="btn btn-primary" href="#tjanster">Se tjänster</a>
-<a class="btn btn-secondary" href="#" onclick="openModal(); return false;">Be om offert</a>
-<a class="btn btn-secondary" href="MPAI_Tjanster.pdf" target="_blank" rel="noopener">Ladda ner broschyr (PDF)</a>
+  </nav>
 </div>
 
-</div>
-</section>
-
-<!-- ===== OM MIG ===== -->
-<section class="section" id="om-mig">
-<h2>Om mig</h2>
-<p class="section-intro">Personen bakom MPAI – vem du faktiskt anlitar.</p>
-
-<div class="about-card">
-  <div class="about-copy">
-    <div class="about-name">Marcus Petersson</div>
-    <div class="about-title">Enskild firma · AI-konsult i Copilot 365 och Generativ AI</div>
-    <p class="about-bio">
-      Jag är enskild konsult med djup expertis inom Microsoft Copilot 365 och Generativ AI — och hjälper organisationer att få ut det fulla värdet av de AI-verktyg de redan har.
-      Min bakgrund inom Machine Learning ger en teknisk grund, men mitt fokus är praktisk tillämpning. Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker.
-    </p>
-    <ul class="about-list">
-      <li>Djupexpertis inom Microsoft Copilot 365 — från grundanvändning till avancerade arbetsflöden</li>
-      <li>Specialiserad på Generativ AI och Large Language Models i praktiken</li>
-      <li>Fokus på AI som verktyg – inte teknik för teknikens skull</li>
-      <li>Arbetar med allt från ledningsgrupper till operativa team</li>
-    </ul>
-  </div>
-  <div class="about-focus">
-    <h3>Fokusområden</h3>
-    <div class="about-focus-grid">
-      <div class="focus-item focus-featured" style="grid-column:1/-1">
-        <p><strong>Copilot 365 – expertkunskap</strong>Fullt utnyttjande av Microsoft Copilot i Outlook, Teams, Word, Excel och SharePoint — från vardagsbruk till avancerade arbetsflöden</p>
-      </div>
-      <div class="focus-item">
-        <p><strong>Generativ AI</strong>ChatGPT, LLM och promptteknik i praktiken</p>
-      </div>
-      <div class="focus-item">
-        <p><strong>AI-styrning</strong>EU AI Act, policy och governance</p>
-      </div>
-      <div class="focus-item">
-        <p><strong>Ledningsstöd</strong>AI-strategi för chefer och beslutsfattare</p>
-      </div>
-      <div class="focus-item">
-        <p><strong>AI-driven utveckling</strong>Appar och system byggda med AI som grund</p>
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-mark" aria-hidden="true">MPAI</div>
+  <div class="hero-inner">
+    <div class="eyebrow reveal">
+      <hr/> AI-rådgivning för organisationer
+    </div>
+    <h1 class="reveal d1">
+      AI som fungerar<br>för
+      <span class="cycle-outer" id="cycleOuter">
+        <span class="cycle-item active">chefer.</span>
+        <span class="cycle-item">ledare.</span>
+        <span class="cycle-item">team.</span>
+      </span>
+    </h1>
+    <div class="hero-split reveal d2">
+      <p class="hero-lead">
+        Jag hjälper ledningsgrupper och team att förstå hur AI kan användas i verksamheten.
+        Fokus ligger inte på teknik – utan på beslut, effektivitet och vardagligt arbetssätt.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tjanster">Se tjänster</a>
+        <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Be om offert</a>
       </div>
     </div>
   </div>
 </div>
-</section>
 
-<!-- ===== TJÄNSTER ===== -->
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mTrack"></div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats-bar">
+  <div class="stats-inner" id="statsBar">
+    <div class="stat">
+      <div class="stat-num" data-count="3" data-suffix="+">Flera</div>
+      <div class="stat-label">Tjänsteområden</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="990" data-suffix=" kr">990 kr</div>
+      <div class="stat-label">Excel-paketet, inkl. EU AI Act</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="font-size:1.9rem;letter-spacing:-.03em;">Copilot<span style="color:var(--green)">365</span></div>
+      <div class="stat-label">Utbildning &amp; praktisk användning</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Tekniska förkunskaper krävs</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TJÄNSTER ── -->
 <section class="section" id="tjanster">
+  <div class="wrap">
+    <span class="s-label reveal">Tjänster</span>
+    <h2 class="reveal d1">Hur jag kan hjälpa</h2>
+    <p class="s-lead reveal d2" style="margin-top:12px;">Berätta vad ni upplever för utmaning eller problemr – jag anpassar upplägget. Allt utgår alltid från er verklighet.</p>
 
-<h2>Hur jag kan hjälpa</h2>
-<p class="section-intro">
-Berätta vad ni behöver – jag anpassar upplägget efter er situation. Nedan är exempel på vad ett samarbete kan se ut som, men vi tar alltid utgångspunkt i er verklighet.
-</p>
-
-<div class="cards">
-
-<article class="card card-featured" style="grid-column:1/-1">
-  <div class="featured-badge">Expertkunskap</div>
-  <div class="featured-inner">
-    <div>
-      <div class="featured-title">
-        <h3>Copilot 365 – få ut full effekt</h3>
+    <div class="services-list">
+      <div class="service-row reveal">
+        <div class="srow-num">01</div>
+        <div>
+          <div class="srow-title">Utbildning i Copilot 365 &amp; ChatGPT</div>
+        </div>
+        <div>
+          <div class="srow-desc">Praktisk genomgång av de AI-verktyg ni redan har – fokus på hur de faktiskt används i er vardag.</div>
+          <ul class="srow-list">
+            <li>Copilot 365 och ChatGPT i praktiken</li>
+            <li>Konkreta exempel från er verksamhet</li>
+            <li>Bättre prompts direkt</li>
+            <li>Digitalt eller på plats, halvdag eller kortare</li>
+          </ul>
+        </div>
+        <div class="srow-cta">
+          <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Kontakta →</a>
+        </div>
       </div>
-      <p>De flesta organisationer som betalar för Copilot 365 använder bara en bråkdel av möjligheterna. Jag hjälper er få ut den verkliga nyttan — från vardagsbruk i Outlook och Teams till avancerade arbetsflöden i Excel, Word och SharePoint.</p>
-      <p>Upplägget anpassas efter er mognad och era verktyg. Allt från "kom igång"-genomgång till skräddarsydda workshopar där vi bygger konkreta arbetsflöden tillsammans.</p>
+
+      <div class="service-row reveal d1">
+        <div class="srow-num">02</div>
+        <div>
+          <div class="srow-title">AI just nu</div>
+        </div>
+        <div>
+          <div class="srow-desc">Ett kort, konkret tillfälle för ledning eller team. Vad händer inom AI just nu – och vad betyder det för er?</div>
+          <ul class="srow-list">
+            <li>Aktuella trender förklarat på riktigt</li>
+            <li>Relevant för er bransch</li>
+            <li>Ca 60 minuter, digitalt</li>
+          </ul>
+        </div>
+        <div class="srow-cta">
+          <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Kontakta →</a>
+        </div>
+      </div>
+
+      <div class="service-row reveal d2">
+        <div class="srow-num">03</div>
+        <div>
+          <div class="srow-title">Verksamhetsanpassad AI-genomgång</div>
+        </div>
+        <div>
+          <div class="srow-desc">Ni berättar om er situation – jag täcker det ni faktiskt behöver. Ingen fast agenda, allt utgår från er.</div>
+          <ul class="srow-list">
+            <li>Anpassat helt efter er verksamhet</li>
+            <li>Ledning, team eller blandat</li>
+            <li>Konkreta slutsatser och nästa steg</li>
+          </ul>
+        </div>
+        <div class="srow-cta">
+          <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Kontakta →</a>
+        </div>
+      </div>
     </div>
-    <ul>
-      <li>Skriv bättre prompts som faktiskt ger användbara svar</li>
-      <li>Automatisera mötesanteckningar och sammanfattningar i Teams</li>
-      <li>Låt Copilot jobba med era egna dokument i SharePoint</li>
-      <li>Avancerad dataanalys och rapporter i Excel</li>
-      <li>Bygga specialiserade Copilot Agents för er verksamhet</li>
-      <li>Digitalt eller på plats — anpassas efter er</li>
-    </ul>
   </div>
-  <a class="small-btn" href="#" onclick="openModal(); return false;">Boka Copilot-genomgång</a>
-</article>
-
-<article class="card">
-  <h3>Vad händer inom AI just nu?</h3>
-  <p>AI-utvecklingen rör sig snabbt. Jag följer fronten dagligen och kan ge er en konkret bild av vad som faktiskt hänt, vad som är hype och vad ni behöver förhålla er till – anpassat till er verksamhet.</p>
-  <ul>
-    <li>Senaste utvecklingen inom Copilot 365, GPT-modeller och agenter</li>
-    <li>Vad som är relevant för er bransch just nu</li>
-    <li>Inga tekniska förkunskaper krävs</li>
-    <li>Ca 60 minuter, digitalt</li>
-  </ul>
-  <a class="small-btn" href="#" onclick="openModal(); return false;">Boka ett samtal</a>
-</article>
-
-<article class="card">
-  <h3>Verksamhetsanpassad AI-genomgång</h3>
-  <p>Ni berättar om er situation – jag kommer in och täcker det ni faktiskt behöver. Kan vara ett enskilt tillfälle eller en kort serie. Ingen fast agenda, allt utgår från er.</p>
-  <ul>
-    <li>Anpassat helt efter er verksamhet och era frågor</li>
-    <li>Ledning, team eller blandat – ni väljer</li>
-    <li>Konkreta slutsatser och nästa steg</li>
-    <li>Digitalt eller på plats</li>
-  </ul>
-  <a class="small-btn" href="#" onclick="openModal(); return false;">Berätta vad ni behöver</a>
-</article>
-
-<article class="card">
-  <h3>AI-strategi &amp; rådgivning</h3>
-  <p>Behöver ni ett bollplank kring AI-beslut? Jag hjälper till att navigera teknikval, leverantörer och implementation – utan att ni behöver bli experter själva.</p>
-  <ul>
-    <li>Strategisk rådgivning kring AI-val</li>
-    <li>Oberoende second opinion</li>
-    <li>Kortare eller längre uppdrag</li>
-    <li>Digitalt eller på plats</li>
-  </ul>
-  <a class="small-btn" href="#" onclick="openModal(); return false;">Berätta vad ni behöver</a>
-</article>
-
-</div>
 </section>
 
-<!-- ===== PRODUKTER ===== -->
-<section class="section" id="produkter">
-
-<h2>Produkter</h2>
-<p class="section-intro">Excel-mallar och AI-drivna verktyg jag byggt.</p>
-
-<div class="cards">
-
-<article class="card">
-  <h3>AI Policy &amp; EU AI Act</h3>
-  <p>Komplett Excel-verktyg för organisationer som vill arbeta strukturerat med AI-styrning och följa EU AI Act.</p>
-  <ul>
-    <li>AI‑policy mall</li>
-    <li>EU AI Act riskklassning</li>
-    <li>AI system register</li>
-    <li>Governance-checklista</li>
-  </ul>
-  <p><strong>990 kr</strong> <span style="color:var(--muted);font-size:.9rem">exkl. moms</span></p>
-  <a class="small-btn" href="#" onclick="preselectExcel(); return false;">Köp nu – 990 kr</a>
-  <a class="small-btn" href="#" onclick="openPreview(); return false;" style="margin-top:8px">Förhandsgranska (gratis)</a>
-</article>
-
-</div>
+<!-- ── EXCEL ── -->
+<section class="section-sm" id="excel-mall" style="height: 31.172px">
+  <div class="wrap">
+    <div class="product-strip reveal" style="height: 170px">
+      <div class="product-strip-copy">
+        <span class="product-badge">AI Compliance Excel-paket</span>
+        <p class="product-strip-desc">Policy, riskklassning och governance för EU AI Act – klart att använda direkt, på svenska. Levereras via e-post inom 24h.</p>
+      </div>
+      <div class="product-strip-right">
+        <div class="product-strip-price" style="height: 35.2031px; font-family: &quot;Plus Jakarta Sans&quot;"><span class="price-cur">kr </span>990 <span class="product-strip-vat">exkl. moms</span></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ned – 990 kr</a>
+          <a class="btn btn-outline" href="#" onclick="openPreview(); return false;">Förhandsgranska</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== EXEMPEL JAG BYGGT ===== -->
-<section class="section" id="exempel">
-
-<h2>Exempel jag byggt</h2>
-<p class="section-intro">Egna projekt som visar hur AI kan användas för att lösa verkliga problem.</p>
-
-<div class="cards">
-
-<article class="card">
-  <h3>Föräldrahjälpen</h3>
-  <p>AI-driven läxhjälp för svenska föräldrar, byggd med Generativ AI och anpassad efter Lgr22-läroplanen. Visar hur AI kan göra komplexa uppgifter tillgängliga för vanliga användare.</p>
-  <a class="small-btn" href="https://foraldrahjalpen.se/" target="_blank" rel="noopener">Se projektet →</a>
-</article>
-
-<article class="card">
-  <h3>SEO Insight Pro</h3>
-  <p>AI-drivet analysverktyg för webbplatssynlighet — identifierar nyckelord, konkurrenter och förbättringsområden. Byggt som ett exempel på hur AI kan automatisera analyser som annars tar timmar.</p>
-  <a class="small-btn" href="https://seo-insight-pro-indol.vercel.app/" target="_blank" rel="noopener">Se projektet →</a>
-</article>
-
-</div>
+<!-- ── OM MIG ── -->
+<section class="section" id="om-mig">
+  <div class="wrap">
+    <span class="s-label reveal">Om mig</span>
+    <div class="about-grid">
+      <div class="reveal d1">
+        <div class="about-role">AI-specialist · Generativ AI, ML &amp; RL</div>
+        <div class="about-pull">Att göra AI begripligt och användbart – inte imponerande.</div>
+        <p class="about-body">Jag har de senaste åren specialiserat mig på Generativ AI, Machine Learning och Reinforcement Learning med ett tydligt fokus på hur AI kan användas i verkliga organisationer. Jag tror fokus bör ligga på lära sig så mycket som möjligt om AI just nu för att anpassa och möte den snabba teknikförändringen.</p>
+        <p class="about-body">Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker. Det är utgångspunkten för allt jag gör.</p>
+        <ul class="about-list">
+          <li>Specialiserad på Generativ AI och LLM i praktiken</li>
+          <li>Erfarenhet av Machine Learning och Reinforcement Learning</li>
+          <li>Fokus på AI som verktyg – inte teknik för teknikens skull</li>
+          <li>Arbetar med allt från ledningsgrupper till operativa team</li>
+        </ul>
+      </div>
+      <div class="reveal d2">
+        <div class="focus-grid">
+          <div class="focus-cell"><strong>Generativ AI</strong><p>ChatGPT, Copilot och and LLM-verktyg i praktiken</p></div>
+          <div class="focus-cell"><strong>Copilot 365</strong><p>AI anpassat för säkerhet inom arbetetslivet</p></div>
+          <div class="focus-cell"><strong>AI-styrning</strong><p>EU AI Act, policy och governance-ramverk</p></div>
+          <div class="focus-cell"><strong>Ledningsstöd</strong><p>AI-strategi för chefer och beslutsfattare</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== SÅ FUNGERAR DET ===== -->
+<!-- ── PROCESS ── -->
 <section class="section">
-
-<h2>Så fungerar det</h2>
-<p class="section-intro">Ni beskriver er situation – jag återkommer med ett förslag och offert. Eller köp Excel-mallen direkt.</p>
-
-<div class="how">
-
-<div class="step">
-<div class="step-number">1</div>
-<h3>Ni beskriver läget</h3>
-<p>Berätta vad ni vill förstå eller förbättra, eller välj Excel-mallen direkt i formuläret.</p>
-</div>
-
-<div class="step">
-<div class="step-number">2</div>
-<h3>Jag föreslår upplägg</h3>
-<p>Ni får ett enkelt förslag på hur vi kan arbeta. Excel-mallen levereras direkt via email.</p>
-</div>
-
-<div class="step">
-<div class="step-number">3</div>
-<h3>Ni betalar och kör igång</h3>
-<p>Betalning via Swish eller faktura. Inga abonnemang eller bindningstider.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- ===== FAQ ===== -->
-<section class="section" id="faq">
-
-<h2>Vanliga frågor</h2>
-<p class="section-intro">Några vanliga frågor från organisationer som börjar arbeta med AI.</p>
-
-<div class="cards">
-
-<article class="card">
-<h3>Måste företag följa EU AI Act?</h3>
-<p>Ja. EU AI Act gäller organisationer som utvecklar eller använder AI‑system inom EU. För många företag innebär det främst att ha kontroll över vilka AI‑system som används och hur de används.</p>
-</article>
-
-<article class="card">
-<h3>Behöver vi en AI‑policy?</h3>
-<p>När organisationer börjar använda verktyg som Copilot eller ChatGPT är det bra att ha en enkel AI‑policy. Den beskriver vilka verktyg som får användas, hur data hanteras och vilket ansvar medarbetare har.</p>
-</article>
-
-<article class="card">
-<h3>Vad innehåller Excel-mallen?</h3>
-<p>Paketet innehåller AI‑policy, AI system register, riskklassning enligt EU AI Act, governance-checklista och ett Excel‑verktyg för att hålla ordning på AI‑användning i organisationen. Leverans via email inom 24h.</p>
-</article>
-
-<article class="card">
-<h3>Hur betalar jag?</h3>
-<p>Betalning sker via Swish eller faktura. Inga kortuppgifter behövs. Du anger ditt önskemål i formuläret och får betalningsinstruktion via email.</p>
-</article>
-
-<article class="card">
-<h3>Kan genomgångarna ske på kvällar?</h3>
-<p>Ja, de flesta uppdrag och utbildningar kan genomföras på kvällar och helger om det passar organisationen bättre.</p>
-</article>
-
-<article class="card">
-<h3>Vad kan Copilot 365 faktiskt göra?</h3>
-<p>Microsoft Copilot 365 är integrerat i hela Office-sviten — Outlook, Teams, Word, Excel och SharePoint. De flesta organisationer använder bara en bråkdel av möjligheterna. Med rätt upplägg kan Copilot sammanfatta möten, skriva utkast, analysera data och automatisera återkommande uppgifter. Jag hjälper er att identifiera var ni får störst effekt just nu.</p>
-</article>
-
-<article class="card">
-<h3>Vad är MPAI?</h3>
-<p>MPAI är en enskild firma driven av Marcus Petersson som hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt, med fokus på chefer och ledningsgrupper – inte på teknisk implementation.</p>
-</article>
-
-</div>
-
-</section>
-
-<footer class="footer">
-  <div>
-    <div class="footer-brand">MPAI · Marcus Petersson</div>
-    <p class="footer-desc">Enskild firma som hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.</p>
-    <p class="footer-meta">Org.nr: 810926-2710 &nbsp;·&nbsp; © 2026 Marcus Petersson</p>
+  <div class="wrap">
+    <span class="s-label reveal">Process</span>
+    <h2 class="reveal d1">Så fungerar det</h2>
+    <p class="s-lead reveal d2" style="margin-top:12px;">Ni beskriver er situation – jag återkommer med ett förslag. Ni behöver inga förkunskaper, jag lär er grunderna och tar er vidare</p>
+    <div class="process-list">
+      <div class="process-row reveal">
+        <div class="p-num">01</div>
+        <div class="p-body">
+          <h3>Ni beskriver läget</h3>
+          <p>Berätta vad ni vill förstå eller förbättra. Förklara er situation och eventuell konkurens som ni behöver möte ?</p>
+        </div>
+      </div>
+      <div class="process-row reveal d1">
+        <div class="p-num">02</div>
+        <div class="p-body">
+          <h3>Jag föreslår ett upplägg</h3>
+          <p>Ni får ett enkelt förslag på hur vi kan arbeta.</p>
+        </div>
+      </div>
+      <div class="process-row reveal d2">
+        <div class="p-num">03</div>
+        <div class="p-body">
+          <h3>Kör igång</h3>
+          <p>Betalning via Swish eller faktura. Inga abonnemang eller bindningstider.</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="footer-right">
-    <p class="footer-contact-label">Kontakt</p>
-    <p><a href="mailto:marcus.mpar@gmail.com">marcus.mpar@gmail.com</a></p>
-    <p style="color:var(--muted)">079-356 29 46</p>
-    <p style="margin-top:10px"><a href="MPAI_Tjanster.pdf" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">📄 Ladda ner broschyr (PDF)</a></p>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <span class="s-label reveal">FAQ</span>
+    <h2 class="reveal d1">Vanliga frågor</h2>
+    <div class="faq-list reveal d2">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Måste företag följa EU AI Act?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Ja. EU AI Act gäller organisationer som utvecklar eller använder AI-system inom EU. För många företag innebär det att ha kontroll över vilka AI-system som används och hur de används.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Behöver vi en AI-policy?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">När organisationer börjar använda Copilot eller ChatGPT är det klokt att ha en enkel AI-policy. Den beskriver vilka verktyg som är godkända, hur data hanteras och vilket ansvar medarbetare har.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Vad innehåller Excel-paketet?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Paketet innehåller AI-policy, AI system register, riskklassning enligt EU AI Act, governance-checklista och rollbeskrivningar. Allt på svenska, levererat via e-post inom 24h.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Hur betalar jag?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Betalning via Swish eller faktura. Inga kortuppgifter. Du anger önskemål i formuläret och får betalningsinstruktion via e-post.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Kan genomgångarna ske på kvällar?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Ja. De flesta uppdrag och utbildningar kan genomföras på kvällar och helger om det passar bättre.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Vad är MPAI?
+          <div class="faq-icon"><span class="faq-plus">+</span><span class="faq-minus">−</span></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">MPAI är en konsulttjänst som hjälper organisationer att förstå och använda AI på ett praktiskt sätt, med fokus på chefer och ledningsgrupper – inte teknisk implementation.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FLER VERKTYG ── -->
+<section class="section-sm" id="seo-verktyg">
+  <div class="wrap">
+    <span class="s-label reveal">Fler verktyg</span>
+    <h2 class="reveal d1">Andra projekt</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; margin-top:var(--sp-md);">
+      <a class="seo-card reveal d1" href="https://seo-insight-pro-indol.vercel.app/" target="_blank" rel="noopener">
+        <div class="seo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <div class="seo-body">
+          <span class="seo-tag">Externt verktyg</span>
+          <h3>SEO Insight Pro</h3>
+          <p>Analysera er synlighet, identifiera nyckelord ni rankar på och se vad konkurrenterna gör rätt. Gratis att testa.</p>
+        </div>
+        <div class="seo-arr">→</div>
+      </a>
+
+      <a class="seo-card reveal d2" href="https://foraldrahjalpen.se/" target="_blank" rel="noopener">
+        <div class="seo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="seo-body">
+          <span class="seo-tag">Externt projekt</span>
+          <h3>Föräldrahjälpen</h3>
+          <p>Stöd och vägledning för föräldrar. Besök foraldrahjalpen.se för mer information.</p>
+        </div>
+        <div class="seo-arr">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">MPAI</div>
+        <p class="f-desc">MPAI hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.</p>
+        <p class="f-copy">Org.nr: 556XXX-XXXX &nbsp;·&nbsp; © 2025 MPAI – Marcus Petersson</p>
+      </div>
+      <div class="f-right">
+        <p style="font-weight:600;color:var(--ink-2);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Kontakt</p>
+        <p><a href="mailto:info@mpai.se">info@mpai.se</a></p>
+        <p>070-XXX XX XX</p>
+      </div>
+    </div>
   </div>
 </footer>
 
-<!-- ===== BILDFÖRHANDSGRANSKNING (MODAL) ===== -->
-<div id="previewModal" class="preview-overlay" role="dialog" aria-modal="true" aria-label="Förhandsgranskning av Excel-paketet">
-  <div class="preview-box">
-    <div class="preview-header">
-      <div>
-        <h3>AI Compliance Excel-paket <span>— urval ur det fullständiga paketet</span></h3>
+<!-- ── PREVIEW MODAL ── -->
+<div id="previewModal" class="prev-overlay" role="dialog" aria-modal="true">
+  <div class="prev-box">
+    <div class="prev-head">
+      <h3>AI Compliance Excel-paket <span>— urval</span></h3>
+      <button class="modal-close" onclick="closePreview()">&times;</button>
+    </div>
+    <div class="prev-body">
+      <img src="euact_screen1.png" alt="" loading="lazy" onerror="this.style.display='none'">
+      <img src="euact_screen2.png" alt="" loading="lazy" onerror="this.style.display='none'">
+      <img src="euact_screen3.png" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div style="text-align:center;padding:56px 24px;color:var(--muted);font-size:.9rem;line-height:1.7;">
+        <div style="font-size:2rem;margin-bottom:12px;opacity:.3;">📊</div>
+        <strong style="color:var(--ink-2);display:block;margin-bottom:6px;">Skärmbilder saknas</strong>
+        Lägg till euact_screen1-3.png i samma mapp.
       </div>
-      <button class="preview-close" onclick="closePreview()" aria-label="Stäng">&times;</button>
     </div>
-    <div class="preview-scroll">
-      <img class="preview-img" src="euact_screen1.png" alt="EU AI Act skärmbild 1" loading="lazy">
-      <img class="preview-img" src="euact_screen2.png" alt="EU AI Act skärmbild 2" loading="lazy">
-      <img class="preview-img" src="euact_screen3.png" alt="EU AI Act skärmbild 3" loading="lazy">
-    </div>
-    <div class="preview-footer">
-      <p>Detta är ett urval av vyerna — det riktiga paketet innehåller betydligt mer med fler flikar, automatiserade beräkningar och kompletta instruktioner.</p>
-      <a class="small-btn" href="#" onclick="closePreview(); preselectExcel(); return false;" style="white-space:nowrap;flex-shrink:0">Köp nu – 990 kr</a>
+    <div class="prev-foot">
+      <p>Urval — det riktiga paketet har fler flikar och automatiserade beräkningar.</p>
+      <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download style="font-size:.85rem;padding:11px 20px;white-space:nowrap;">Ladda ned – 990 kr</a>
     </div>
   </div>
 </div>
 
-<!-- ===== KONTAKTFORMULÄR (MODAL) ===== -->
-<div id="kontaktModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Kontaktformulär">
+<!-- ── KONTAKTFORMULÄR ── -->
+<div id="kontaktModal" class="overlay" role="dialog" aria-modal="true">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" aria-label="Stäng">&times;</button>
+    <button class="modal-close" onclick="closeModal()">&times;</button>
     <h2>Beskriv ert behov</h2>
-    <p>Berätta kort om er situation så återkommer jag med ett förslag.</p>
-
-    <!-- INSTRUKTION: Byt ut FORMSPREE_ID mot ditt ID från formspree.io -->
+    <p class="modal-sub">Berätta kort om er situation så återkommer jag med ett förslag.</p>
     <form id="contactForm" action="https://formspree.io/f/mzdjgang" method="POST">
-
-    <input type="hidden" name="_subject" value="Ny förfrågan från MPAI.se">
-
-    <label>Företag</label>
-    <input type="text" name="foretag" placeholder="Företagsnamn">
-
-    <label>Namn</label>
-    <input type="text" name="namn" placeholder="Ditt namn" required>
-
-    <label>Email</label>
-    <input type="email" name="email" placeholder="namn@foretag.se" required>
-
-    <label>Vad gäller det?</label>
-    <select name="amne" id="amneSelect" required>
-    <option value="">Välj</option>
-    <option value="excel-mall">Köp Excel-mallen (990 kr)</option>
-    <option value="ai-intro-workshop">AI-introduktion halvdag – fast pris 9 900 kr</option>
-    <option value="ai-ledning">AI introduktion för ledning</option>
-    <option value="ai-workshop">AI workshop för team</option>
-    <option value="ai-strategi">AI strategi / rådgivning</option>
-    <option value="ai-just-nu">AI just nu</option>
-    <option value="dokument">Dokument och mallar</option>
-    </select>
-
-    <label>Beskriv kort situationen</label>
-    <textarea name="meddelande" placeholder="Vad vill ni förstå eller komma vidare med?"></textarea>
-
-    <button class="submit" type="submit">Skicka förfrågan</button>
-    <p style="margin-top:10px;font-size:.9rem;color:var(--muted);text-align:center">Jag återkommer normalt inom 24 timmar. Möten kan ske digitalt eller på plats.</p>
-
+      <input type="hidden" name="_subject" value="Ny förfrågan från MPAI.se">
+      <label>Företag</label>
+      <input type="text" name="foretag" placeholder="Företagsnamn">
+      <label>Namn</label>
+      <input type="text" name="namn" placeholder="Ditt namn" required>
+      <label>E-post</label>
+      <input type="email" name="email" placeholder="namn@foretag.se" required>
+      <label>Vad gäller det?</label>
+      <select name="amne" id="amneSelect" required>
+        <option value="">Välj ämne</option>
+        <option value="excel-mall">Köp Excel-mallen (990 kr)</option>
+        <option value="ai-intro-workshop">AI-introduktion halvdag – 9 900 kr</option>
+        <option value="ai-ledning">AI introduktion för ledning</option>
+        <option value="ai-workshop">AI workshop för team</option>
+        <option value="ai-strategi">AI strategi / rådgivning</option>
+        <option value="ai-just-nu">AI just nu</option>
+        <option value="copilot">Utbildning i Copilot 365 och ChatGPT</option>
+        <option value="dokument">Dokument och mallar</option>
+      </select>
+      <label>Beskriv kort situationen</label>
+      <textarea name="meddelande" placeholder="Vad vill ni förstå eller komma vidare med?"></textarea>
+      <button class="submit" type="submit">Skicka förfrågan</button>
+      <p style="margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center;">Jag återkommer normalt inom 24 timmar.</p>
     </form>
-
     <div class="form-success" id="formSuccess">
-      <div class="success-icon">✅</div>
       <h3>Tack för din förfrågan!</h3>
-      <p>Jag återkommer normalt inom 24 timmar.<br>Väljer du Excel-mallen skickas betalningsinstruktion via email.</p>
+      <p>Jag återkommer normalt inom 24 timmar.<br>Väljer du Excel-mallen skickas betalningsinstruktion via e-post.</p>
     </div>
-
   </div>
 </div>
 
-<div class="cursor-light" id="cursorLight"></div>
+<!-- ── TWEAKS ── -->
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"spacing":"normal","bodyFont":"Jakarta","accent":"green"}/*EDITMODE-END*/;
 
-<script>
-// Cursor-effekt
-const light = document.getElementById('cursorLight');
-window.addEventListener('mousemove', e => {
-  light.style.left = e.clientX + 'px';
-  light.style.top  = e.clientY + 'px';
-});
-window.addEventListener('touchmove', e => {
-  const t = e.touches[0];
-  if (!t) return;
-  light.style.left = t.clientX + 'px';
-  light.style.top  = t.clientY + 'px';
-});
-
-// Bildförhandsgranskning
-function openPreview() {
-  document.getElementById('previewModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closePreview() {
-  document.getElementById('previewModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('previewModal').addEventListener('click', function(e) {
-  if (e.target === this) closePreview();
-});
-
-// Modal
-function openModal(preselect) {
-  const modal = document.getElementById('kontaktModal');
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  if (preselect) {
-    const sel = document.getElementById('amneSelect');
-    if (sel) sel.value = preselect;
-  }
-}
-function closeModal() {
-  document.getElementById('kontaktModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-// Stäng vid klick på bakgrunden
-document.getElementById('kontaktModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-// Stäng med Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    if (document.getElementById('previewModal').classList.contains('open')) closePreview();
-    else closeModal();
-  }
-});
-
-// Förifyll Excel-mallen och öppna modalen
-function preselectExcel() {
-  openModal('excel-mall');
+function applyTweaks(v) {
+  const b = document.body;
+  b.classList.remove('sp-compact','sp-airy','font-inter','font-dm-sans','acc-slate','acc-sienna');
+  if (v.spacing==='compact') b.classList.add('sp-compact');
+  if (v.spacing==='airy')    b.classList.add('sp-airy');
+  if (v.bodyFont==='Inter')  b.classList.add('font-inter');
+  if (v.bodyFont==='DM Sans')b.classList.add('font-dm-sans');
+  if (v.accent==='slate')    b.classList.add('acc-slate');
+  if (v.accent==='sienna')   b.classList.add('acc-sienna');
 }
 
-// Visa bekräftelsemeddelande efter formulärskick (Formspree)
-const form = document.getElementById('contactForm');
-const success = document.getElementById('formSuccess');
-if (form) {
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const data = new FormData(form);
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        success.style.display = 'block';
-      } else {
-        alert('Något gick fel. Försök igen eller kontakta mig direkt.');
-      }
-    } catch (err) {
-      alert('Något gick fel. Kontrollera din internetanslutning.');
-    }
-  });
+function MPAITweaks() {
+  const {values, set} = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(()=>{ applyTweaks(values); },[values]);
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Luft &amp; avstånd">
+        <TweakRadio id="spacing" label="Spacing" value={values.spacing} onChange={v=>set('spacing',v)}
+          options={[{value:'compact',label:'Kompakt'},{value:'normal',label:'Normal'},{value:'airy',label:'Luftig'}]}/>
+      </TweakSection>
+      <TweakSection label="Typografi">
+        <TweakRadio id="bodyFont" label="Brödtextfont" value={values.bodyFont} onChange={v=>set('bodyFont',v)}
+          options={[{value:'Jakarta',label:'Jakarta'},{value:'DM Sans',label:'DM Sans'},{value:'Inter',label:'Inter'}]}/>
+      </TweakSection>
+      <TweakSection label="Accentfärg">
+        <TweakRadio id="accent" label="Färg" value={values.accent} onChange={v=>set('accent',v)}
+          options={[{value:'green',label:'Skog'},{value:'slate',label:'Slate'},{value:'sienna',label:'Sienna'}]}/>
+      </TweakSection>
+    </TweaksPanel>
+  );
 }
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<MPAITweaks/>);
 </script>
 
+<script>
+// ── CURSOR
+const cur = document.getElementById('cursor');
+let mx=0, my=0, cx=0, cy=0;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+document.querySelectorAll('a,button,.service-card,.stat,.focus-cell,.faq-q').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+(function animCursor(){
+  cx += (mx-cx)*.15; cy += (my-cy)*.15;
+  cur.style.left = cx+'px'; cur.style.top = cy+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+// ── NAV scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navWrap').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── MARQUEE
+(()=>{
+  const words=['Generativ AI','EU AI Act','Copilot 365','ChatGPT','AI-strategi','Machine Learning','Ledningsstöd','AI-policy','Governance','LLM i praktiken','AI-workshop','Reinforcement Learning'];
+  const t=document.getElementById('mTrack');
+  let h='';
+  for(let p=0;p<2;p++) words.forEach(w=>{h+=`<span class="marquee-item">${w}<span class="marquee-gem"></span></span>`;});
+  t.innerHTML=h;
+})();
+
+// ── SCROLL REVEAL
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── CYCLING TEXT
+(()=>{
+  const items=document.querySelectorAll('.cycle-item');
+  let i=0;
+  setInterval(()=>{
+    items[i].classList.remove('active');
+    i=(i+1)%items.length;
+    items[i].classList.add('active');
+  },2200);
+})();
+
+// ── COUNT UP
+function countUp(el){
+  const target=parseInt(el.dataset.count||'0',10);
+  const suf=el.dataset.suffix||'';
+  if(!target){el.textContent='0'+suf;return;}
+  const dur=1100; const start=performance.now();
+  const step=now=>{
+    const t=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-t,3);
+    el.textContent=Math.round(e*target)+suf;
+    if(t<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      co.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+const sb=document.getElementById('statsBar');
+if(sb) co.observe(sb);
+
+// ── FAQ
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+
+// ── MODALS
+function openPreview(){document.getElementById('previewModal').classList.add('open');document.body.style.overflow='hidden';}
+function closePreview(){document.getElementById('previewModal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('previewModal').addEventListener('click',e=>{if(e.target===document.getElementById('previewModal'))closePreview();});
+
+function openModal(p){document.getElementById('kontaktModal').classList.add('open');document.body.style.overflow='hidden';if(p){const s=document.getElementById('amneSelect');if(s)s.value=p;}}
+function closeModal(){document.getElementById('kontaktModal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('kontaktModal').addEventListener('click',e=>{if(e.target===document.getElementById('kontaktModal'))closeModal();});
+function preselectExcel(){openModal('excel-mall');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('previewModal').classList.contains('open'))closePreview();else closeModal();}});
+
+// ── FORM
+const form=document.getElementById('contactForm');
+const succ=document.getElementById('formSuccess');
+if(form){form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  try{
+    const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    if(r.ok){form.style.display='none';succ.style.display='block';}
+    else alert('Något gick fel. Försök igen eller kontakta mig direkt.');
+  }catch{alert('Något gick fel. Kontrollera din internetanslutning.');}
+});}
+</script>
 </body>
 </html>
