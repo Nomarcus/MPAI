@@ -13,10 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Georgia&display=swap" rel="stylesheet"/>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
 <style>
 /* ─ TOKENS ─────────────────────────────────────── */
 :root {
@@ -241,6 +237,9 @@ nav {
 }
 .hero-lead { font-size:1.1rem; color:var(--muted); line-height:1.8; font-weight:300; }
 .hero-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
+.hero-quick { margin-top:14px; text-align:right; font-size:.85rem; color:var(--muted); }
+.hero-quick a { color:var(--green); font-weight:600; text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s; }
+.hero-quick a:hover { border-color:var(--green); }
 
 /* ─ MARQUEE ─────────────────────────────────── */
 .marquee-wrap {
@@ -358,6 +357,7 @@ h2 {
   padding-top:4px;
 }
 .srow-title { font-family:var(--font-h); font-size:1.5rem; font-weight:700; letter-spacing:-.03em; line-height:1.2; padding-top:2px; }
+.srow-price { display:inline-block; margin-top:10px; font-size:.78rem; font-weight:600; color:var(--green); background:var(--green-pale); border:1px solid rgba(26,92,52,.18); padding:4px 10px; border-radius:999px; letter-spacing:.01em; }
 .srow-desc { font-size:.95rem; color:var(--muted); line-height:1.75; }
 .srow-list { list-style:none; margin-top:12px; }
 .srow-list li { font-size:.85rem; color:var(--muted-2); padding:5px 0; border-top:1px solid var(--line); display:flex; align-items:baseline; gap:9px; }
@@ -650,6 +650,7 @@ textarea { min-height:120px; resize:vertical; }
 @media(max-width:1024px){
   .hero-split{grid-template-columns:1fr; gap:28px}
   .hero-actions{justify-content:flex-start}
+  .hero-quick{text-align:left}
   .service-row{grid-template-columns:60px 1fr 1fr; }
   .srow-cta{grid-column:3}
   .stats-inner{grid-template-columns:repeat(2,1fr)}
@@ -738,8 +739,8 @@ textarea { min-height:120px; resize:vertical; }
       <div class="hero-actions">
         <a class="btn btn-primary" href="#tjanster">Se tjänster</a>
         <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Be om offert</a>
-
       </div>
+      <p class="hero-quick"><a href="#" onclick="toggleChat(true); return false;">eller ställ en snabb fråga →</a></p>
     </div>
   </div>
 </div>
@@ -783,6 +784,7 @@ textarea { min-height:120px; resize:vertical; }
         <div class="srow-num">01</div>
         <div>
           <div class="srow-title">Utbildning i Copilot 365 &amp; ChatGPT</div>
+          <span class="srow-price">Från 9 900 kr · halvdag</span>
         </div>
         <div>
           <div class="srow-desc">Praktisk genomgång av de AI-verktyg ni redan har – fokus på hur de faktiskt används i er vardag.</div>
@@ -802,6 +804,7 @@ textarea { min-height:120px; resize:vertical; }
         <div class="srow-num">02</div>
         <div>
           <div class="srow-title">AI just nu</div>
+          <span class="srow-price">Pris på förfrågan · ca 60 min</span>
         </div>
         <div>
           <div class="srow-desc">Ett kort, konkret tillfälle för ledning eller team. Vad händer inom AI just nu – och vad betyder det för er?</div>
@@ -820,6 +823,7 @@ textarea { min-height:120px; resize:vertical; }
         <div class="srow-num">03</div>
         <div>
           <div class="srow-title">Verksamhetsanpassad AI-genomgång</div>
+          <span class="srow-price">Skräddarsytt · pris efter omfattning</span>
         </div>
         <div>
           <div class="srow-desc">Ni berättar om er situation – jag täcker det ni faktiskt behöver. Ingen fast agenda, allt utgår från er.</div>
@@ -887,7 +891,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
         <div class="p-num">01</div>
         <div class="p-body">
           <h3>Ni beskriver läget</h3>
-          <p>Berätta vad ni vill förstå eller förbättra. Förklara er situation och eventuell konkurens som ni behöver möte ?</p>
+          <p>Berätta vad ni vill förstå eller förbättra. Beskriv er situation och eventuella utmaningar ni vill möta.</p>
         </div>
       </div>
       <div class="process-row reveal d1">
@@ -963,8 +967,8 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
 <!-- ── FLER VERKTYG ── -->
 <section class="section-sm" id="seo-verktyg">
   <div class="wrap">
-    <span class="s-label reveal">Fler verktyg</span>
-    <h2 class="reveal d1">Andra projekt</h2>
+    <span class="s-label reveal">Sidoprojekt</span>
+    <h2 class="reveal d1">Mer från Marcus</h2>
     <div style="display:flex; flex-direction:column; gap:14px; margin-top:var(--sp-md);">
       <a class="seo-card reveal d1" href="https://seo-insight-pro-indol.vercel.app/" target="_blank" rel="noopener">
         <div class="seo-icon">
@@ -1005,7 +1009,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       <div class="f-right">
         <p style="font-weight:600;color:var(--ink-2);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Kontakt</p>
         <p><a href="mailto:marcus.mpai@gmail.com">marcus.mpai@gmail.com</a></p>
-        <p>0793562946</p>
+        <p><a href="tel:+46793562946">079-356 29 46</a></p>
       </div>
     </div>
   </div>
@@ -1018,14 +1022,14 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       <h3>AI Compliance Excel-paket <span>— urval</span></h3>
       <button class="modal-close" onclick="closePreview()">&times;</button>
     </div>
-    <div class="prev-body">
-      <img src="euact_screen1.png" alt="" loading="lazy" onerror="this.style.display='none'">
-      <img src="euact_screen2.png" alt="" loading="lazy" onerror="this.style.display='none'">
-      <img src="euact_screen3.png" alt="" loading="lazy" onerror="this.style.display='none'">
-      <div style="text-align:center;padding:56px 24px;color:var(--muted);font-size:.9rem;line-height:1.7;">
+    <div class="prev-body" id="prevBody">
+      <img src="euact_screen1.png" alt="Skärmbild från AI Compliance Excel-paketet" loading="lazy" onerror="this.dataset.failed=1;this.style.display='none'">
+      <img src="euact_screen2.png" alt="Skärmbild från AI Compliance Excel-paketet" loading="lazy" onerror="this.dataset.failed=1;this.style.display='none'">
+      <img src="euact_screen3.png" alt="Skärmbild från AI Compliance Excel-paketet" loading="lazy" onerror="this.dataset.failed=1;this.style.display='none'">
+      <div id="prevFallback" style="display:none;text-align:center;padding:56px 24px;color:var(--muted);font-size:.9rem;line-height:1.7;">
         <div style="font-size:2rem;margin-bottom:12px;opacity:.3;">📊</div>
-        <strong style="color:var(--ink-2);display:block;margin-bottom:6px;">Skärmbilder saknas</strong>
-        Lägg till euact_screen1-3.png i samma mapp.
+        <strong style="color:var(--ink-2);display:block;margin-bottom:6px;">Förhandsbilder kunde inte laddas</strong>
+        Ladda ned paketet nedan så ser du allt innehåll direkt.
       </div>
     </div>
     <div class="prev-foot">
@@ -1048,9 +1052,9 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       <input type="text" name="namn" placeholder="Ditt namn" required>
       <label>E-post</label>
       <input type="email" name="email" placeholder="namn@foretag.se" required>
-      <label>Vad gäller det?</label>
-      <select name="amne" id="amneSelect" required>
-        <option value="">Välj ämne</option>
+      <label>Vad gäller det? <span style="color:var(--muted-2);font-weight:400;">(valfritt)</span></label>
+      <select name="amne" id="amneSelect">
+        <option value="">Välj om du vet redan – annars hoppa över</option>
         <option value="excel-mall">Ladda ned Excel-mallen (gratis)</option>
         <option value="ai-intro-workshop">AI-introduktion halvdag – 9 900 kr</option>
         <option value="ai-ledning">AI introduktion för ledning</option>
@@ -1059,6 +1063,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
         <option value="ai-just-nu">AI just nu</option>
         <option value="copilot">Utbildning i Copilot 365 och ChatGPT</option>
         <option value="dokument">Dokument och mallar</option>
+        <option value="annat">Annat / vet ej än</option>
       </select>
       <label>Beskriv kort situationen</label>
       <textarea name="meddelande" placeholder="Vad vill ni förstå eller komma vidare med?"></textarea>
@@ -1068,6 +1073,12 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
     <div class="form-success" id="formSuccess">
       <h3>Nästan klart!</h3>
       <p>Ditt mailprogram öppnas med meddelandet förifyllt – tryck <strong>Skicka</strong> där så är förfrågan på väg.<br>Jag återkommer normalt inom 24 timmar.</p>
+      <p style="margin-top:18px;font-size:.82rem;color:var(--muted);">
+        Öppnas inget? Mejla
+        <a href="mailto:marcus.mpai@gmail.com" style="color:var(--green);font-weight:600;">marcus.mpai@gmail.com</a>
+        eller ring
+        <a href="tel:+46793562946" style="color:var(--green);font-weight:600;">079-356 29 46</a>.
+      </p>
     </div>
   </div>
 </div>
@@ -1096,48 +1107,12 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
   <div class="chat-success" id="chatSuccess">
     <h4>Nästan klart!</h4>
     <p>Ditt mailprogram öppnas – tryck <strong>Skicka</strong> där så når frågan mig.</p>
+    <p style="margin-top:12px;font-size:.78rem;color:var(--muted);">
+      Öppnas inget? Mejla
+      <a href="mailto:marcus.mpai@gmail.com" style="color:var(--green);font-weight:600;">marcus.mpai@gmail.com</a>.
+    </p>
   </div>
 </div>
-
-<!-- ── TWEAKS ── -->
-<div id="tweaks-root"></div>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel">
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"spacing":"normal","bodyFont":"Jakarta","accent":"green"}/*EDITMODE-END*/;
-
-function applyTweaks(v) {
-  const b = document.body;
-  b.classList.remove('sp-compact','sp-airy','font-inter','font-dm-sans','acc-slate','acc-sienna');
-  if (v.spacing==='compact') b.classList.add('sp-compact');
-  if (v.spacing==='airy')    b.classList.add('sp-airy');
-  if (v.bodyFont==='Inter')  b.classList.add('font-inter');
-  if (v.bodyFont==='DM Sans')b.classList.add('font-dm-sans');
-  if (v.accent==='slate')    b.classList.add('acc-slate');
-  if (v.accent==='sienna')   b.classList.add('acc-sienna');
-}
-
-function MPAITweaks() {
-  const {values, set} = useTweaks(TWEAK_DEFAULTS);
-  React.useEffect(()=>{ applyTweaks(values); },[values]);
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection label="Luft &amp; avstånd">
-        <TweakRadio id="spacing" label="Spacing" value={values.spacing} onChange={v=>set('spacing',v)}
-          options={[{value:'compact',label:'Kompakt'},{value:'normal',label:'Normal'},{value:'airy',label:'Luftig'}]}/>
-      </TweakSection>
-      <TweakSection label="Typografi">
-        <TweakRadio id="bodyFont" label="Brödtextfont" value={values.bodyFont} onChange={v=>set('bodyFont',v)}
-          options={[{value:'Jakarta',label:'Jakarta'},{value:'DM Sans',label:'DM Sans'},{value:'Inter',label:'Inter'}]}/>
-      </TweakSection>
-      <TweakSection label="Accentfärg">
-        <TweakRadio id="accent" label="Färg" value={values.accent} onChange={v=>set('accent',v)}
-          options={[{value:'green',label:'Skog'},{value:'slate',label:'Slate'},{value:'sienna',label:'Sienna'}]}/>
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<MPAITweaks/>);
-</script>
 
 <script>
 // ── TICKER
@@ -1240,7 +1215,12 @@ function toggleFaq(btn){
 }
 
 // ── MODALS
-function openPreview(){document.getElementById('previewModal').classList.add('open');document.body.style.overflow='hidden';}
+function openPreview(){
+  document.getElementById('previewModal').classList.add('open');document.body.style.overflow='hidden';
+  const imgs=document.querySelectorAll('#prevBody img');
+  const allFailed=Array.from(imgs).every(i=>i.dataset.failed==='1');
+  document.getElementById('prevFallback').style.display=allFailed?'block':'none';
+}
 function closePreview(){document.getElementById('previewModal').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('previewModal').addEventListener('click',e=>{if(e.target===document.getElementById('previewModal'))closePreview();});
 
