@@ -261,6 +261,45 @@ h2 {
   font-size:1.05rem; color:var(--muted); line-height:1.8; max-width:640px; font-weight:300;
 }
 
+/* ─ TOOLS STRIP ─────────────────────────────────── */
+.tools-strip {
+  border-top:1px solid var(--line);
+  padding:40px 0;
+  background:var(--cream);
+}
+.tools-inner {
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  display:flex; align-items:center; gap:48px; flex-wrap:wrap;
+}
+.tools-label {
+  font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted-2); white-space:nowrap; flex-shrink:0;
+}
+.tools-divider {
+  width:1px; height:36px; background:var(--line-2); flex-shrink:0;
+}
+.tools-logos {
+  display:flex; align-items:center; gap:28px; flex-wrap:nowrap;
+}
+.tool-item {
+  display:flex; align-items:center; gap:10px;
+  opacity:.72; transition:opacity .2s; flex-shrink:0;
+}
+.tool-item:hover { opacity:1; }
+.tool-item img {
+  height:30px; width:auto; display:block;
+  object-fit:contain;
+}
+.tool-item.chatgpt img {
+  height:26px;
+}
+.tool-item.claude img {
+  height:30px;
+}
+.tool-item span {
+  font-size:.85rem; font-weight:500; color:var(--ink-2); letter-spacing:-.01em; white-space:nowrap;
+}
+
 /* ─ SERVICES (editorial rows) ──────────────────── */
 .services-list { margin-top:var(--sp-lg); }
 .service-row {
@@ -503,6 +542,31 @@ textarea { min-height:120px; resize:vertical; }
 .prev-foot { padding:16px 28px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-shrink:0; }
 .prev-foot p { font-size:.82rem; color:var(--muted); }
 
+@media(max-width:768px){
+  .product-strip {
+    flex-direction:column;
+    gap:24px;
+    padding:24px;
+  }
+  .product-strip-right {
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+    width:100%;
+  }
+  .product-strip-price {
+    font-size:1.8rem;
+  }
+  .product-strip-right > div {
+    width:100%;
+  }
+  .product-strip-right .btn {
+    flex:1;
+    justify-content:center;
+    text-align:center;
+  }
+}
+
 /* ─ RESPONSIVE ──────────────────────────────── */
 @media(max-width:1024px){
   .hero-split{grid-template-columns:1fr; gap:28px}
@@ -585,7 +649,7 @@ textarea { min-height:120px; resize:vertical; }
     </h1>
     <div class="hero-split reveal d2">
       <p class="hero-lead">
-        Jag hjälper ledningsgrupper och team att förstå hur AI kan användas i verksamheten.
+        Jag hjälper ledningsgrupper, chefer och team att förstå hur AI kan användas i verksamheten.
         Fokus ligger inte på teknik – utan på beslut, effektivitet och vardagligt arbetssätt.
       </p>
       <div class="hero-actions">
@@ -623,12 +687,34 @@ textarea { min-height:120px; resize:vertical; }
   </div>
 </div>
 
+<!-- ── TOOLS STRIP ── -->
+<div class="tools-strip">
+  <div class="tools-inner">
+    <span class="tools-label">Exempel på verktyg jag arbetar med</span>
+    <div class="tools-divider"></div>
+    <div class="tools-logos">
+      <div class="tool-item">
+        <img src="logo-copilot.png" alt="Microsoft Copilot 365" style="opacity: 10; border-width: 1px; border-style: solid">
+        <span>Copilot 365</span>
+      </div>
+      <div class="tool-item chatgpt">
+        <img src="logo-chatgpt.png" alt="ChatGPT" style="border-width: 1px; border-style: solid">
+        <span>ChatGPT</span>
+      </div>
+      <div class="tool-item claude">
+        <img src="logo-claude-transparent.png" alt="Claude" style="border-width: 1px; border-style: solid">
+        <span>Claude</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ── TJÄNSTER ── -->
 <section class="section" id="tjanster">
   <div class="wrap">
     <span class="s-label reveal">Tjänster</span>
     <h2 class="reveal d1">Hur jag kan hjälpa</h2>
-    <p class="s-lead reveal d2" style="margin-top:12px;">Berätta vad ni upplever för utmaning eller problemr – jag anpassar upplägget. Allt utgår alltid från er verklighet.</p>
+    <p class="s-lead reveal d2" style="margin-top:12px;">Berätta vad ni behöver – jag anpassar upplägget. Allt utgår alltid från er verklighet.</p>
 
     <div class="services-list">
       <div class="service-row reveal">
@@ -690,9 +776,9 @@ textarea { min-height:120px; resize:vertical; }
 </section>
 
 <!-- ── EXCEL ── -->
-<section class="section-sm" id="excel-mall" style="height: 31.172px">
+<section class="section-sm" id="excel-mall" >
   <div class="wrap">
-    <div class="product-strip reveal" style="height: 170px">
+    <div class="product-strip reveal" >
       <div class="product-strip-copy">
         <span class="product-badge">AI Compliance Excel-paket</span>
         <p class="product-strip-desc">Policy, riskklassning och governance för EU AI Act – klart att använda direkt, på svenska. Levereras via e-post inom 24h.</p>
@@ -714,10 +800,10 @@ textarea { min-height:120px; resize:vertical; }
     <span class="s-label reveal">Om mig</span>
     <div class="about-grid">
       <div class="reveal d1">
-        <div class="about-role">AI-specialist · Generativ AI, ML &amp; RL</div>
+        <div class="about-role">AI-specialist · Generativ AI</div>
         <div class="about-pull">Att göra AI begripligt och användbart – inte imponerande.</div>
-        <p class="about-body">Jag har de senaste åren specialiserat mig på Generativ AI, Machine Learning och Reinforcement Learning med ett tydligt fokus på hur AI kan användas i verkliga organisationer. Jag tror fokus bör ligga på lära sig så mycket som möjligt om AI just nu för att anpassa och möte den snabba teknikförändringen.</p>
-        <p class="about-body">Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker. Det är utgångspunkten för allt jag gör.</p>
+        <p class="about-body">Jag har de senaste åren specialiserat mig på Generativ AI med ett tydligt fokus på hur AI kan användas i vardagen och i verkliga organisationer . </p>
+        <p class="about-body">Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker. Det är utgångspunkten i det jag gör.</p>
         <ul class="about-list">
           <li>Specialiserad på Generativ AI och LLM i praktiken</li>
           <li>Erfarenhet av Machine Learning och Reinforcement Learning</li>
@@ -727,8 +813,8 @@ textarea { min-height:120px; resize:vertical; }
       </div>
       <div class="reveal d2">
         <div class="focus-grid">
-          <div class="focus-cell"><strong>Generativ AI</strong><p>ChatGPT, Copilot och and LLM-verktyg i praktiken</p></div>
-          <div class="focus-cell"><strong>Copilot 365</strong><p>AI anpassat för säkerhet inom arbetetslivet</p></div>
+          <div class="focus-cell"><strong>Generativ AI</strong><p>ChatGPT, Copilot och LLM-verktyg i praktiken</p></div>
+          <div class="focus-cell"><strong>Copilot 365</strong><p>AI anpassat för Microsoft 365-miljön och arbetslivet</p></div>
           <div class="focus-cell"><strong>AI-styrning</strong><p>EU AI Act, policy och governance-ramverk</p></div>
           <div class="focus-cell"><strong>Ledningsstöd</strong><p>AI-strategi för chefer och beslutsfattare</p></div>
         </div>
