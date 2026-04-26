@@ -486,23 +486,6 @@ h2 {
 .faq-plus { display:block; } .faq-item.open .faq-plus { display:none; }
 .faq-minus { display:none; } .faq-item.open .faq-minus { display:block; }
 
-/* ─ SEO CARD ────────────────────────────────── */
-.seo-card {
-  display:flex; align-items:center; gap:24px;
-  background:var(--cream-2); border:1px solid var(--line);
-  border-radius:16px; padding:28px 32px; text-decoration:none; color:inherit;
-  max-width:680px; margin-top:var(--sp-md);
-  transition:border-color .2s, transform .2s;
-}
-.seo-card:hover { border-color:rgba(26,92,52,.3); transform:translateY(-2px); }
-.seo-icon { width:46px; height:46px; border-radius:12px; background:var(--green-pale); border:1px solid rgba(26,92,52,.18); display:flex; align-items:center; justify-content:center; color:var(--green); flex-shrink:0; }
-.seo-body { flex:1; }
-.seo-tag { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-2); font-weight:600; }
-.seo-body h3 { font-size:1rem; font-weight:600; margin:3px 0 5px; }
-.seo-body p { font-size:.84rem; color:var(--muted); line-height:1.5; }
-.seo-arr { color:var(--muted); font-size:1.3rem; transition:transform .2s; }
-.seo-card:hover .seo-arr { transform:translateX(4px); color:var(--green); }
-
 /* ─ FOOTER ──────────────────────────────────── */
 footer { border-top:1px solid var(--line); padding:56px 0 48px; }
 .footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
@@ -784,7 +767,7 @@ textarea { min-height:120px; resize:vertical; }
         <div class="srow-num">01</div>
         <div>
           <div class="srow-title">Utbildning i Copilot 365 &amp; ChatGPT</div>
-          <span class="srow-price">Från 9 900 kr · halvdag</span>
+          <span class="srow-price">Ca pris från 9 900 kr · varierar med antal deltagare</span>
         </div>
         <div>
           <div class="srow-desc">Praktisk genomgång av de AI-verktyg ni redan har – fokus på hur de faktiskt används i er vardag.</div>
@@ -964,38 +947,6 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
   </div>
 </section>
 
-<!-- ── FLER VERKTYG ── -->
-<section class="section-sm" id="seo-verktyg">
-  <div class="wrap">
-    <span class="s-label reveal">Sidoprojekt</span>
-    <h2 class="reveal d1">Mer från Marcus</h2>
-    <div style="display:flex; flex-direction:column; gap:14px; margin-top:var(--sp-md);">
-      <a class="seo-card reveal d1" href="https://seo-insight-pro-indol.vercel.app/" target="_blank" rel="noopener">
-        <div class="seo-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-        </div>
-        <div class="seo-body">
-          <span class="seo-tag">Externt verktyg</span>
-          <h3>SEO Insight Pro</h3>
-          <p>Analysera er synlighet, identifiera nyckelord ni rankar på och se vad konkurrenterna gör rätt. Gratis att testa.</p>
-        </div>
-        <div class="seo-arr">→</div>
-      </a>
-
-      <a class="seo-card reveal d2" href="https://foraldrahjalpen.se/" target="_blank" rel="noopener">
-        <div class="seo-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="seo-body">
-          <span class="seo-tag">Externt projekt</span>
-          <h3>Föräldrahjälpen</h3>
-          <p>Stöd och vägledning för föräldrar. Besök foraldrahjalpen.se för mer information.</p>
-        </div>
-        <div class="seo-arr">→</div>
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -1056,7 +1007,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       <select name="amne" id="amneSelect">
         <option value="">Välj om du vet redan – annars hoppa över</option>
         <option value="excel-mall">Ladda ned Excel-mallen (gratis)</option>
-        <option value="ai-intro-workshop">AI-introduktion halvdag – 9 900 kr</option>
+        <option value="ai-intro-workshop">AI-introduktion halvdag – från ca 9 900 kr</option>
         <option value="ai-ledning">AI introduktion för ledning</option>
         <option value="ai-workshop">AI workshop för team</option>
         <option value="ai-strategi">AI strategi / rådgivning</option>
