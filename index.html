@@ -19,9 +19,9 @@
 <style>
 /* ─ TOKENS ─────────────────────────────────────── */
 :root {
-  --cream:      #EEE9DF;
-  --cream-2:    #E5DFD3;
-  --cream-3:    #DCD5C7;
+  --cream:      #D8D1C4;
+  --cream-2:    #CEC6B7;
+  --cream-3:    #C3BAA8;
   --ink:        #141009;
   --ink-2:      #3B3630;
   --muted:      #7D7367;
@@ -65,6 +65,47 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   line-height: 1.7;
+}
+
+/* ─ TOP TICKER ─────────────────────────────── */
+.ticker-bar {
+  background: var(--ink);
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+  z-index: 51;
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 28s linear infinite;
+  gap: 0;
+}
+.ticker-bar:hover .ticker-track { animation-play-state: paused; }
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 32px;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(216,209,196,.65);
+  white-space: nowrap;
+  cursor: default;
+  transition: color .2s;
+}
+.ticker-item:hover { color: rgba(216,209,196,1); }
+.ticker-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
 }
 
 /* ─ CURSOR ── */
@@ -619,6 +660,11 @@ textarea { min-height:120px; resize:vertical; }
 <body>
 <div id="cursor"></div>
 
+<!-- ── TOP TICKER ── -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
 <!-- ── NAV ── -->
 <div class="nav-wrap" id="navWrap">
   <nav>
@@ -637,7 +683,7 @@ textarea { min-height:120px; resize:vertical; }
   <div class="hero-mark" aria-hidden="true">MPAI</div>
   <div class="hero-inner">
     <div class="eyebrow reveal">
-      <hr/> AI-rådgivning för organisationer
+      <hr/> AI-rådgivning & utbildning för alla
     </div>
     <h1 class="reveal d1">
       AI som fungerar<br>för
@@ -669,15 +715,15 @@ textarea { min-height:120px; resize:vertical; }
 <div class="stats-bar">
   <div class="stats-inner" id="statsBar">
     <div class="stat">
-      <div class="stat-num" data-count="3" data-suffix="+">Flera</div>
+      <div class="stat-num" data-count="3" data-suffix="+" style="height:38.4062px">3+</div>
       <div class="stat-label">Tjänsteområden</div>
     </div>
     <div class="stat">
-      <div class="stat-num" data-count="990" data-suffix=" kr">990 kr</div>
-      <div class="stat-label">Excel-paketet, inkl. EU AI Act</div>
+      <div class="stat-num" style="font-size:30.4px">AI-rådgivning</div>
+      <div class="stat-label">Generell AI-rådgivning </div>
     </div>
     <div class="stat">
-      <div class="stat-num" style="font-size:1.9rem;letter-spacing:-.03em;">Copilot<span style="color:var(--green)">365</span></div>
+      <div class="stat-num" style="font-size:1.4rem;letter-spacing:-.03em;">Copilot<span style="color:var(--green)">365</span> & ChatGPT</div>
       <div class="stat-label">Utbildning &amp; praktisk användning</div>
     </div>
     <div class="stat">
@@ -714,7 +760,7 @@ textarea { min-height:120px; resize:vertical; }
   <div class="wrap">
     <span class="s-label reveal">Tjänster</span>
     <h2 class="reveal d1">Hur jag kan hjälpa</h2>
-    <p class="s-lead reveal d2" style="margin-top:12px;">Berätta vad ni behöver – jag anpassar upplägget. Allt utgår alltid från er verklighet.</p>
+    <p class="s-lead reveal d2" style="margin-top:12px;">Berätta vad ni behöver – jag anpassar upplägget. Allt utgår alltid från er verklighet. Hittar ni inte tjänsten ni eftersöker nedan kontakta mig för förslag på upplägg.</p>
 
     <div class="services-list">
       <div class="service-row reveal">
@@ -781,12 +827,12 @@ textarea { min-height:120px; resize:vertical; }
     <div class="product-strip reveal" >
       <div class="product-strip-copy">
         <span class="product-badge">AI Compliance Excel-paket</span>
-        <p class="product-strip-desc">Policy, riskklassning och governance för EU AI Act – klart att använda direkt, på svenska. Levereras via e-post inom 24h.</p>
+        <p class="product-strip-desc">Policy, riskklassning och governance för EU AI Act – klart att använda direkt, på svenska. Ladda ned gratis för att komma igång.</p>
       </div>
       <div class="product-strip-right">
-        <div class="product-strip-price" style="height: 35.2031px; font-family: &quot;Plus Jakarta Sans&quot;"><span class="price-cur">kr </span>990 <span class="product-strip-vat">exkl.  moms</span></div>
+        <div class="product-strip-price"><span style="font-size:1.4rem;font-weight:700;color:var(--green);letter-spacing:-.02em;">Gratis</span></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ned – 990 kr</a>
+          <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download>Ladda ned gratis</a>
           <a class="btn btn-outline" href="#" onclick="openPreview(); return false;">Förhandsgranska</a>
         </div>
       </div>
@@ -802,7 +848,7 @@ textarea { min-height:120px; resize:vertical; }
       <div class="reveal d1">
         <div class="about-role">AI-specialist · Generativ AI</div>
         <div class="about-pull">Att göra AI begripligt och användbart – inte imponerande.</div>
-        <p class="about-body">Jag har de senaste åren specialiserat mig på Generativ AI med ett tydligt fokus på hur AI kan användas i vardagen och i verkliga organisationer . </p>
+        <p class="about-body">Jag heter Marcus Petersson och driver denna enskilda firma med Fokus på AI kompetens då jag de senaste åren specialiserat mig på Generativ AI med ett tydligt fokus på hur AI kan användas i vardagen och i verkliga organisationer. Jag vill använda det jag lärt mig för att andra skall kunna se och utnyttja kraften av den nya AI-tekniken i vardagen och på arbetet. </p>
         <p class="about-body">Chefer och ledningsgrupper ska kunna fatta välgrundade beslut om AI utan att behöva bli tekniker. Det är utgångspunkten i det jag gör.</p>
         <ul class="about-list">
           <li>Specialiserad på Generativ AI och LLM i praktiken</li>
@@ -977,7 +1023,7 @@ textarea { min-height:120px; resize:vertical; }
     </div>
     <div class="prev-foot">
       <p>Urval — det riktiga paketet har fler flikar och automatiserade beräkningar.</p>
-      <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download style="font-size:.85rem;padding:11px 20px;white-space:nowrap;">Ladda ned – 990 kr</a>
+      <a class="btn btn-primary" href="MPAI_AI_Compliance_Workbook.xlsx" download style="font-size:.85rem;padding:11px 20px;white-space:nowrap;">Ladda ned gratis</a>
     </div>
   </div>
 </div>
@@ -999,7 +1045,7 @@ textarea { min-height:120px; resize:vertical; }
       <label>Vad gäller det?</label>
       <select name="amne" id="amneSelect" required>
         <option value="">Välj ämne</option>
-        <option value="excel-mall">Köp Excel-mallen (990 kr)</option>
+        <option value="excel-mall">Ladda ned Excel-mallen (gratis)</option>
         <option value="ai-intro-workshop">AI-introduktion halvdag – 9 900 kr</option>
         <option value="ai-ledning">AI introduktion för ledning</option>
         <option value="ai-workshop">AI workshop för team</option>
@@ -1061,6 +1107,27 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<MPAITweaks/>
 </script>
 
 <script>
+// ── TICKER
+(()=>{
+  const services = [
+    'Utbildning i Copilot 365 & ChatGPT',
+    'AI just nu – aktuella trender',
+    'Verksamhetsanpassad AI-genomgång',
+    'AI Compliance Excel-paket – gratis',
+    'EU AI Act & governance',
+    'AI-strategi för ledning',
+    'Generativ AI i praktiken',
+  ];
+  const t = document.getElementById('tickerTrack');
+  let h = '';
+  for (let p = 0; p < 2; p++) {
+    services.forEach(s => {
+      h += `<span class="ticker-item">${s}<span class="ticker-dot"></span></span>`;
+    });
+  }
+  t.innerHTML = h;
+})();
+
 // ── CURSOR
 const cur = document.getElementById('cursor');
 let mx=0, my=0, cx=0, cy=0;
