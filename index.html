@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!-- ================================================================
   MPAI – index.html  (editorial redesign, GitHub-kompatibel)
-  Formspree: byt action="https://formspree.io/f/mzdjgang"
+  Formulär använder mailto: direkt till marcus.mpai@gmail.com
+  – inga tredjepartstjänster, inget konto att underhålla.
 ================================================================ -->
 <html lang="sv">
 <head>
@@ -1003,7 +1004,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       </div>
       <div class="f-right">
         <p style="font-weight:600;color:var(--ink-2);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Kontakt</p>
-        <p><a href="mailto:info@mpai.se">marcus.mpai@gmail.com</a></p>
+        <p><a href="mailto:marcus.mpai@gmail.com">marcus.mpai@gmail.com</a></p>
         <p>0793562946</p>
       </div>
     </div>
@@ -1040,8 +1041,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
     <button class="modal-close" onclick="closeModal()">&times;</button>
     <h2>Beskriv ert behov</h2>
     <p class="modal-sub">Berätta kort om er situation så återkommer jag med ett förslag.</p>
-    <form id="contactForm" action="https://formspree.io/f/mzdjgang" method="POST">
-      <input type="hidden" name="_subject" value="Ny förfrågan från MPAI.se">
+    <form id="contactForm">
       <label>Företag</label>
       <input type="text" name="foretag" placeholder="Företagsnamn">
       <label>Namn</label>
@@ -1066,8 +1066,8 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
       <p style="margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center;">Jag återkommer normalt inom 24 timmar.</p>
     </form>
     <div class="form-success" id="formSuccess">
-      <h3>Tack för din förfrågan!</h3>
-      <p>Jag återkommer normalt inom 24 timmar.<br>Väljer du Excel-mallen skickas betalningsinstruktion via e-post.</p>
+      <h3>Nästan klart!</h3>
+      <p>Ditt mailprogram öppnas med meddelandet förifyllt – tryck <strong>Skicka</strong> där så är förfrågan på väg.<br>Jag återkommer normalt inom 24 timmar.</p>
     </div>
   </div>
 </div>
@@ -1086,8 +1086,7 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
     </div>
     <button class="chat-panel-close" onclick="toggleChat(false)" aria-label="Stäng">&times;</button>
   </div>
-  <form id="chatForm" action="https://formspree.io/f/mzdjgang" method="POST">
-    <input type="hidden" name="_subject" value="Snabbfråga från MPAI.se">
+  <form id="chatForm">
     <label>Din e-post</label>
     <input type="email" name="email" placeholder="namn@foretag.se" required>
     <label>Din fråga</label>
@@ -1095,8 +1094,8 @@ Jag hjälper organisationer att se var AI faktiskt kan skapa nytta, hur man komm
     <button class="submit" type="submit">Skicka</button>
   </form>
   <div class="chat-success" id="chatSuccess">
-    <h4>Tack!</h4>
-    <p>Din fråga är på väg. Jag återkommer via e-post.</p>
+    <h4>Nästan klart!</h4>
+    <p>Ditt mailprogram öppnas – tryck <strong>Skicka</strong> där så når frågan mig.</p>
   </div>
 </div>
 
@@ -1251,15 +1250,15 @@ document.getElementById('kontaktModal').addEventListener('click',e=>{if(e.target
 function preselectExcel(){openModal('excel-mall');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('previewModal').classList.contains('open'))closePreview();else closeModal();}});
 
-// ── FORM
+// ── FORM (mailto-baserat – ingen tredjepartstjänst)
 const MPAI_EMAIL='marcus.mpai@gmail.com';
-function mailtoFallback(subject,bodyLines){
-  const body=bodyLines.filter(Boolean).join('\n');
+function sendMailto(subject,bodyLines){
+  const body=bodyLines.join('\n');
   window.location.href=`mailto:${MPAI_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 const form=document.getElementById('contactForm');
 const succ=document.getElementById('formSuccess');
-if(form){form.addEventListener('submit',async e=>{
+if(form){form.addEventListener('submit',e=>{
   e.preventDefault();
   const data=new FormData(form);
   const subject=`Ny förfrågan från MPAI.se – ${data.get('amne')||'okänt ämne'}`;
@@ -1272,16 +1271,8 @@ if(form){form.addEventListener('submit',async e=>{
     'Meddelande:',
     data.get('meddelande')||'(inget meddelande)'
   ];
-  try{
-    const r=await fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-    if(r.ok){form.style.display='none';succ.style.display='block';return;}
-    throw new Error('formspree');
-  }catch{
-    if(confirm('Det gick inte att skicka via formuläret. Vill du öppna ditt mailprogram istället för att skicka direkt till '+MPAI_EMAIL+'?')){
-      mailtoFallback(subject,lines);
-      form.style.display='none';succ.style.display='block';
-    }
-  }
+  sendMailto(subject,lines);
+  form.style.display='none';succ.style.display='block';
 });}
 
 // ── QUICK CHAT WIDGET
@@ -1295,7 +1286,7 @@ document.addEventListener('keydown',e=>{
 });
 const chatForm=document.getElementById('chatForm');
 const chatSucc=document.getElementById('chatSuccess');
-if(chatForm){chatForm.addEventListener('submit',async e=>{
+if(chatForm){chatForm.addEventListener('submit',e=>{
   e.preventDefault();
   const data=new FormData(chatForm);
   const subject='Snabbfråga från MPAI.se';
@@ -1305,16 +1296,8 @@ if(chatForm){chatForm.addEventListener('submit',async e=>{
     'Fråga:',
     data.get('meddelande')||'(ingen fråga)'
   ];
-  try{
-    const r=await fetch(chatForm.action,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-    if(r.ok){chatForm.style.display='none';chatSucc.style.display='block';return;}
-    throw new Error('formspree');
-  }catch{
-    if(confirm('Det gick inte att skicka direkt. Vill du öppna ditt mailprogram istället?')){
-      mailtoFallback(subject,lines);
-      chatForm.style.display='none';chatSucc.style.display='block';
-    }
-  }
+  sendMailto(subject,lines);
+  chatForm.style.display='none';chatSucc.style.display='block';
 });}
 </script>
 </body>
