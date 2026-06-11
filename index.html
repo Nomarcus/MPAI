@@ -468,7 +468,10 @@ h2 {
   height:26px;
 }
 .tool-item.claude img {
-  height:30px;
+  height:26px;
+}
+.tool-item.gemini img {
+  height:26px;
 }
 .tool-item span {
   font-size:.85rem; font-weight:500; color:var(--ink-2); letter-spacing:-.01em; white-space:nowrap;
@@ -499,6 +502,51 @@ h2 {
 .srow-list li::before { content:"→"; color:var(--green); font-size:.75rem; flex-shrink:0; transition:transform .25s var(--ease); display:inline-block; }
 .srow-list li:hover::before { transform:translateX(4px); }
 .srow-cta { padding-top:4px; }
+
+/* ─ GENOMGÅNGAR PER FUNKTION ───────────────────── */
+.gg-grid {
+  margin-top:var(--sp-lg);
+  display:grid; grid-template-columns:1fr 1fr; gap:1px;
+  background:var(--line); border:1px solid var(--line);
+  border-radius:16px; overflow:hidden;
+}
+.gg-cell {
+  background:var(--cream); padding:30px 34px;
+  transition:background .25s; position:relative; overflow:hidden;
+}
+.gg-cell::after {
+  content:""; position:absolute; left:0; top:0; height:100%; width:3px;
+  background:var(--green); transform:scaleY(0); transform-origin:top;
+  transition:transform .3s var(--ease);
+}
+.gg-cell:hover { background:var(--cream-2); }
+.gg-cell:hover::after { transform:scaleY(1); }
+.gg-head { display:flex; align-items:baseline; gap:14px; margin-bottom:10px; }
+.gg-num {
+  font-family:var(--font-h); font-size:1.7rem; font-weight:800;
+  letter-spacing:-.04em; color:var(--cream-3); line-height:1; transition:color .3s;
+}
+.gg-cell:hover .gg-num { color:var(--green); }
+.gg-title { font-family:var(--font-h); font-size:1.15rem; font-weight:700; letter-spacing:-.02em; color:var(--ink); }
+.gg-use { font-size:.88rem; color:var(--muted); line-height:1.65; margin-bottom:10px; }
+.gg-use strong { color:var(--ink-2); font-weight:600; }
+.gg-start { font-size:.85rem; color:var(--green); line-height:1.55; display:flex; gap:8px; align-items:baseline; }
+.gg-start::before { content:"→"; flex-shrink:0; font-size:.8rem; }
+.gg-start strong { font-weight:700; }
+.gg-cta {
+  margin-top:var(--sp-md);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px; flex-wrap:wrap;
+  padding-top:var(--sp-sm); border-top:1px solid var(--line);
+}
+.gg-cta p { font-size:.9rem; color:var(--muted); max-width:560px; line-height:1.7; }
+.gg-cta-actions { display:flex; gap:12px; flex-wrap:wrap; }
+@media(max-width:860px){
+  .gg-grid { grid-template-columns:1fr; }
+  .gg-cell { padding:24px 22px; }
+  .gg-cta-actions { width:100%; }
+  .gg-cta-actions .btn { flex:1; justify-content:center; }
+}
 
 /* ─ ABOUT ───────────────────────────────────── */
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:var(--sp-lg); align-items:start; }
@@ -944,6 +992,7 @@ textarea { min-height:120px; resize:vertical; }
     <div class="nav-links" id="navLinks">
       <a href="#om-mig" data-nav>Om mig</a>
       <a href="#tjanster" data-nav>Tjänster</a>
+      <a href="#genomgangar" data-nav>Genomgångar</a>
       <a href="#faq" data-nav>FAQ</a>
       <a href="#" onclick="openModal(); return false;" class="btn-cta-nav">Be om offert</a>
     </div>
@@ -1020,16 +1069,20 @@ textarea { min-height:120px; resize:vertical; }
     <span class="tools-divider" aria-hidden="true"></span>
     <div class="tools-logos">
       <div class="tool-item copilot">
-        <img src="logo-copilot.png" alt="Microsoft Copilot 365" loading="lazy" onerror="this.style.display='none'"/>
+        <img src="logo-copilot-clean.png" alt="Microsoft Copilot 365" loading="lazy" onerror="this.style.display='none'"/>
         <span>Copilot 365</span>
       </div>
       <div class="tool-item chatgpt">
-        <img src="logo-chatgpt.png" alt="ChatGPT" loading="lazy" onerror="this.style.display='none'"/>
+        <img src="logo-chatgpt-clean.png" alt="ChatGPT" loading="lazy" onerror="this.style.display='none'"/>
         <span>ChatGPT</span>
       </div>
       <div class="tool-item claude">
-        <img src="logo-claude-transparent.png" alt="Claude" loading="lazy" onerror="this.style.display='none'"/>
+        <img src="logo-claude-mark.png" alt="Claude" loading="lazy" onerror="this.style.display='none'"/>
         <span>Claude</span>
+      </div>
+      <div class="tool-item gemini">
+        <img src="logo-gemini.png" alt="Google Gemini" loading="lazy" onerror="this.style.display='none'"/>
+        <span>Gemini</span>
       </div>
     </div>
   </div>
@@ -1099,6 +1152,87 @@ textarea { min-height:120px; resize:vertical; }
         <div class="srow-cta">
           <a class="btn btn-outline" href="#" onclick="openModal('ai-strategi'); return false;" data-magnetic>Kontakta →</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GENOMGÅNGAR PER FUNKTION ── -->
+<section class="section" id="genomgangar">
+  <div class="wrap">
+    <span class="s-label reveal">Genomgångar</span>
+    <h2 class="reveal d1">AI för varje funktion</h2>
+    <p class="s-lead reveal d2" style="margin-top:12px;">Tio färdiga genomgångar – från ledningsgrupp till produktion. Varje upplägg anpassas efter er verksamhet, kräver inga förkunskaper och kan köras digitalt eller på plats.</p>
+
+    <div class="gg-grid">
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">01</span><span class="gg-title">Ledningsgrupp &amp; chefer</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> beslutsunderlag på minuter, omvärldsbevakning, AI som djävulens advokat inför beslut – och konsten att delegera till agenter med tydliga mål.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> 2-timmars genomgång med diskussion och promptövning – färdig att boka.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">02</span><span class="gg-title">Team &amp; medarbetare</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> mail, sammanfattningar, mallar och dokument – de små vinsterna som gånger alla medarbetare blir stora.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> halvdags workshop där alla testar på sina egna arbetsuppgifter.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">03</span><span class="gg-title">Kundsupport &amp; kundtjänst</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> svarsutkast med rätt ton, sammanfattning av långa ärenden, FAQ och kunskapsbas byggd ur era bästa svar.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> genomgång + promptmallar och tonlägesguide för era vanligaste ärendetyper.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">04</span><span class="gg-title">Projektledning</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> statusrapporter, mötesanteckningar med åtgärdslistor, riskanalyser och planeringsutkast – administrationen krymper, ledningen växer.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> workshop kring ett pågående projekt – verkliga dokument, verkliga vinster.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">05</span><span class="gg-title">Sälj</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> research inför kundmöten, offert- och uppföljningsutkast, mötesanteckningar direkt in i CRM – mer tid i kundmötet.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> halvdag med säljteamet – hela flödet från första kontakt till offert med AI-stöd.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">06</span><span class="gg-title">Ekonomi &amp; finans</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> ställ frågor till siffrorna på svenska i Excel, rapportutkast, avvikelser och trender – snabbare väg från data till slutsats.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> genomgång av Copilot i Excel direkt på era egna rapportmallar.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">07</span><span class="gg-title">HR</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> annonser, policyutkast, intervjuunderlag och utbildningsmaterial – plus koll på EU AI Act:s krav på AI-kompetens hos personalen.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> workshop + stöd att uppfylla utbildningskravet i EU AI Act (artikel 4).</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">08</span><span class="gg-title">Marknad &amp; kommunikation</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> innehålls- och kampanjutkast, målgruppsanpassning, översättning och bildstöd – högre takt utan att tappa er röst.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> halvdag om innehållsflöden med er tonalitet som utgångspunkt.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">09</span><span class="gg-title">Produktion &amp; logistik</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> arbetsinstruktioner, avvikelserapporter, skiftöverlämningar och dokumentation som faktiskt blir läst och förstådd.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> genomgång anpassad till skiftgång – korta pass, direkt nytta på golvet.</p>
+      </div>
+
+      <div class="gg-cell reveal">
+        <div class="gg-head"><span class="gg-num">10</span><span class="gg-title">IT &amp; verksamhetsutveckling</span></div>
+        <p class="gg-use"><strong>AI i vardagen:</strong> utrullning av Copilot, behörigheter och datastädning, agent-piloter och styrning – tekniken på plats utan att tappa människorna.</p>
+        <p class="gg-start"><strong>Kom igång:</strong> rådgivning kring pilotgrupp, policy och teknisk förberedelse.</p>
+      </div>
+
+    </div>
+
+    <div class="gg-cta reveal">
+      <p>Hela katalogen finns som PDF att dela internt – eller berätta var ni vill börja så föreslår jag ett upplägg.</p>
+      <div class="gg-cta-actions">
+        <a class="btn btn-outline" href="MPAI_Genomgangar_AI.pdf" download data-magnetic>Ladda ned katalogen (PDF)</a>
+        <a class="btn btn-primary" href="#" onclick="openModal(); return false;" data-magnetic>Be om offert</a>
       </div>
     </div>
   </div>
