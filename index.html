@@ -555,6 +555,30 @@ h2 em { font-style:italic; font-weight:400; color:var(--green); }
 }
 .gg-cta p { font-size:.9rem; color:var(--muted); max-width:560px; line-height:1.7; }
 .gg-cta-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+/* hopfällbara sektioner – minimerade från början */
+.clps {
+  overflow:hidden; max-height:0;
+  transition:max-height .7s var(--ease);
+}
+.clps-toggle {
+  margin-top:var(--sp-md);
+  display:inline-flex; align-items:center; gap:12px;
+  font-family:var(--font-b); font-weight:600; font-size:.92rem;
+  padding:14px 26px; border-radius:999px; cursor:pointer;
+  background:transparent; color:var(--ink);
+  border:1.5px solid var(--line-2);
+  transition:border-color .2s, color .2s, background .2s, transform .25s var(--ease);
+}
+.clps-toggle:hover { border-color:rgba(26,92,52,.5); color:var(--green); background:var(--green-pale); transform:translateY(-2px); }
+.clps-toggle .tgl-icon {
+  width:22px; height:22px; border-radius:50%;
+  background:var(--green); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:1rem; line-height:1; font-weight:500;
+  transition:transform .4s var(--ease);
+}
+.clps-toggle[aria-expanded="true"] .tgl-icon { transform:rotate(45deg); }
 @media(max-width:860px){
   .gg-grid { grid-template-columns:1fr; }
   .gg-cell { padding:24px 22px; }
@@ -1249,6 +1273,14 @@ textarea { min-height:120px; resize:vertical; }
     <h2 class="reveal d1">AI för <em>varje</em> funktion.</h2>
     <p class="s-lead reveal d2" style="margin-top:12px;">Tio färdiga genomgångar – från ledningsgrupp till produktion. Varje upplägg anpassas efter er verksamhet, kräver inga förkunskaper och kan köras digitalt eller på plats.</p>
 
+    <button class="clps-toggle reveal d2" aria-expanded="false" aria-controls="ggCollapse"
+            data-show="Visa alla tio genomgångar" data-hide="Dölj genomgångarna"
+            onclick="toggleCollapse(this)">
+      <span class="tgl-icon" aria-hidden="true">+</span>
+      <span class="tgl-label">Visa alla tio genomgångar</span>
+    </button>
+
+    <div class="clps" id="ggCollapse">
     <div class="gg-grid">
 
       <div class="gg-cell reveal">
@@ -1311,6 +1343,7 @@ textarea { min-height:120px; resize:vertical; }
         <p class="gg-start"><strong>Kom igång:</strong> rådgivning kring pilotgrupp, policy och teknisk förberedelse.</p>
       </div>
 
+    </div>
     </div>
 
     <div class="gg-cta reveal">
@@ -1427,6 +1460,15 @@ textarea { min-height:120px; resize:vertical; }
   <div class="wrap">
     <span class="s-label reveal">FAQ</span>
     <h2 class="reveal d1">Vanliga frågor</h2>
+
+    <button class="clps-toggle reveal d2" aria-expanded="false" aria-controls="faqCollapse"
+            data-show="Visa vanliga frågor" data-hide="Dölj frågorna"
+            onclick="toggleCollapse(this)">
+      <span class="tgl-icon" aria-hidden="true">+</span>
+      <span class="tgl-label">Visa vanliga frågor</span>
+    </button>
+
+    <div class="clps" id="faqCollapse">
     <div class="faq-list reveal d2">
 
       <div class="faq-item">
@@ -1471,6 +1513,7 @@ textarea { min-height:120px; resize:vertical; }
         </button>
         <div class="faq-a"><div class="faq-a-inner">MPAI är en konsulttjänst som hjälper organisationer att förstå och använda AI på ett praktiskt sätt – från ledningsgrupp till operativa team. Fokus ligger på användning, beslut och arbetssätt, inte på teknisk implementation.</div></div>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1758,6 +1801,27 @@ function toggleFaq(btn){
     const a=item.querySelector('.faq-a');
     a.style.maxHeight=a.scrollHeight+'px';
     btn.setAttribute('aria-expanded','true');
+  }
+}
+
+// ── HOPFÄLLBARA SEKTIONER (genomgångar + FAQ)
+function toggleCollapse(btn){
+  const box=document.getElementById(btn.getAttribute('aria-controls'));
+  const open=btn.getAttribute('aria-expanded')!=='true';
+  btn.setAttribute('aria-expanded', open);
+  btn.querySelector('.tgl-label').textContent = open ? btn.dataset.hide : btn.dataset.show;
+  if(open){
+    box.style.maxHeight=box.scrollHeight+'px';
+    box.addEventListener('transitionend', function te(e){
+      if(e.target===box && e.propertyName==='max-height'){
+        box.style.maxHeight='none';
+        box.removeEventListener('transitionend', te);
+      }
+    });
+  } else {
+    box.style.maxHeight=box.scrollHeight+'px';
+    void box.offsetHeight; // tvinga reflow så stängningen animeras från full höjd
+    box.style.maxHeight='0px';
   }
 }
 
