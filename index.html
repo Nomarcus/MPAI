@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- ================================================================
   MPAI – index.html  (editorial redesign, GitHub-kompatibel)
-  Formulär använder mailto: direkt till marcus.mpai@gmail.com
-  – inga tredjepartstjänster, inget konto att underhålla.
+  Formulär skickas direkt via FormSubmit (formsubmit.co) till
+  marcus.mpai@gmail.com – mailto: används endast som reservväg.
 ================================================================ -->
 <html lang="sv">
 <head>
@@ -1571,10 +1571,10 @@ textarea { min-height:120px; resize:vertical; }
       <p style="margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center;">Jag återkommer normalt inom 24 timmar.</p>
     </form>
     <div class="form-success" id="formSuccess">
-      <h3>Nästan klart!</h3>
-      <p>Ditt mailprogram öppnas med meddelandet förifyllt – tryck <strong>Skicka</strong> där så är förfrågan på väg.<br>Jag återkommer normalt inom 24 timmar.</p>
+      <h3>Tack – förfrågan är skickad!</h3>
+      <p>Den är på väg till mig nu.<br>Jag återkommer normalt inom 24 timmar.</p>
       <p style="margin-top:18px;font-size:.82rem;color:var(--muted);">
-        Öppnas inget? Mejla
+        Brådskande? Mejla
         <a href="mailto:marcus.mpai@gmail.com" style="color:var(--green);font-weight:600;">marcus.mpai@gmail.com</a>
         eller ring
         <a href="tel:+46793562946" style="color:var(--green);font-weight:600;">079-356 29 46</a>.
@@ -1605,10 +1605,10 @@ textarea { min-height:120px; resize:vertical; }
     <button class="submit" type="submit">Skicka</button>
   </form>
   <div class="chat-success" id="chatSuccess">
-    <h4>Nästan klart!</h4>
-    <p>Ditt mailprogram öppnas – tryck <strong>Skicka</strong> där så når frågan mig.</p>
+    <h4>Skickat!</h4>
+    <p>Din fråga är på väg – jag svarar normalt inom 24 timmar.</p>
     <p style="margin-top:12px;font-size:.78rem;color:var(--muted);">
-      Öppnas inget? Mejla
+      Brådskande? Mejla
       <a href="mailto:marcus.mpai@gmail.com" style="color:var(--green);font-weight:600;">marcus.mpai@gmail.com</a>.
     </p>
   </div>
@@ -1843,28 +1843,59 @@ function closeModal(){
 document.getElementById('kontaktModal').addEventListener('click',e=>{if(e.target===document.getElementById('kontaktModal'))closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('kontaktModal').classList.contains('open'))closeModal();}});
 
-// ── FORM (mailto-baserat – ingen tredjepartstjänst)
+// ── FORM (skickas direkt via FormSubmit – mailto endast som reserv)
 const MPAI_EMAIL='marcus.mpai@gmail.com';
+const FORM_ENDPOINT='https://formsubmit.co/ajax/'+MPAI_EMAIL;
 function sendMailto(subject,bodyLines){
   const body=bodyLines.join('\n');
   window.location.href=`mailto:${MPAI_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
+async function sendDirect(subject,fields){
+  const payload=Object.assign({_subject:subject,_template:'box',_captcha:'false'},fields);
+  const res=await fetch(FORM_ENDPOINT,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(payload)
+  });
+  if(!res.ok)throw new Error('send failed');
+  const j=await res.json().catch(()=>({}));
+  if(j.success===false||j.success==='false')throw new Error('send failed');
+}
+function setSuccess(box,title,text){
+  const h=box.querySelector('h3,h4'); if(h)h.textContent=title;
+  const p=box.querySelector('p'); if(p)p.innerHTML=text;
+}
 const form=document.getElementById('contactForm');
 const succ=document.getElementById('formSuccess');
-if(form){form.addEventListener('submit',e=>{
+if(form){form.addEventListener('submit',async e=>{
   e.preventDefault();
   const data=new FormData(form);
   const subject=`Ny förfrågan från MPAI.se – ${data.get('amne')||'okänt ämne'}`;
-  const lines=[
-    `Företag: ${data.get('foretag')||'–'}`,
-    `Namn: ${data.get('namn')||'–'}`,
-    `E-post: ${data.get('email')||'–'}`,
-    `Ämne: ${data.get('amne')||'–'}`,
-    '',
-    'Meddelande:',
-    data.get('meddelande')||'(inget meddelande)'
-  ];
-  sendMailto(subject,lines);
+  const btn=form.querySelector('.submit');
+  const oldTxt=btn.textContent; btn.disabled=true; btn.textContent='Skickar …';
+  try{
+    await sendDirect(subject,{
+      'Företag':data.get('foretag')||'–',
+      'Namn':data.get('namn')||'–',
+      'E-post':data.get('email')||'–',
+      'Ämne':data.get('amne')||'–',
+      'Meddelande':data.get('meddelande')||'(inget meddelande)',
+      _replyto:data.get('email')||''
+    });
+    setSuccess(succ,'Tack – förfrågan är skickad!','Den är på väg till mig nu.<br>Jag återkommer normalt inom 24 timmar.');
+  }catch(err){
+    sendMailto(subject,[
+      `Företag: ${data.get('foretag')||'–'}`,
+      `Namn: ${data.get('namn')||'–'}`,
+      `E-post: ${data.get('email')||'–'}`,
+      `Ämne: ${data.get('amne')||'–'}`,
+      '',
+      'Meddelande:',
+      data.get('meddelande')||'(inget meddelande)'
+    ]);
+    setSuccess(succ,'Nästan klart!','Direktsändningen gick inte fram – ditt mailprogram öppnas i stället med allt förifyllt. Tryck <strong>Skicka</strong> där.');
+  }
+  btn.disabled=false; btn.textContent=oldTxt;
   form.style.display='none';succ.style.display='block';
 });}
 
@@ -1880,17 +1911,29 @@ document.addEventListener('keydown',e=>{
 });
 const chatForm=document.getElementById('chatForm');
 const chatSucc=document.getElementById('chatSuccess');
-if(chatForm){chatForm.addEventListener('submit',e=>{
+if(chatForm){chatForm.addEventListener('submit',async e=>{
   e.preventDefault();
   const data=new FormData(chatForm);
   const subject='Snabbfråga från MPAI.se';
-  const lines=[
-    `Från: ${data.get('email')||'–'}`,
-    '',
-    'Fråga:',
-    data.get('meddelande')||'(ingen fråga)'
-  ];
-  sendMailto(subject,lines);
+  const btn=chatForm.querySelector('.submit');
+  const oldTxt=btn.textContent; btn.disabled=true; btn.textContent='Skickar …';
+  try{
+    await sendDirect(subject,{
+      'Från':data.get('email')||'–',
+      'Fråga':data.get('meddelande')||'(ingen fråga)',
+      _replyto:data.get('email')||''
+    });
+    setSuccess(chatSucc,'Skickat!','Din fråga är på väg – jag svarar normalt inom 24 timmar.');
+  }catch(err){
+    sendMailto(subject,[
+      `Från: ${data.get('email')||'–'}`,
+      '',
+      'Fråga:',
+      data.get('meddelande')||'(ingen fråga)'
+    ]);
+    setSuccess(chatSucc,'Nästan klart!','Direktsändningen gick inte fram – ditt mailprogram öppnas i stället. Tryck <strong>Skicka</strong> där.');
+  }
+  btn.disabled=false; btn.textContent=oldTxt;
   chatForm.style.display='none';chatSucc.style.display='block';
 });}
 
