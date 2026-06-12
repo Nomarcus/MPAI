@@ -548,6 +548,48 @@ h2 {
   .gg-cta-actions .btn { flex:1; justify-content:center; }
 }
 
+/* ─ TESTA AI (teaser) ──────────────────────── */
+.demo-teaser {
+  display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:center;
+}
+.demo-preview {
+  display:block; text-decoration:none;
+  border:1px solid var(--line-2); border-radius:18px; overflow:hidden;
+  background:var(--cream-2);
+  box-shadow:0 16px 44px rgba(20,16,9,.10);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.demo-preview:hover { transform:translateY(-6px); box-shadow:0 26px 60px rgba(20,16,9,.16); }
+.dp-head {
+  display:flex; align-items:center; gap:8px;
+  padding:12px 18px; border-bottom:1px solid var(--line); background:var(--cream);
+}
+.dp-dot { width:9px; height:9px; border-radius:50%; }
+.dp-title { margin-left:8px; font-size:.75rem; color:var(--muted); font-weight:500; }
+.dp-body { padding:20px 20px 24px; display:flex; flex-direction:column; gap:12px; }
+.dp-user {
+  align-self:flex-end; max-width:85%;
+  background:var(--green); color:#fff;
+  padding:10px 16px; border-radius:14px 14px 4px 14px;
+  font-size:.85rem; line-height:1.55;
+}
+.dp-ai {
+  align-self:flex-start; max-width:92%;
+  background:var(--cream); border:1px solid var(--line);
+  padding:13px 17px; border-radius:14px 14px 14px 4px;
+  font-size:.85rem; line-height:1.7; color:var(--ink-2);
+}
+.dp-ai strong { color:var(--ink); font-family:var(--font-h); letter-spacing:-.01em; }
+.dp-cursor {
+  display:inline-block; width:7px; height:1em; vertical-align:text-bottom;
+  background:var(--green); margin-left:3px; border-radius:2px;
+  animation:dpBlink .85s steps(1) infinite;
+}
+@keyframes dpBlink { 50%{opacity:0} }
+@media(max-width:860px){
+  .demo-teaser { grid-template-columns:1fr; gap:36px; }
+}
+
 /* ─ ABOUT ───────────────────────────────────── */
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:var(--sp-lg); align-items:start; }
 .about-role { font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--green); margin-bottom:var(--sp-sm); }
@@ -993,6 +1035,7 @@ textarea { min-height:120px; resize:vertical; }
       <a href="#om-mig" data-nav>Om mig</a>
       <a href="#tjanster" data-nav>Tjänster</a>
       <a href="#genomgangar" data-nav>Genomgångar</a>
+      <a href="demo.html">Testa AI</a>
       <a href="#faq" data-nav>FAQ</a>
       <a href="#" onclick="openModal(); return false;" class="btn-cta-nav">Be om offert</a>
     </div>
@@ -1233,6 +1276,38 @@ textarea { min-height:120px; resize:vertical; }
       <div class="gg-cta-actions">
         <a class="btn btn-outline" href="MPAI_Genomgangar_AI.pdf" download data-magnetic>Ladda ned katalogen (PDF)</a>
         <a class="btn btn-primary" href="#" onclick="openModal(); return false;" data-magnetic>Be om offert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTA AI (teaser) ── -->
+<section class="section" id="testa-ai">
+  <div class="wrap">
+    <div class="demo-teaser">
+      <div class="reveal d1">
+        <span class="s-label">Testa själv</span>
+        <h2>Se vad AI kan göra för dig – på en minut.</h2>
+        <p class="s-lead" style="margin-top:18px;">Välj din roll och en vardagsuppgift, så ser du AI:n lösa den framför dina ögon. Prova sedan att delegera ett helt mål till en agent. Ingen inloggning, ingen data skickas – bara en känsla för vad som är möjligt.</p>
+        <div style="margin-top:28px;">
+          <a class="btn btn-primary" href="demo.html" data-magnetic>Öppna AI-demon <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <a class="demo-preview" href="demo.html" aria-label="Öppna den interaktiva AI-demon">
+          <div class="dp-head">
+            <span class="dp-dot" style="background:#D77"></span><span class="dp-dot" style="background:#DCB55E"></span><span class="dp-dot" style="background:#7BA77B"></span>
+            <span class="dp-title">AI-assistent · simulering</span>
+          </div>
+          <div class="dp-body">
+            <div class="dp-user">Sammanfatta veckans fem möten och lyft det jag måste agera på.</div>
+            <div class="dp-ai">
+              <strong>Veckosammanfattning – 5 möten</strong><br/>
+              → Budgetmötet: ditt besked krävs senast fredag<br/>
+              → 1:1 med Sara: boka uppföljning<span class="dp-cursor"></span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -1659,6 +1734,8 @@ function openModal(p){
   const first=document.getElementById('f-foretag');
   if(first)first.focus();
 }
+// Öppna offertformuläret direkt vid länk hit med #kontakt (t.ex. från demo-sidan)
+if (location.hash === '#kontakt') { setTimeout(()=>openModal(), 300); }
 function closeModal(){
   document.getElementById('kontaktModal').classList.remove('open');document.body.style.overflow='';
   if(lastFocused&&lastFocused.focus)lastFocused.focus();
