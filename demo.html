@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<!-- ================================================================
+  MPAI – demo.html  (interaktiv AI-simulering)
+  Allt körs lokalt i webbläsaren – ingen data skickas någonstans.
+================================================================ -->
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Testa AI – interaktiv demo | MPAI</title>
+
+<meta name="description" content="Prova hur AI kan hjälpa dig i din roll – chef, sälj, ekonomi, HR, IT eller kundtjänst. Interaktiv simulering, ingen inloggning, ingen data skickas."/>
+<meta name="author" content="Marcus Petersson"/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://mpai.se/demo.html"/>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<meta name="theme-color" content="#1A5C34"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="sv_SE"/>
+<meta property="og:site_name" content="MPAI – Marcus Petersson AI"/>
+<meta property="og:title" content="Testa AI – interaktiv demo | MPAI"/>
+<meta property="og:description" content="Välj din roll och se vad AI kan göra för dig – direkt i webbläsaren."/>
+<meta property="og:url" content="https://mpai.se/demo.html"/>
+<meta property="og:image" content="https://mpai.se/og-image.png"/>
+
+<style>
+/* ─ TOKENS (samma som index) ───────────────────── */
+:root {
+  --cream:      #D8D1C4;
+  --cream-2:    #CEC6B7;
+  --cream-3:    #C3BAA8;
+  --ink:        #141009;
+  --ink-2:      #3B3630;
+  --muted:      #7D7367;
+  --muted-2:    #A8A098;
+  --green:      #1A5C34;
+  --green-2:    #266B3E;
+  --green-pale: rgba(26,92,52,.08);
+  --green-glow: rgba(26,92,52,.18);
+  --line:       rgba(20,16,9,.09);
+  --line-2:     rgba(20,16,9,.15);
+  --max:        1180px;
+  --font-h:     Georgia, "Times New Roman", serif;
+  --font-b:     -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --ease:       cubic-bezier(.16,1,.3,1);
+  --sp-sm:  16px;
+  --sp-md:  40px;
+  --sp-lg:  80px;
+  --sp-xl:  128px;
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: var(--font-b);
+  font-size: 1.02rem;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+::selection { background: rgba(26,92,52,.18); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 4px; }
+body::after {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+.skip-link {
+  position:fixed; top:-60px; left:16px; z-index:999;
+  background:var(--ink); color:var(--cream); text-decoration:none;
+  padding:10px 18px; border-radius:8px; font-size:.85rem; font-weight:600;
+  transition:top .2s;
+}
+.skip-link:focus { top:12px; }
+
+#scrollProgress {
+  position:fixed; top:0; left:0; height:3px; width:100%;
+  background:var(--green);
+  transform-origin:0 50%; transform:scaleX(0);
+  z-index:200; pointer-events:none;
+}
+
+/* ─ CURSOR + GLOW ── */
+#cursor {
+  position:fixed; pointer-events:none; z-index:9999;
+  width:10px; height:10px; border-radius:50%;
+  background: var(--green);
+  transform:translate(-50%,-50%);
+  transition:width .25s ease, height .25s ease, opacity .25s ease;
+  mix-blend-mode: multiply;
+  top:0; left:0; opacity:0;
+}
+#cursor.big { width:40px; height:40px; opacity:.35; }
+#cursorGlow {
+  position:fixed; pointer-events:none; z-index:9998;
+  top:0; left:0;
+  width:360px; height:360px; margin:-180px 0 0 -180px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(26,92,52,.13) 0%,
+    rgba(26,92,52,.06) 40%,
+    rgba(26,92,52,0) 70%);
+  mix-blend-mode:multiply;
+  opacity:0;
+  transition:opacity .5s ease;
+  will-change:transform;
+}
+body.cursor-on #cursor, body.cursor-on #cursorGlow { opacity:1; }
+body.cursor-on #cursor.big { opacity:.35; }
+@media (pointer:coarse) { #cursor, #cursorGlow { display:none; } }
+
+/* ─ NAV ─────────────────────────────────────── */
+.nav-wrap {
+  position:sticky; top:0; z-index:50;
+  background:rgba(238,233,223,.9);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .3s;
+}
+.nav-wrap.scrolled { box-shadow:0 4px 24px rgba(20,16,9,.06); }
+nav {
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  height:66px; display:flex; align-items:center; justify-content:space-between; gap:20px;
+}
+.brand { font-family:var(--font-h); font-weight:800; font-size:1.4rem; color:var(--ink); text-decoration:none; letter-spacing:-.02em; }
+.nav-links { display:flex; align-items:center; gap:4px; }
+.nav-links a {
+  font-size:.875rem; color:var(--muted); text-decoration:none;
+  padding:8px 15px; border-radius:999px;
+  transition:color .2s, background .2s;
+}
+.nav-links a:hover { color:var(--ink); background:rgba(20,16,9,.05); }
+.nav-links a.active { color:var(--green); background:var(--green-pale); }
+.btn-cta-nav {
+  background:var(--green) !important; color:#fff !important; font-weight:600 !important;
+  transition:background .2s, transform .18s !important;
+}
+.btn-cta-nav:hover { background:var(--green-2) !important; transform:translateY(-1px) !important; }
+
+/* ─ BUTTONS ─────────────────────────────────── */
+.btn {
+  display:inline-flex; align-items:center; gap:9px;
+  text-decoration:none; font-family:var(--font-b); font-weight:600; font-size:.9rem;
+  padding:14px 28px; border-radius:999px; border:none; cursor:pointer;
+  transition:transform .25s var(--ease), background .2s, box-shadow .2s, color .2s, border-color .2s;
+  position:relative; overflow:hidden;
+}
+.btn:hover { transform:translateY(-2px); }
+.btn-primary { background:var(--green); color:#fff; box-shadow:0 6px 22px var(--green-glow); }
+.btn-primary:hover { background:var(--green-2); box-shadow:0 10px 30px var(--green-glow); }
+.btn-primary::after {
+  content:""; position:absolute; top:0; left:-80%;
+  width:50%; height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.28),transparent);
+  transform:skewX(-20deg); transition:left .55s ease; pointer-events:none;
+}
+.btn-primary:hover::after { left:140%; }
+.btn-outline { background:transparent; color:var(--ink); border:1.5px solid var(--line-2); }
+.btn-outline:hover { background:rgba(20,16,9,.04); border-color:rgba(26,92,52,.4); }
+
+/* ─ REVEALS ─────────────────────────────────── */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.vis { opacity:1; transform:none; }
+.d1 { transition-delay:.08s; }
+.d2 { transition-delay:.16s; }
+
+/* ─ HERO (kompakt) ──────────────────────────── */
+.demo-hero {
+  padding:var(--sp-lg) 0 var(--sp-md);
+  position:relative; overflow:hidden;
+}
+.wrap { max-width:var(--max); margin:0 auto; padding:0 40px; }
+.eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--green); margin-bottom:var(--sp-sm);
+}
+.eyebrow hr { width:32px; border:none; border-top:1.5px solid var(--green); }
+.demo-hero h1 {
+  font-family:var(--font-h); font-weight:800;
+  font-size:clamp(2.4rem,5vw,4.2rem);
+  line-height:1.04; letter-spacing:-.04em;
+  max-width:820px; margin-bottom:18px;
+}
+.demo-hero h1 em { font-style:normal; color:var(--green); }
+.demo-lead { font-size:1.08rem; color:var(--muted); line-height:1.8; max-width:620px; font-weight:300; }
+.sim-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:18px; padding:8px 16px; border-radius:999px;
+  border:1px solid var(--line-2); background:var(--green-pale);
+  font-size:.8rem; color:var(--ink-2);
+}
+.sim-badge svg { flex-shrink:0; color:var(--green); }
+
+/* ─ TABS ────────────────────────────────────── */
+.demo-section { padding:var(--sp-md) 0 var(--sp-xl); }
+.tabs {
+  display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap;
+}
+.tab-btn {
+  font-family:var(--font-b); font-size:.92rem; font-weight:600;
+  padding:12px 24px; border-radius:999px; cursor:pointer;
+  border:1.5px solid var(--line-2); background:transparent; color:var(--muted);
+  transition:all .25s var(--ease);
+}
+.tab-btn:hover { color:var(--ink); border-color:rgba(26,92,52,.4); }
+.tab-btn.active { background:var(--ink); color:var(--cream); border-color:var(--ink); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; animation:fadeUp .4s var(--ease); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+
+/* ─ STEG-ETIKETTER ──────────────────────────── */
+.pick-label {
+  font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--green); margin:26px 0 12px; display:flex; align-items:center; gap:12px;
+}
+.pick-label::after { content:""; height:1.5px; width:40px; background:var(--green); display:inline-block; }
+.pick-label .step-num {
+  width:22px; height:22px; border-radius:50%; background:var(--green); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:.72rem; font-weight:700; flex-shrink:0;
+}
+
+/* ─ CHIPS ───────────────────────────────────── */
+.chips { display:flex; gap:10px; flex-wrap:wrap; }
+.chip {
+  font-family:var(--font-b); font-size:.9rem; font-weight:500;
+  padding:11px 22px; border-radius:999px; cursor:pointer;
+  border:1.5px solid var(--line-2); background:var(--cream); color:var(--ink-2);
+  transition:all .22s var(--ease);
+}
+.chip:hover { border-color:rgba(26,92,52,.5); transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,16,9,.08); }
+.chip.sel { background:var(--green); color:#fff; border-color:var(--green); box-shadow:0 6px 18px var(--green-glow); }
+.chip:disabled { opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.task-chips .chip { font-size:.88rem; }
+.hidden { display:none !important; }
+
+/* ─ CHATTFÖNSTER ────────────────────────────── */
+.chat-window {
+  margin-top:30px;
+  border:1px solid var(--line-2); border-radius:20px;
+  background:var(--cream-2); overflow:hidden;
+  box-shadow:0 18px 50px rgba(20,16,9,.10);
+}
+.chat-head {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 22px; border-bottom:1px solid var(--line);
+  background:var(--cream);
+}
+.chat-head .dot { width:10px; height:10px; border-radius:50%; }
+.chat-head .dot.r { background:#D77; } .chat-head .dot.y { background:#DCB55E; } .chat-head .dot.g { background:#7BA77B; }
+.chat-head span { margin-left:8px; font-size:.8rem; color:var(--muted); font-weight:500; }
+.chat-body {
+  padding:26px 26px 30px; min-height:280px;
+  display:flex; flex-direction:column; gap:18px;
+}
+.bubble-user {
+  align-self:flex-end; max-width:78%;
+  background:var(--green); color:#fff;
+  padding:13px 20px; border-radius:18px 18px 4px 18px;
+  font-size:.95rem; line-height:1.6;
+  animation:bubbleIn .35s var(--ease);
+}
+.bubble-ai {
+  align-self:flex-start; max-width:92%;
+  background:var(--cream); border:1px solid var(--line);
+  padding:18px 24px; border-radius:18px 18px 18px 4px;
+  font-size:.95rem; line-height:1.7; color:var(--ink-2);
+  animation:bubbleIn .35s var(--ease);
+}
+@keyframes bubbleIn { from{opacity:0;transform:translateY(10px) scale(.98)} to{opacity:1;transform:none} }
+.ai-tag {
+  display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--green);
+}
+.ai-tag .spark { width:14px; height:14px; }
+.bubble-ai h4 {
+  font-family:var(--font-h); font-size:1.05rem; font-weight:700; letter-spacing:-.02em;
+  color:var(--ink); margin:14px 0 6px;
+}
+.bubble-ai h4:first-of-type { margin-top:2px; }
+.bubble-ai p { margin:6px 0; }
+.bubble-ai ul { margin:6px 0 6px 4px; list-style:none; }
+.bubble-ai li { padding-left:20px; position:relative; margin:5px 0; }
+.bubble-ai li::before { content:"→"; position:absolute; left:0; color:var(--green); font-size:.85rem; }
+.bubble-ai strong { color:var(--ink); font-weight:600; }
+.type-cursor {
+  display:inline-block; width:8px; height:1.05em; vertical-align:text-bottom;
+  background:var(--green); margin-left:2px; border-radius:2px;
+  animation:blink .85s steps(1) infinite;
+}
+@keyframes blink { 50%{opacity:0} }
+
+/* tänker-prickar */
+.thinking { display:inline-flex; gap:5px; align-items:center; padding:4px 2px; }
+.thinking i {
+  width:7px; height:7px; border-radius:50%; background:var(--muted);
+  animation:think 1.2s ease-in-out infinite;
+}
+.thinking i:nth-child(2){ animation-delay:.18s }
+.thinking i:nth-child(3){ animation-delay:.36s }
+@keyframes think { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+
+/* mikro-poäng + igen-knapp */
+.chat-after {
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  margin-top:4px;
+}
+.chat-point { font-size:.85rem; color:var(--green); font-weight:600; }
+.chat-empty {
+  margin:auto; text-align:center; color:var(--muted-2); font-size:.92rem; max-width:340px;
+}
+.chat-empty svg { margin-bottom:10px; opacity:.5; }
+
+/* ─ AGENT ───────────────────────────────────── */
+.agent-explain {
+  font-size:.98rem; color:var(--muted); line-height:1.8; max-width:640px; font-weight:300;
+  margin-bottom:6px;
+}
+.agent-explain strong { color:var(--ink-2); font-weight:600; }
+.agent-window {
+  margin-top:30px;
+  border:1px solid var(--line-2); border-radius:20px;
+  background:var(--ink); color:var(--cream); overflow:hidden;
+  box-shadow:0 18px 50px rgba(20,16,9,.22);
+}
+.agent-head {
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 22px; border-bottom:1px solid rgba(216,209,196,.12);
+}
+.agent-head .left { display:flex; align-items:center; gap:10px; }
+.agent-head .dot { width:10px; height:10px; border-radius:50%; }
+.agent-head span { font-size:.8rem; color:rgba(216,209,196,.6); font-weight:500; }
+.agent-status {
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 14px; border-radius:999px; border:1px solid rgba(216,209,196,.2);
+  color:rgba(216,209,196,.7);
+}
+.agent-status.running { color:#9BD8A8; border-color:rgba(155,216,168,.4); animation:pulse 1.6s ease-in-out infinite; }
+.agent-status.done { color:#9BD8A8; border-color:rgba(155,216,168,.4); }
+@keyframes pulse { 50%{opacity:.55} }
+.agent-body { padding:24px 26px 28px; min-height:300px; font-size:.92rem; }
+.agent-goal {
+  padding:14px 18px; border-radius:12px; margin-bottom:20px;
+  background:rgba(216,209,196,.07); border:1px solid rgba(216,209,196,.12);
+  line-height:1.6;
+}
+.agent-goal b { color:#9BD8A8; font-weight:600; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:4px; }
+.agent-steps { list-style:none; display:flex; flex-direction:column; gap:0; }
+.agent-step {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:10px 0; opacity:0; transform:translateY(8px);
+  transition:opacity .4s var(--ease), transform .4s var(--ease);
+}
+.agent-step.in { opacity:1; transform:none; }
+.agent-step .mark {
+  width:22px; height:22px; flex-shrink:0; margin-top:2px;
+  display:flex; align-items:center; justify-content:center;
+}
+.spinner {
+  width:15px; height:15px; border-radius:50%;
+  border:2px solid rgba(216,209,196,.25); border-top-color:#9BD8A8;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.checkmark { color:#9BD8A8; font-weight:700; }
+.agent-step .txt { line-height:1.55; color:rgba(216,209,196,.92); }
+.agent-step .sub { display:block; font-size:.8rem; color:rgba(216,209,196,.45); margin-top:1px; }
+.agent-result {
+  margin-top:22px; padding:20px 22px; border-radius:14px;
+  background:rgba(155,216,168,.08); border:1px solid rgba(155,216,168,.25);
+  opacity:0; transform:translateY(10px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+.agent-result.in { opacity:1; transform:none; }
+.agent-result h4 {
+  font-family:var(--font-h); font-size:1.1rem; letter-spacing:-.02em; color:#fff; margin-bottom:8px;
+}
+.agent-result p { color:rgba(216,209,196,.85); line-height:1.7; font-size:.92rem; }
+.agent-result .key {
+  margin-top:14px; padding-top:14px; border-top:1px solid rgba(216,209,196,.15);
+  color:#9BD8A8; font-weight:600; font-size:.95rem; line-height:1.6;
+}
+.agent-empty { color:rgba(216,209,196,.4); text-align:center; padding:60px 20px; font-size:.92rem; }
+
+/* ─ CTA ─────────────────────────────────────── */
+.demo-cta {
+  border-top:1px solid var(--line);
+  padding:var(--sp-lg) 0;
+  text-align:center;
+}
+.demo-cta h2 {
+  font-family:var(--font-h); font-weight:800;
+  font-size:clamp(1.9rem,3.2vw,2.8rem); letter-spacing:-.04em; line-height:1.1;
+  max-width:680px; margin:0 auto 16px;
+}
+.demo-cta p { color:var(--muted); max-width:540px; margin:0 auto 30px; line-height:1.8; font-weight:300; }
+.demo-cta .row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* ─ FOOTER ──────────────────────────────────── */
+footer { border-top:1px solid var(--line); padding:56px 0 48px; }
+.footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+.f-brand { font-family:var(--font-h); font-size:1.3rem; font-weight:800; color:var(--ink); margin-bottom:10px; }
+.f-desc { font-size:.875rem; color:var(--muted); line-height:1.7; margin-bottom:10px; }
+.f-copy { font-size:.75rem; color:var(--muted-2); }
+.f-right { text-align:right; }
+.f-right p { font-size:.875rem; color:var(--muted); line-height:1.9; }
+.f-right a { color:var(--ink-2); text-decoration:none; transition:color .2s; }
+.f-right a:hover { color:var(--green); }
+
+/* ─ RESPONSIVT ──────────────────────────────── */
+@media (max-width:760px){
+  nav { padding:0 20px; flex-wrap:wrap; height:auto; min-height:66px; padding-top:8px; padding-bottom:8px; }
+  .nav-links { flex-wrap:wrap; gap:6px; }
+  .wrap { padding:0 20px; }
+  .chat-body { padding:18px 14px 22px; }
+  .bubble-ai { max-width:100%; padding:16px 16px; }
+  .bubble-user { max-width:92%; }
+  .agent-body { padding:18px 16px 22px; }
+  .footer-grid { grid-template-columns:1fr; }
+  .f-right { text-align:left; }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  .reveal { opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#demo">Hoppa till demon</a>
+<div id="scrollProgress" aria-hidden="true"></div>
+<div id="cursorGlow" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- ── NAV ── -->
+<div class="nav-wrap" id="navWrap">
+  <nav>
+    <a class="brand" href="index.html">MPAI - Marcus Petersson AI</a>
+    <div class="nav-links">
+      <a href="index.html#om-mig">Om mig</a>
+      <a href="index.html#tjanster">Tjänster</a>
+      <a href="index.html#genomgangar">Genomgångar</a>
+      <a href="demo.html" class="active">Testa AI</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#kontakt" class="btn-cta-nav">Be om offert</a>
+    </div>
+  </nav>
+</div>
+
+<!-- ── HERO ── -->
+<header class="demo-hero">
+  <div class="wrap">
+    <div class="eyebrow reveal"><hr/> Interaktiv demo</div>
+    <h1 class="reveal d1">Testa AI – utan att skriva <em>en enda prompt</em>.</h1>
+    <p class="demo-lead reveal d2">Välj din roll och en vardagsuppgift, så ser du exakt vad AI kan göra för just dig – på under en minut. Prova sedan att <strong>delegera ett mål</strong> till en agent och se skillnaden.</p>
+    <div class="sim-badge reveal d2">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Detta är en simulering som körs lokalt i din webbläsare – ingen data skickas någonstans.
+    </div>
+  </div>
+</header>
+
+<!-- ── DEMO ── -->
+<main class="demo-section" id="demo">
+  <div class="wrap">
+
+    <div class="tabs reveal" role="tablist" aria-label="Demoläge">
+      <button class="tab-btn active" id="tabChat" role="tab" aria-selected="true" aria-controls="paneChat" onclick="switchTab('chat')">💬 Fråga AI</button>
+      <button class="tab-btn" id="tabAgent" role="tab" aria-selected="false" aria-controls="paneAgent" onclick="switchTab('agent')">🎯 Delegera till agent</button>
+    </div>
+
+    <!-- ════ FLIK 1: CHATT ════ -->
+    <section class="tab-pane active" id="paneChat" role="tabpanel" aria-labelledby="tabChat">
+
+      <div class="pick-label"><span class="step-num">1</span> Välj din roll</div>
+      <div class="chips" id="roleChips"></div>
+
+      <div id="taskBlock" class="hidden">
+        <div class="pick-label"><span class="step-num">2</span> Välj en uppgift</div>
+        <div class="chips task-chips" id="taskChips"></div>
+      </div>
+
+      <div class="chat-window" aria-live="polite">
+        <div class="chat-head">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span>AI-assistent · simulering</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="chat-empty" id="chatEmpty">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <br/>Välj roll och uppgift ovan – så visar AI:n vad den kan göra.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════ FLIK 2: AGENT ════ -->
+    <section class="tab-pane" id="paneAgent" role="tabpanel" aria-labelledby="tabAgent">
+
+      <p class="agent-explain">De flesta promptar AI som en sökmotor. Nästa nivå är att <strong>delegera som till en kollega</strong>: du ger ett tydligt <strong>mål</strong> – agenten planerar och utför stegen själv. Välj ett mål och se det hända.</p>
+
+      <div class="pick-label"><span class="step-num">1</span> Välj ett mål att delegera</div>
+      <div class="chips" id="goalChips"></div>
+
+      <div class="agent-window" aria-live="polite">
+        <div class="agent-head">
+          <div class="left">
+            <span class="dot" style="background:#D77"></span><span class="dot" style="background:#DCB55E"></span><span class="dot" style="background:#7BA77B"></span>
+            <span>AI-agent · simulering</span>
+          </div>
+          <span class="agent-status" id="agentStatus">Väntar på mål</span>
+        </div>
+        <div class="agent-body" id="agentBody">
+          <div class="agent-empty" id="agentEmpty">Välj ett mål ovan så sätter agenten igång.</div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<!-- ── CTA ── -->
+<section class="demo-cta">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center;display:flex;"><hr/> Nästa steg</div>
+    <h2 class="reveal d1">Vill du att ditt team ska kunna det här – på riktigt?</h2>
+    <p class="reveal d2">Det du just såg är en simulering. På en genomgång med mig gör vi samma sak skarpt, i era verktyg, med era verkliga arbetsuppgifter.</p>
+    <div class="row reveal d2">
+      <a class="btn btn-primary" href="index.html#kontakt" data-magnetic>Be om offert</a>
+      <a class="btn btn-outline" href="index.html#genomgangar" data-magnetic>Se alla genomgångar</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">MPAI</div>
+        <p class="f-desc">MPAI hjälper organisationer att förstå och använda AI på ett praktiskt och hållbart sätt.</p>
+        <p class="f-copy">Org.nr: 810926-2710 &nbsp;·&nbsp; © 2026 MPAI – Marcus Petersson</p>
+      </div>
+      <div class="f-right">
+        <p style="font-weight:600;color:var(--ink-2);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Kontakt</p>
+        <p><a href="mailto:marcus.mpai@gmail.com">marcus.mpai@gmail.com</a></p>
+        <p><a href="tel:+46793562946">079-356 29 46</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
+
+// ── CURSOR + GLOW (samma beteende som startsidan)
+(()=>{
+  if (!FINE_POINTER || REDUCED_MOTION) return;
+  const cur = document.getElementById('cursor');
+  const glow = document.getElementById('cursorGlow');
+  let mx=innerWidth/2, my=innerHeight/2, cx=mx, cy=my, gx=mx, gy=my;
+  let started=false;
+  document.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    if(!started){ started=true; cx=mx; cy=my; gx=mx; gy=my; document.body.classList.add('cursor-on'); }
+  });
+  document.addEventListener('mouseleave', ()=>{ started=false; document.body.classList.remove('cursor-on'); });
+  document.addEventListener('mouseover', e=>{
+    if (e.target.closest('a,button,input,textarea,select')) cur.classList.add('big');
+  });
+  document.addEventListener('mouseout', e=>{
+    if (e.target.closest('a,button,input,textarea,select')) cur.classList.remove('big');
+  });
+  (function loop(){
+    cx += (mx-cx)*.18; cy += (my-cy)*.18;
+    gx += (mx-gx)*.07; gy += (my-gy)*.07;
+    cur.style.transform  = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+    glow.style.transform = `translate(${gx}px,${gy}px)`;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// ── MAGNETISKA KNAPPAR
+(()=>{
+  if (!FINE_POINTER || REDUCED_MOTION) return;
+  document.querySelectorAll('[data-magnetic]').forEach(btn=>{
+    btn.addEventListener('mousemove', e=>{
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width/2) * .14;
+      const y = (e.clientY - r.top - r.height/2) * .22;
+      btn.style.transform = `translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave', ()=>{ btn.style.transform=''; });
+  });
+})();
+
+// ── SCROLL: progress + nav-skugga
+(()=>{
+  const progress = document.getElementById('scrollProgress');
+  const navWrap = document.getElementById('navWrap');
+  let ticking = false;
+  function onScroll(){
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    navWrap.classList.toggle('scrolled', scrollY > 40);
+    ticking = false;
+  }
+  window.addEventListener('scroll', ()=>{
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive:true });
+  onScroll();
+})();
+
+// ── SCROLL REVEAL
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); ro.unobserve(e.target); } });
+},{ threshold:.1 });
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+if (REDUCED_MOTION) document.querySelectorAll('.reveal').forEach(el=>el.classList.add('vis'));
+
+// ── FLIKAR
+function switchTab(which){
+  const chat = which === 'chat';
+  document.getElementById('tabChat').classList.toggle('active', chat);
+  document.getElementById('tabAgent').classList.toggle('active', !chat);
+  document.getElementById('tabChat').setAttribute('aria-selected', chat);
+  document.getElementById('tabAgent').setAttribute('aria-selected', !chat);
+  document.getElementById('paneChat').classList.toggle('active', chat);
+  document.getElementById('paneAgent').classList.toggle('active', !chat);
+}
+
+/* ════════════════════════════════════════════════
+   FLIK 1 – CHATT-SIMULERING
+   18 förskrivna svar (6 roller × 3 uppgifter).
+   Block: h = rubrik, p = stycke, ul = punktlista.
+════════════════════════════════════════════════ */
+const ROLES = {
+  'Chef': {
+    'Sammanfatta veckans möten': {
+      prompt: 'Sammanfatta veckans fem möten och lyft det jag måste agera på.',
+      mins: 25,
+      blocks: [
+        { t:'h', x:'Veckosammanfattning – 5 möten, 4 h 35 min' },
+        { t:'p', x:'Här är det viktigaste, sorterat efter vad som kräver din handling:' },
+        { t:'ul', x:['**Budgetmötet (tis):** Q3-prognosen ligger 4 % under plan – ekonomi vill ha ditt besked om åtgärdslista senast fredag.','**Ledningsgrupp (ons):** Beslut fattat om nytt intranät. Du äger kommunikationen till din avdelning.','**1:1 med Sara (tors):** Hon flaggade för hög arbetsbelastning – boka uppföljning inom två veckor.'] },
+        { t:'h', x:'Kan vänta' },
+        { t:'ul', x:['Leverantörsmötet och projektavstämningen innehöll inga beslutspunkter för dig – sammanfattningar finns sparade.'] },
+        { t:'p', x:'Vill du att jag bokar uppföljningen med Sara och skriver ett utkast till fredagsbeskedet?' }
+      ]
+    },
+    'Skriv ett svårt medarbetarmejl': {
+      prompt: 'Hjälp mig skriva ett mejl till en medarbetare som ofta missar deadlines – vänligt men tydligt.',
+      mins: 20,
+      blocks: [
+        { t:'h', x:'Utkast – vänligt men tydligt' },
+        { t:'p', x:'**Ämne:** Kan vi ta 20 minuter om planeringen?' },
+        { t:'p', x:'Hej Alex, jag vill stämma av en sak med dig. De senaste veckorna har några leveranser kommit in efter utsatt tid – senast underlaget till kundmötet i fredags. Jag vet att du har mycket på bordet, och jag vill förstå hur det ser ut från din sida innan vi pratar lösningar.' },
+        { t:'p', x:'Kan du boka 20 minuter med mig i veckan? Jag vill att vi hittar ett upplägg som funkar – det här handlar om att ge dig rätt förutsättningar, inte om att peka finger.' },
+        { t:'h', x:'Varför det funkar' },
+        { t:'ul', x:['Konkret exempel i stället för svepande kritik','Öppnar för medarbetarens perspektiv före lösningar','Tydlig förväntan: ett möte, i veckan'] }
+      ]
+    },
+    'Förbered beslutsunderlag': {
+      prompt: 'Ta fram ett beslutsunderlag: ska vi förlänga avtalet med nuvarande leverantör eller upphandla på nytt?',
+      mins: 45,
+      blocks: [
+        { t:'h', x:'Beslutsunderlag – förlänga eller upphandla?' },
+        { t:'p', x:'**Rekommendation:** Förläng 12 månader med omförhandlad prisbild – och starta en förstudie för upphandling parallellt.' },
+        { t:'h', x:'Alternativ 1: Förlänga (rekommenderas)' },
+        { t:'ul', x:['Ingen omställningskostnad, leveransen fungerar (97 % SLA senaste året)','Förhandlingsläge: marknaden har pressat priserna ca 8 % sedan avtalet skrevs'] },
+        { t:'h', x:'Alternativ 2: Upphandla nu' },
+        { t:'ul', x:['Möjlig besparing 10–15 %, men omställningskostnad äter upp första året','Risk: 4–6 månaders upphandling binder nyckelpersoner under hösten'] },
+        { t:'p', x:'Vill du ha detta som en sida i presentationsformat till ledningsgruppen?' }
+      ]
+    }
+  },
+  'Sälj': {
+    'Förbered kundmöte': {
+      prompt: 'Jag har möte med en industrikund på torsdag. Förbered mig: vad ska jag läsa på och vilka frågor ska jag ställa?',
+      mins: 35,
+      blocks: [
+        { t:'h', x:'Mötesförberedelse – industrikund, torsdag' },
+        { t:'h', x:'Läs på detta (5 min)' },
+        { t:'ul', x:['Kunden bytte produktionschef i mars – nya beslutsfattare betyder nya prioriteringar','Deras senaste årsredovisning nämner "effektivisering av underhåll" tre gånger – det är er öppning','Ni har två öppna supportärenden hos dem – kolla status så du inte blir tagen på sängen'] },
+        { t:'h', x:'Frågor som öppnar affären' },
+        { t:'ul', x:['"Vad har förändrats i era prioriteringar sedan i våras?"','"Var i produktionen tappar ni mest tid i dag?"','"Hur ser er beslutsprocess ut för investeringar under 500 tkr?"'] },
+        { t:'p', x:'Vill du att jag skriver en agenda och ett uppföljningsmejl du kan skicka direkt efter mötet?' }
+      ]
+    },
+    'Skriv offertutkast': {
+      prompt: 'Skriv ett offertutkast för 40 licenser plus utbildning, baserat på vår senaste prislista.',
+      mins: 30,
+      blocks: [
+        { t:'h', x:'Offertutkast – 40 licenser + utbildning' },
+        { t:'p', x:'**Sammanfattning för kunden:** Ert team får full tillgång från dag ett, med utbildning som säkrar att licenserna faktiskt används – inte bara betalas.' },
+        { t:'ul', x:['**40 licenser**, årsavtal: 168 000 kr (12 % volymrabatt tillämpad)','**Utbildning**, 2 tillfällen à halvdag: 24 000 kr','**Totalt år 1:** 192 000 kr exkl. moms'] },
+        { t:'h', x:'Argument att lyfta' },
+        { t:'ul', x:['Volymrabatten gäller vid beslut före månadsskiftet – naturlig deadline utan press','Utbildningen halverar tiden till full användning enligt era tidigare kundcase'] },
+        { t:'p', x:'Säg till om du vill ha den i ert offertformat med villkorstexter.' }
+      ]
+    },
+    'Analysera tappade affärer': {
+      prompt: 'Gå igenom våra förlorade affärer senaste kvartalet och hitta mönster.',
+      mins: 50,
+      blocks: [
+        { t:'h', x:'Analys – 14 tappade affärer, Q2' },
+        { t:'h', x:'Tre mönster sticker ut' },
+        { t:'ul', x:['**Svarstid:** I 8 av 14 fall tog första offerten mer än 5 dagar. Vinnande konkurrenter svarade inom 48 timmar.','**Fel nivå:** 5 affärer förlorades där ni offererade premiumpaketet mot kunder som efterfrågade instegslösning.','**Tystnad efter demo:** I 6 fall skedde ingen uppföljning inom en vecka efter visningen.'] },
+        { t:'h', x:'Snabbaste förbättringen' },
+        { t:'p', x:'En standardiserad 48-timmars offertmall skulle ha påverkat över hälften av de tappade affärerna. Vill du att jag tar fram ett utkast till en sådan?' }
+      ]
+    }
+  },
+  'Ekonomi': {
+    'Förklara budgetavvikelse': {
+      prompt: 'Förklara varför kostnaderna avviker mot budget i maj och skriv en kommentar till ledningen.',
+      mins: 40,
+      blocks: [
+        { t:'h', x:'Avvikelseanalys – maj' },
+        { t:'p', x:'Totala kostnader: **+6,2 % mot budget**. Tre poster förklarar nästan hela avvikelsen:' },
+        { t:'ul', x:['**Konsultkostnader +310 tkr:** förlängt systemprojekt – var känt men ej ombudgeterat','**El och energi +120 tkr:** prisjustering från april slog igenom fullt ut','**Rekrytering +85 tkr:** två tjänster tillsattes via byrå i stället för egna kanaler'] },
+        { t:'h', x:'Föreslagen kommentar till ledningen' },
+        { t:'p', x:'"Avvikelsen i maj är till 90 % hänförlig till kända engångsposter. Underliggande kostnadsläge följer plan. Vi föreslår ombudgetering av systemprojektet i juniprognoser för rättvisande jämförelse."' },
+        { t:'p', x:'Vill du ha siffrorna som tabell till månadsrapporten?' }
+      ]
+    },
+    'Sammanfatta fakturaunderlag': {
+      prompt: 'Gå igenom månadens leverantörsfakturor och flagga det som ser avvikande ut.',
+      mins: 35,
+      blocks: [
+        { t:'h', x:'Granskning – 142 leverantörsfakturor' },
+        { t:'h', x:'Flaggat för kontroll' },
+        { t:'ul', x:['**Dubblettrisk:** Två fakturor från samma leverantör med identiskt belopp (18 400 kr) med 3 dagars mellanrum','**Prisökning utan avtal:** Städleverantören har höjt 9 % – senaste indexjusteringen enligt avtal ska vara 4,2 %','**Ny leverantör utan inköpsorder:** Faktura på 32 000 kr saknar PO-referens'] },
+        { t:'p', x:'Övriga 138 fakturor följer mönster och avtal. De tre flaggade motsvarar en potentiell felutbetalning på upp till **52 000 kr**.' },
+        { t:'p', x:'Ska jag skriva förslag på mejl till respektive leverantör?' }
+      ]
+    },
+    'Bygg prognosscenarier': {
+      prompt: 'Bygg tre scenarier för helårsprognosen: bas, optimistiskt och försiktigt.',
+      mins: 60,
+      blocks: [
+        { t:'h', x:'Helårsprognos – tre scenarier' },
+        { t:'ul', x:['**Bas (mest trolig):** Omsättning +4 %, resultatmarginal 8,1 %. Antar oförändrad orderingång och kända kostnadsökningar.','**Optimistiskt:** +9 % om de två stora anbuden i pipeline landar. Kräver rekrytering från september – bruttomarginal pressas tillfälligt.','**Försiktigt:** +1 % om industrisegmentet fortsätter bromsa. Resultatet skyddas av redan beslutad kostnadsöversyn.'] },
+        { t:'h', x:'Känsligast antagande' },
+        { t:'p', x:'Valutakursen står för större osäkerhet än volymen: ±5 % EUR/SEK flyttar resultatet med ca 1,4 mkr. Värt en egen rad i presentationen.' },
+        { t:'p', x:'Vill du ha scenarierna som diagram för ledningsmötet?' }
+      ]
+    }
+  },
+  'HR': {
+    'Skriv jobbannons': {
+      prompt: 'Skriv en jobbannons för en projektledare som sticker ut från standardannonserna.',
+      mins: 30,
+      blocks: [
+        { t:'h', x:'Utkast – Projektledare' },
+        { t:'p', x:'**Rubrik:** Du som får saker i mål när alla andra fastnat i möten.' },
+        { t:'p', x:'Vi söker inte en person som "brinner för struktur". Vi söker dig som har drivit projekt där budgeten varit för liten, tiden för kort och ändå levererat – och som kan berätta hur.' },
+        { t:'h', x:'Det här gör du hos oss' },
+        { t:'ul', x:['Driver 2–3 parallella kundprojekt från start till leverans','Får mandat på riktigt: du äger din budget och dina beslut','Jobbar nära ett team som hellre löser problem än skriver rapporter om dem'] },
+        { t:'h', x:'Varför detta sticker ut' },
+        { t:'ul', x:['Talar till kandidatens erfarenhet, inte en kravlista','"Mandat på riktigt" är det projektledare oftast saknar – och söker'] }
+      ]
+    },
+    'Sammanställ medarbetarenkät': {
+      prompt: 'Sammanställ resultatet från medarbetarenkäten och lyft det viktigaste.',
+      mins: 45,
+      blocks: [
+        { t:'h', x:'Medarbetarenkät – 87 svar (svarsfrekvens 91 %)' },
+        { t:'h', x:'Starkast' },
+        { t:'ul', x:['Förtroende för närmaste chef: 4,3/5 – upp från 4,0','Stolthet över arbetsplatsen: 4,2/5'] },
+        { t:'h', x:'Kräver handling' },
+        { t:'ul', x:['**"Jag hinner med mitt arbete inom arbetstid": 2,8/5** – lägst i mätningen, och 0,4 lägre än i fjol','Fritextsvaren nämner "möten" 31 gånger – vanligaste ordet efter "tid"'] },
+        { t:'p', x:'**Mönstret:** Belastningsfrågan är koncentrerad till två avdelningar, inte hela organisationen. Det gör den åtgärdbar.' },
+        { t:'p', x:'Vill du ha ett presentationsunderlag per avdelning till cheferna?' }
+      ]
+    },
+    'Ta fram introduktionsplan': {
+      prompt: 'Ta fram en introduktionsplan för en nyanställd som börjar på måndag.',
+      mins: 25,
+      blocks: [
+        { t:'h', x:'Introduktionsplan – första två veckorna' },
+        { t:'h', x:'Vecka 1: Sammanhang före system' },
+        { t:'ul', x:['**Dag 1:** Välkomstlunch med teamet, genomgång av "varför finns vi"-presentationen, IT-setup på eftermiddagen','**Dag 2–3:** Skuggning av två kollegor i olika roller – ger helhetsbild snabbare än dokumentläsning','**Dag 4–5:** Första egna miniuppgiften med utsedd fadder'] },
+        { t:'h', x:'Vecka 2: Eget ansvar med stöd' },
+        { t:'ul', x:['Egen avgränsad uppgift med leverans på fredag','Avstämning med chef onsdag: "Vad är otydligt?" – inte "Hur går det?"'] },
+        { t:'p', x:'Checklista för chef, fadder och IT kan genereras separat – vill du ha den?' }
+      ]
+    }
+  },
+  'IT': {
+    'Skriv incidentrapport': {
+      prompt: 'Skriv en incidentrapport om fredagens driftstörning som även ledningen förstår.',
+      mins: 30,
+      blocks: [
+        { t:'h', x:'Incidentrapport – driftstörning fredag 09:14–11:42' },
+        { t:'p', x:'**För ledningen, i en mening:** En certifikatsförnyelse missades, vilket gjorde kundportalen oåtkomlig i 2,5 timmar – ingen data har förlorats eller exponerats.' },
+        { t:'h', x:'Vad hände' },
+        { t:'ul', x:['09:14 – Portalens TLS-certifikat löpte ut; automatisk förnyelse hade felkonfigurerats vid serverbytet i april','09:31 – Felet identifierat, manuell förnyelse påbörjad','11:42 – Full drift återställd och verifierad'] },
+        { t:'h', x:'Så förhindrar vi nästa gång' },
+        { t:'ul', x:['Övervakning larmar nu 30 dagar före certifikatutgång','Förnyelseprocessen automatiserad och testad i staging'] }
+      ]
+    },
+    'Prioritera ärendekön': {
+      prompt: 'Gå igenom våra 47 öppna ärenden och föreslå en prioritering.',
+      mins: 40,
+      blocks: [
+        { t:'h', x:'Ärendekö – 47 öppna, förslag på prioritering' },
+        { t:'ul', x:['**Agera i dag (3):** Två ärenden rör samma lönesystemsfel – ihopslagna och eskalerade. Ett säkerhetsärende har legat obesvarat i 6 dagar.','**Denna vecka (11):** Ärenden med VIP-användare eller fler än 5 berörda','**Kan schemaläggas (28):** Standardbeställningar och behörigheter – 19 av dem kan stängas med självserviceguider','**Bör stängas (5):** Inaktiva i 30+ dagar utan svar från beställaren'] },
+        { t:'h', x:'Mönster värt att se' },
+        { t:'p', x:'Var fjärde ärende handlar om lösenordsåterställning eller behörighet – en självserviceportal skulle kapa kön med ca 25 %.' }
+      ]
+    },
+    'Utvärdera nytt verktyg': {
+      prompt: 'Sammanställ för- och nackdelar med att byta vårt ärendehanteringssystem.',
+      mins: 55,
+      blocks: [
+        { t:'h', x:'Underlag – byte av ärendehanteringssystem' },
+        { t:'h', x:'För ett byte' },
+        { t:'ul', x:['Nuvarande system saknar automatisering – ca 6 h manuellt rutinarbete per vecka','Licenskostnaden har ökat 40 % på tre år; moderna alternativ ligger 20–30 % lägre','Ingen integration mot ert HR-system – on/offboarding sköts manuellt i dag'] },
+        { t:'h', x:'Mot ett byte' },
+        { t:'ul', x:['Migrering av 4 års ärendehistorik kräver projektinsats på uppskattningsvis 3–4 veckor','Teamet är snabbt i nuvarande verktyg – produktivitetsdipp första månaden är realistisk'] },
+        { t:'p', x:'**Rekommendation:** Begär in offerter och kör pilot med ett team innan beslut – kostnaden för piloten är låg mot risken med fel val.' }
+      ]
+    }
+  },
+  'Kundtjänst': {
+    'Besvara arg kund': {
+      prompt: 'Skriv ett svar till en kund som är arg över en försenad leverans – tredje gången den flyttats.',
+      mins: 15,
+      blocks: [
+        { t:'h', x:'Svarsutkast – upprörd kund, tredje förseningen' },
+        { t:'p', x:'Hej Maria, du har all rätt att vara frustrerad – tre flyttade leveransdatum är inte okej, och jag tänker inte be dig ha överseende en gång till.' },
+        { t:'p', x:'Det här gör vi nu: Jag har personligen säkrat din order i nästa avgång, **leverans onsdag 18/6**. Du får spårningslänk i dag och jag bevakar den själv tills den är framme. Som ursäkt drar vi av fraktkostnaden och lägger till 15 % på ordervärdet.' },
+        { t:'h', x:'Varför svaret funkar' },
+        { t:'ul', x:['Bekräftar känslan utan bortförklaringar','Konkret datum + namngivet ansvar i stället för "vi beklagar"','Kompensation utan att kunden behövde kräva den'] }
+      ]
+    },
+    'Sammanfatta vanligaste frågorna': {
+      prompt: 'Analysera senaste månadens ärenden och visa vilka frågor som återkommer mest.',
+      mins: 35,
+      blocks: [
+        { t:'h', x:'Ärendeanalys – 312 ärenden senaste månaden' },
+        { t:'h', x:'Topp 3 återkommande' },
+        { t:'ul', x:['**Fakturafrågor (28 %):** Främst "var hittar jag min faktura" – en tydligare mejlrubrik från ekonomisystemet skulle kapa hälften','**Leveransstatus (22 %):** Spårningslänken hamnar i skräppost hos vissa kunder – känt problem, enkel fix','**Returprocess (14 %):** Kunderna hittar inte returportalen från orderbekräftelsen'] },
+        { t:'h', x:'Potential' },
+        { t:'p', x:'Tre små ändringar i befintliga mejlutskick skulle beröra **64 % av all inkommande volym**. Vill du ha förslag på exakta formuleringar?' }
+      ]
+    },
+    'Skriv svarsmallar': {
+      prompt: 'Skapa svarsmallar för våra fem vanligaste ärendetyper, i vår tonalitet.',
+      mins: 30,
+      blocks: [
+        { t:'h', x:'Svarsmallar – utkast för de 5 vanligaste ärendena' },
+        { t:'p', x:'Här är den första – övriga fyra byggs på samma princip:' },
+        { t:'h', x:'Mall: Försenad leverans' },
+        { t:'p', x:'"Hej [namn], tack för att du hörde av dig – och förlåt för väntan. Din order [nr] är just nu [status] och beräknas nå dig [datum]. Jag bevakar den och hör av mig direkt om något ändras. Behöver du den tidigare? Svara här så ser jag vad jag kan göra."' },
+        { t:'h', x:'Principen bakom alla mallar' },
+        { t:'ul', x:['Erkänn först, förklara sen','Alltid ett konkret datum eller nästa steg','Avsluta med en öppning – aldrig en återvändsgränd'] }
+      ]
+    }
+  }
+};
+
+const chatEls = {
+  roleChips: document.getElementById('roleChips'),
+  taskChips: document.getElementById('taskChips'),
+  taskBlock: document.getElementById('taskBlock'),
+  body: document.getElementById('chatBody'),
+  empty: document.getElementById('chatEmpty')
+};
+let selRole = null;
+let chatBusy = false;
+
+// rendera roll-chips
+Object.keys(ROLES).forEach(role=>{
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button'; b.textContent = role;
+  b.addEventListener('click', ()=>{
+    if (chatBusy) return;
+    selRole = role;
+    chatEls.roleChips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+    renderTasks(role);
+  });
+  chatEls.roleChips.appendChild(b);
+});
+
+function renderTasks(role){
+  chatEls.taskChips.innerHTML = '';
+  Object.keys(ROLES[role]).forEach(task=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.textContent = task;
+    b.addEventListener('click', ()=>{
+      if (chatBusy) return;
+      chatEls.taskChips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+      runChat(role, task);
+    });
+    chatEls.taskChips.appendChild(b);
+  });
+  chatEls.taskBlock.classList.remove('hidden');
+}
+
+// **fet** → <strong>
+function fmt(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+}
+
+const sleep = ms => new Promise(r=>setTimeout(r, ms));
+
+async function runChat(role, task){
+  const data = ROLES[role][task];
+  chatBusy = true;
+  chatEls.body.innerHTML = '';
+
+  // användarens bubbla
+  const ub = document.createElement('div');
+  ub.className = 'bubble-user';
+  ub.textContent = data.prompt;
+  chatEls.body.appendChild(ub);
+  scrollChat();
+
+  // tänker-indikator
+  await sleep(REDUCED_MOTION ? 50 : 600);
+  const think = document.createElement('div');
+  think.className = 'bubble-ai';
+  think.innerHTML = '<span class="thinking"><i></i><i></i><i></i></span>';
+  chatEls.body.appendChild(think);
+  scrollChat();
+  await sleep(REDUCED_MOTION ? 50 : 1200 + Math.random()*600);
+  think.remove();
+
+  // AI-bubbla med streamat innehåll
+  const ai = document.createElement('div');
+  ai.className = 'bubble-ai';
+  ai.innerHTML = '<div class="ai-tag"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>AI-assistent</div>';
+  chatEls.body.appendChild(ai);
+
+  for (const block of data.blocks) {
+    let el;
+    if (block.t === 'h') { el = document.createElement('h4'); ai.appendChild(el); await streamText(el, block.x); }
+    else if (block.t === 'p') { el = document.createElement('p'); ai.appendChild(el); await streamText(el, block.x); }
+    else if (block.t === 'ul') {
+      el = document.createElement('ul'); ai.appendChild(el);
+      for (const item of block.x) {
+        const li = document.createElement('li'); el.appendChild(li);
+        await streamText(li, item);
+      }
+    }
+  }
+
+  // mikro-poäng + igen-knapp
+  const after = document.createElement('div');
+  after.className = 'chat-after';
+  after.innerHTML = `<span class="chat-point">✦ Så här ser ungefär ${data.mins} sparade minuter ut.</span>`;
+  const again = document.createElement('button');
+  again.className = 'chip'; again.type = 'button'; again.textContent = 'Prova en annan uppgift ↑';
+  again.addEventListener('click', ()=>{
+    document.getElementById('demo').scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
+  });
+  after.appendChild(again);
+  chatEls.body.appendChild(after);
+  scrollChat();
+  chatBusy = false;
+}
+
+// streama text ord-för-ord med blinkande cursor
+async function streamText(el, raw){
+  if (REDUCED_MOTION) { el.innerHTML = fmt(raw); return; }
+  const words = raw.split(' ');
+  const cursor = '<span class="type-cursor"></span>';
+  let acc = '';
+  for (let i = 0; i < words.length; i++) {
+    acc += (i ? ' ' : '') + words[i];
+    el.innerHTML = fmt(acc) + cursor;
+    scrollChat();
+    // naturlig rytm: kort paus per ord, längre vid skiljetecken
+    let d = 22 + Math.random()*40;
+    if (/[.!?:]$/.test(words[i])) d += 140;
+    else if (/,$/.test(words[i])) d += 60;
+    await sleep(d);
+  }
+  el.innerHTML = fmt(acc);
+}
+
+function scrollChat(){
+  chatEls.body.scrollTop = chatEls.body.scrollHeight;
+}
+
+/* ════════════════════════════════════════════════
+   FLIK 2 – AGENT-SIMULERING
+════════════════════════════════════════════════ */
+const GOALS = [
+  {
+    label: 'Boka och förbered kundmötet med Nordkraft',
+    goal: 'Boka in nästa kundmöte med Nordkraft AB nästa vecka och se till att jag är fullt förberedd.',
+    steps: [
+      { txt:'Tolkar målet och bryter ner det i deluppgifter', sub:'4 uppgifter identifierade: tid, inbjudan, research, agenda' },
+      { txt:'Söker lediga tider i din och kundens kalender', sub:'Hittade 3 gemensamma luckor – föreslår tisdag 14:00' },
+      { txt:'Skriver mötesinbjudan och skickar för ditt godkännande', sub:'Utkast klart med videolänk och agenda bifogad' },
+      { txt:'Läser de 12 senaste mejlen och anteckningarna från Nordkraft', sub:'Två öppna frågor från kunden hittade – flaggade i underlaget' },
+      { txt:'Sammanställer mötesunderlag med agenda och talepunkter', sub:'1 sida: bakgrund, 2 öppna frågor, 3 förslag att presentera' }
+    ],
+    result: 'Mötet är förberett: föreslagen tid tisdag 14:00, inbjudan klar att skicka, och ett underlag på en sida med de två frågor kunden väntar på svar om.',
+    actions: 5
+  },
+  {
+    label: 'Sammanställ veckorapporten till fredag 09:00',
+    goal: 'Sammanställ veckorapporten till ledningsgruppen – klar senast fredag 09:00.',
+    steps: [
+      { txt:'Tolkar målet och planerar arbetet baklänges från deadline', sub:'Utkast torsdag 15:00 ger marginal för din granskning' },
+      { txt:'Hämtar veckans nyckeltal från försäljning och produktion', sub:'Orderingång +3 %, leveransprecision 96,2 %' },
+      { txt:'Läser mötesanteckningar och plockar ut beslut och risker', sub:'2 beslut, 1 ny risk sedan förra veckan' },
+      { txt:'Skriver rapportutkast i ledningsgruppens mall', sub:'Sammanfattning, nyckeltal, beslut, risker – 2 sidor' },
+      { txt:'Schemalägger påminnelse till dig torsdag 15:00 för granskning', sub:'Rapporten skickas inte utan ditt godkännande' }
+    ],
+    result: 'Rapportutkastet ligger klart i din inkorg torsdag 15:00. Du granskar på 10 minuter – agenten skickar fredag 08:45 efter ditt OK.',
+    actions: 5
+  },
+  {
+    label: 'Gör allt klart för nya säljarens första dag',
+    goal: 'Vår nya säljare börjar på måndag – se till att allt är förberett.',
+    steps: [
+      { txt:'Tolkar målet och listar vad "allt klart" innebär', sub:'IT, behörigheter, schema, fadder, välkomstmejl' },
+      { txt:'Skapar IT-beställning: dator, telefon, licenser', sub:'Beställning skickad – leverans bekräftad till fredag' },
+      { txt:'Bokar introduktionsschema för vecka 1 i kalendern', sub:'6 möten inbokade med teamet och närmaste chef' },
+      { txt:'Skriver välkomstmejl med praktisk info för dag 1', sub:'Tid, plats, parkering, vem som möter upp' },
+      { txt:'Förbereder checklista till faddern', sub:'Skickas måndag 07:30 så inget glöms' }
+    ],
+    result: 'Allt är på plats: utrustning levereras fredag, första veckan är schemalagd, och både den nyanställda och faddern vet exakt vad som händer på måndag.',
+    actions: 5
+  },
+  {
+    label: 'Utred varför supportärendena ökade 30 %',
+    goal: 'Ta reda på varför supportärendena ökade 30 % i maj och föreslå åtgärder.',
+    steps: [
+      { txt:'Tolkar målet och formulerar hypoteser att testa', sub:'3 hypoteser: release, säsong, enskild kund' },
+      { txt:'Analyserar 312 ärenden och grupperar efter orsak', sub:'En kategori sticker ut: inloggningsproblem +180 %' },
+      { txt:'Korsrefererar mot release-loggen', sub:'Träff: ny inloggningslösning släpptes 6 maj' },
+      { txt:'Beräknar effekt av föreslagna åtgärder', sub:'Guidetext vid inloggning beräknas kapa 60 % av kategorin' },
+      { txt:'Skriver åtgärdsförslag med underlag till produktteamet', sub:'1 sida: rotorsak, data, 2 åtgärder, förväntad effekt' }
+    ],
+    result: 'Rotorsaken hittad: inloggningsändringen den 6 maj. Ett färdigt åtgärdsförslag ligger hos produktteamet – beräknad effekt är att ärendevolymen normaliseras inom 3 veckor.',
+    actions: 5
+  }
+];
+
+const agentEls = {
+  chips: document.getElementById('goalChips'),
+  body: document.getElementById('agentBody'),
+  status: document.getElementById('agentStatus')
+};
+let agentBusy = false;
+
+GOALS.forEach((g, idx)=>{
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button'; b.textContent = g.label;
+  b.addEventListener('click', ()=>{
+    if (agentBusy) return;
+    agentEls.chips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+    runAgent(idx);
+  });
+  agentEls.chips.appendChild(b);
+});
+
+async function runAgent(idx){
+  const g = GOALS[idx];
+  agentBusy = true;
+  agentEls.status.textContent = 'Arbetar …';
+  agentEls.status.className = 'agent-status running';
+  agentEls.body.innerHTML = '';
+
+  const goalBox = document.createElement('div');
+  goalBox.className = 'agent-goal';
+  goalBox.innerHTML = `<b>Ditt mål</b>${fmt(g.goal)}`;
+  agentEls.body.appendChild(goalBox);
+
+  const list = document.createElement('ul');
+  list.className = 'agent-steps';
+  agentEls.body.appendChild(list);
+
+  for (const step of g.steps) {
+    const li = document.createElement('li');
+    li.className = 'agent-step';
+    li.innerHTML = `<span class="mark"><span class="spinner"></span></span><span class="txt">${fmt(step.txt)}<span class="sub">&nbsp;</span></span>`;
+    list.appendChild(li);
+    requestAnimationFrame(()=>li.classList.add('in'));
+    await sleep(REDUCED_MOTION ? 30 : 850 + Math.random()*700);
+    li.querySelector('.mark').innerHTML = '<span class="checkmark">✓</span>';
+    li.querySelector('.sub').textContent = step.sub;
+    await sleep(REDUCED_MOTION ? 20 : 250);
+  }
+
+  agentEls.status.textContent = `Klart – ${g.actions} åtgärder utförda`;
+  agentEls.status.className = 'agent-status done';
+
+  const res = document.createElement('div');
+  res.className = 'agent-result';
+  res.innerHTML = `<h4>Målet är uppnått</h4><p>${fmt(g.result)}</p>
+    <p class="key">Skillnaden? Du gav ett mål – inte en prompt. Det är delegering på riktigt. Och det är exakt det dina medarbetare kan lära sig.</p>`;
+  agentEls.body.appendChild(res);
+  requestAnimationFrame(()=>res.classList.add('in'));
+  agentBusy = false;
+}
+</script>
+
+</body>
+</html>
