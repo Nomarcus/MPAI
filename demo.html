@@ -153,6 +153,8 @@ nav {
   position:relative; overflow:hidden;
 }
 .btn:hover { transform:translateY(-2px); }
+.btn:disabled { opacity:.4; cursor:not-allowed; transform:none !important; box-shadow:none; }
+.btn:disabled::after { display:none; }
 .btn-primary { background:var(--green); color:#fff; box-shadow:0 6px 22px var(--green-glow); }
 .btn-primary:hover { background:var(--green-2); box-shadow:0 10px 30px var(--green-glow); }
 .btn-primary::after {
@@ -492,6 +494,11 @@ footer { border-top:1px solid var(--line); padding:56px 0 48px; }
         <div class="chips task-chips" id="taskChips"></div>
       </div>
 
+      <div id="styleBlock" class="hidden">
+        <div class="pick-label"><span class="step-num">3</span> Hur vill du ha svaret?</div>
+        <div class="chips" id="styleChips"></div>
+      </div>
+
       <div class="chat-window" aria-live="polite">
         <div class="chat-head">
           <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
@@ -500,7 +507,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 48px; }
         <div class="chat-body" id="chatBody">
           <div class="chat-empty" id="chatEmpty">
             <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            <br/>Välj roll och uppgift ovan – så visar AI:n vad den kan göra.
+            <br/>Välj roll, uppgift och svarsstil ovan – så visar AI:n vad den kan göra.
           </div>
         </div>
       </div>
@@ -515,6 +522,13 @@ footer { border-top:1px solid var(--line); padding:56px 0 48px; }
       <div class="pick-label"><span class="step-num">1</span> Välj ett mål att delegera</div>
       <div class="chips" id="goalChips"></div>
 
+      <div id="agentSetup" class="hidden">
+        <div id="agentOpts"></div>
+        <div style="margin-top:30px;">
+          <button class="btn btn-primary" id="agentStart" type="button" disabled>Delegera till agenten →</button>
+        </div>
+      </div>
+
       <div class="agent-window" aria-live="polite">
         <div class="agent-head">
           <div class="left">
@@ -524,7 +538,7 @@ footer { border-top:1px solid var(--line); padding:56px 0 48px; }
           <span class="agent-status" id="agentStatus">Väntar på mål</span>
         </div>
         <div class="agent-body" id="agentBody">
-          <div class="agent-empty" id="agentEmpty">Välj ett mål ovan så sätter agenten igång.</div>
+          <div class="agent-empty" id="agentEmpty">Välj mål och anpassa uppdraget ovan – sedan delegerar du och ser agenten arbeta.</div>
         </div>
       </div>
 
@@ -881,10 +895,12 @@ const chatEls = {
   roleChips: document.getElementById('roleChips'),
   taskChips: document.getElementById('taskChips'),
   taskBlock: document.getElementById('taskBlock'),
+  styleChips: document.getElementById('styleChips'),
+  styleBlock: document.getElementById('styleBlock'),
   body: document.getElementById('chatBody'),
   empty: document.getElementById('chatEmpty')
 };
-let selRole = null;
+let selRole = null, selTask = null;
 let chatBusy = false;
 
 // rendera roll-chips
@@ -893,8 +909,10 @@ Object.keys(ROLES).forEach(role=>{
   b.className = 'chip'; b.type = 'button'; b.textContent = role;
   b.addEventListener('click', ()=>{
     if (chatBusy) return;
-    selRole = role;
+    selRole = role; selTask = null;
     chatEls.roleChips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+    chatEls.styleBlock.classList.add('hidden');
+    chatEls.styleChips.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
     renderTasks(role);
   });
   chatEls.roleChips.appendChild(b);
@@ -907,13 +925,31 @@ function renderTasks(role){
     b.className = 'chip'; b.type = 'button'; b.textContent = task;
     b.addEventListener('click', ()=>{
       if (chatBusy) return;
+      selTask = task;
       chatEls.taskChips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
-      runChat(role, task);
+      chatEls.styleChips.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+      chatEls.styleBlock.classList.remove('hidden');
     });
     chatEls.taskChips.appendChild(b);
   });
   chatEls.taskBlock.classList.remove('hidden');
 }
+
+// steg 3: svarsstil – valet startar AI:n
+const STYLES = [
+  { label:'⚡ Kort & koncist', key:'kort' },
+  { label:'📋 Utförligt med detaljer', key:'lang' }
+];
+STYLES.forEach(s=>{
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button'; b.textContent = s.label;
+  b.addEventListener('click', ()=>{
+    if (chatBusy || !selRole || !selTask) return;
+    chatEls.styleChips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+    runChat(selRole, selTask, s.key);
+  });
+  chatEls.styleChips.appendChild(b);
+});
 
 // **fet** → <strong>
 function fmt(s){
@@ -923,15 +959,23 @@ function fmt(s){
 
 const sleep = ms => new Promise(r=>setTimeout(r, ms));
 
-async function runChat(role, task){
+async function runChat(role, task, style){
   const data = ROLES[role][task];
+  const kort = style === 'kort';
+  // kort: rubrik + kärnan + avslutande fråga om en sådan finns sist
+  let blocks = data.blocks;
+  if (kort) {
+    blocks = data.blocks.slice(0, 3);
+    const last = data.blocks[data.blocks.length - 1];
+    if (data.blocks.length > 3 && last.t === 'p' && /\?$/.test(last.x)) blocks = blocks.concat([last]);
+  }
   chatBusy = true;
   chatEls.body.innerHTML = '';
 
   // användarens bubbla
   const ub = document.createElement('div');
   ub.className = 'bubble-user';
-  ub.textContent = data.prompt;
+  ub.textContent = data.prompt + (kort ? ' Håll det kort.' : ' Ge mig hela bilden med detaljer.');
   chatEls.body.appendChild(ub);
   scrollChat();
 
@@ -951,7 +995,7 @@ async function runChat(role, task){
   ai.innerHTML = '<div class="ai-tag"><svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>AI-assistent</div>';
   chatEls.body.appendChild(ai);
 
-  for (const block of data.blocks) {
+  for (const block of blocks) {
     let el;
     if (block.t === 'h') { el = document.createElement('h4'); ai.appendChild(el); await streamText(el, block.x); }
     else if (block.t === 'p') { el = document.createElement('p'); ai.appendChild(el); await streamText(el, block.x); }
@@ -967,7 +1011,7 @@ async function runChat(role, task){
   // mikro-poäng + igen-knapp
   const after = document.createElement('div');
   after.className = 'chat-after';
-  after.innerHTML = `<span class="chat-point">✦ Så här ser ungefär ${data.mins} sparade minuter ut.</span>`;
+  after.innerHTML = `<span class="chat-point">✦ Så här ser ungefär ${kort ? Math.max(10, Math.round(data.mins * .6)) : data.mins} sparade minuter ut.</span>`;
   const again = document.createElement('button');
   again.className = 'chip'; again.type = 'button'; again.textContent = 'Prova en annan uppgift ↑';
   again.addEventListener('click', ()=>{
@@ -1005,96 +1049,170 @@ function scrollChat(){
 /* ════════════════════════════════════════════════
    FLIK 2 – AGENT-SIMULERING
 ════════════════════════════════════════════════ */
+/* Varje mål har 2 valgrupper – valen vävs in i mål, steg och resultat.
+   Kundexemplet använder Contoso, Microsofts fiktiva demoföretag. */
 const GOALS = [
   {
-    label: 'Boka och förbered kundmötet med Nordkraft',
-    goal: 'Boka in nästa kundmöte med Nordkraft AB nästa vecka och se till att jag är fullt förberedd.',
-    steps: [
-      { txt:'Tolkar målet och bryter ner det i deluppgifter', sub:'4 uppgifter identifierade: tid, inbjudan, research, agenda' },
-      { txt:'Söker lediga tider i din och kundens kalender', sub:'Hittade 3 gemensamma luckor – föreslår tisdag 14:00' },
-      { txt:'Skriver mötesinbjudan och skickar för ditt godkännande', sub:'Utkast klart med videolänk och agenda bifogad' },
-      { txt:'Läser de 12 senaste mejlen och anteckningarna från Nordkraft', sub:'Två öppna frågor från kunden hittade – flaggade i underlaget' },
-      { txt:'Sammanställer mötesunderlag med agenda och talepunkter', sub:'1 sida: bakgrund, 2 öppna frågor, 3 förslag att presentera' }
+    label: 'Boka och förbered kundmötet med Contoso',
+    opts: [
+      { q:'När ska mötet ske?', choices:[
+        { label:'Nästa vecka', v:'nästa vecka', tid:'tisdag 14:00' },
+        { label:'Redan denna vecka', v:'redan denna vecka', tid:'fredag 10:00' } ] },
+      { q:'Vad är fokus för mötet?', choices:[
+        { label:'Merförsäljning', v:'hitta merförsäljning', fokus:'tre konkreta utökningsförslag baserade på deras nuvarande avtal' },
+        { label:'Lösa öppna frågor', v:'lösa kundens öppna frågor', fokus:'svar på de två frågor kunden väntat på sedan i april' } ] }
     ],
-    result: 'Mötet är förberett: föreslagen tid tisdag 14:00, inbjudan klar att skicka, och ett underlag på en sida med de två frågor kunden väntar på svar om.',
+    goal: o => `Boka in kundmöte med Contoso AB ${o[0].v} med fokus på att ${o[1].v} – och se till att jag är fullt förberedd.`,
+    steps: o => [
+      { txt:'Tolkar målet och bryter ner det i deluppgifter', sub:`4 uppgifter: tid ${o[0].v}, inbjudan, research, agenda` },
+      { txt:'Söker lediga tider i din och kundens kalender', sub:`Hittade 3 gemensamma luckor – föreslår ${o[0].tid}` },
+      { txt:'Skriver mötesinbjudan och lägger den för ditt godkännande', sub:'Utkast klart med videolänk och agenda bifogad' },
+      { txt:'Läser de 12 senaste mejlen och anteckningarna från Contoso', sub:'Två öppna frågor och ett utgående avtal hittade' },
+      { txt:'Sammanställer mötesunderlag utifrån ditt fokus', sub:`1 sida: bakgrund + ${o[1].fokus}` }
+    ],
+    result: o => `Mötet är förberett: föreslagen tid ${o[0].tid}, inbjudan klar att skicka, och ett underlag på en sida med ${o[1].fokus}.`,
     actions: 5
   },
   {
-    label: 'Sammanställ veckorapporten till fredag 09:00',
-    goal: 'Sammanställ veckorapporten till ledningsgruppen – klar senast fredag 09:00.',
-    steps: [
-      { txt:'Tolkar målet och planerar arbetet baklänges från deadline', sub:'Utkast torsdag 15:00 ger marginal för din granskning' },
-      { txt:'Hämtar veckans nyckeltal från försäljning och produktion', sub:'Orderingång +3 %, leveransprecision 96,2 %' },
-      { txt:'Läser mötesanteckningar och plockar ut beslut och risker', sub:'2 beslut, 1 ny risk sedan förra veckan' },
-      { txt:'Skriver rapportutkast i ledningsgruppens mall', sub:'Sammanfattning, nyckeltal, beslut, risker – 2 sidor' },
-      { txt:'Schemalägger påminnelse till dig torsdag 15:00 för granskning', sub:'Rapporten skickas inte utan ditt godkännande' }
+    label: 'Sammanställ veckorapporten åt mig',
+    opts: [
+      { q:'När ska den vara klar?', choices:[
+        { label:'Fredag 09:00', v:'fredag 09:00', utkast:'torsdag 15:00' },
+        { label:'Torsdag lunch', v:'torsdag 12:00', utkast:'onsdag 16:00' } ] },
+      { q:'Vad ska rapporten fokusera på?', choices:[
+        { label:'Nyckeltal & risker', v:'nyckeltal och risker', innehall:'orderingång +3 %, leveransprecision 96,2 % och 1 ny risk' },
+        { label:'Framsteg & beslut', v:'framsteg och fattade beslut', innehall:'3 avslutade milstolpar och 2 beslut som behöver kommuniceras' } ] }
     ],
-    result: 'Rapportutkastet ligger klart i din inkorg torsdag 15:00. Du granskar på 10 minuter – agenten skickar fredag 08:45 efter ditt OK.',
+    goal: o => `Sammanställ veckorapporten till ledningsgruppen – klar senast ${o[0].v}, med fokus på ${o[1].v}.`,
+    steps: o => [
+      { txt:'Tolkar målet och planerar baklänges från deadline', sub:`Utkast ${o[0].utkast} ger marginal för din granskning` },
+      { txt:'Hämtar veckans underlag från försäljning och produktion', sub:`Plockar ut ${o[1].v} ur datan` },
+      { txt:'Läser mötesanteckningar och filtrerar på ditt fokus', sub:`Hittade: ${o[1].innehall}` },
+      { txt:'Skriver rapportutkast i ledningsgruppens mall', sub:'2 sidor: sammanfattning + ditt valda fokus' },
+      { txt:`Schemalägger granskningspåminnelse till dig ${o[0].utkast}`, sub:'Rapporten skickas inte utan ditt godkännande' }
+    ],
+    result: o => `Rapportutkastet ligger klart i din inkorg ${o[0].utkast} med fokus på ${o[1].v}. Du granskar på 10 minuter – agenten skickar i tid till ${o[0].v} efter ditt OK.`,
     actions: 5
   },
   {
     label: 'Gör allt klart för nya säljarens första dag',
-    goal: 'Vår nya säljare börjar på måndag – se till att allt är förberett.',
-    steps: [
-      { txt:'Tolkar målet och listar vad "allt klart" innebär', sub:'IT, behörigheter, schema, fadder, välkomstmejl' },
-      { txt:'Skapar IT-beställning: dator, telefon, licenser', sub:'Beställning skickad – leverans bekräftad till fredag' },
-      { txt:'Bokar introduktionsschema för vecka 1 i kalendern', sub:'6 möten inbokade med teamet och närmaste chef' },
-      { txt:'Skriver välkomstmejl med praktisk info för dag 1', sub:'Tid, plats, parkering, vem som möter upp' },
-      { txt:'Förbereder checklista till faddern', sub:'Skickas måndag 07:30 så inget glöms' }
+    opts: [
+      { q:'När börjar hen?', choices:[
+        { label:'På måndag', v:'på måndag', lev:'fredag' },
+        { label:'Om två veckor', v:'om två veckor', lev:'i god tid nästa vecka' } ] },
+      { q:'Vad är viktigast första veckan?', choices:[
+        { label:'Kundkännedom', v:'kundkännedom', schema:'4 kundgenomgångar och medlyssning på säljsamtal' },
+        { label:'Verktyg & system', v:'verktyg och system', schema:'CRM-utbildning, offertverktyget och säljprocessen steg för steg' } ] }
     ],
-    result: 'Allt är på plats: utrustning levereras fredag, första veckan är schemalagd, och både den nyanställda och faddern vet exakt vad som händer på måndag.',
+    goal: o => `Vår nya säljare börjar ${o[0].v} – gör allt klart, med extra vikt på ${o[1].v} första veckan.`,
+    steps: o => [
+      { txt:'Tolkar målet och listar vad "allt klart" innebär', sub:'IT, behörigheter, schema, fadder, välkomstmejl' },
+      { txt:'Skapar IT-beställning: dator, telefon, licenser', sub:`Beställning skickad – leverans bekräftad till ${o[0].lev}` },
+      { txt:'Bokar introduktionsschema för vecka 1', sub:`Prioriterat innehåll: ${o[1].schema}` },
+      { txt:'Skriver välkomstmejl med praktisk info för dag 1', sub:'Tid, plats, parkering, vem som möter upp' },
+      { txt:'Förbereder checklista till faddern', sub:'Skickas kl 07:30 på startdagen så inget glöms' }
+    ],
+    result: o => `Allt är på plats: utrustningen levereras ${o[0].lev}, första veckan är schemalagd med fokus på ${o[1].v}, och både den nyanställda och faddern vet exakt vad som händer på startdagen.`,
     actions: 5
   },
   {
     label: 'Utred varför supportärendena ökade 30 %',
-    goal: 'Ta reda på varför supportärendena ökade 30 % i maj och föreslå åtgärder.',
-    steps: [
-      { txt:'Tolkar målet och formulerar hypoteser att testa', sub:'3 hypoteser: release, säsong, enskild kund' },
-      { txt:'Analyserar 312 ärenden och grupperar efter orsak', sub:'En kategori sticker ut: inloggningsproblem +180 %' },
-      { txt:'Korsrefererar mot release-loggen', sub:'Träff: ny inloggningslösning släpptes 6 maj' },
-      { txt:'Beräknar effekt av föreslagna åtgärder', sub:'Guidetext vid inloggning beräknas kapa 60 % av kategorin' },
-      { txt:'Skriver åtgärdsförslag med underlag till produktteamet', sub:'1 sida: rotorsak, data, 2 åtgärder, förväntad effekt' }
+    opts: [
+      { q:'Hur snabbt behöver du svaret?', choices:[
+        { label:'I dag', v:'i dag', dataset:'de 100 senaste ärendena' },
+        { label:'Till fredagens ledningsmöte', v:'till fredagens ledningsmöte', dataset:'alla 312 ärenden från maj' } ] },
+      { q:'Vad vill du få ut?', choices:[
+        { label:'Kort åtgärdslista', v:'en kort åtgärdslista', lev:'en halv sida: rotorsak + 2 åtgärder' },
+        { label:'Fullt underlag med data', v:'ett komplett underlag med data', lev:'3 sidor: rotorsak, diagram, åtgärder och förväntad effekt' } ] }
     ],
-    result: 'Rotorsaken hittad: inloggningsändringen den 6 maj. Ett färdigt åtgärdsförslag ligger hos produktteamet – beräknad effekt är att ärendevolymen normaliseras inom 3 veckor.',
+    goal: o => `Ta reda på varför supportärendena ökade 30 % i maj – jag behöver ${o[1].v} ${o[0].v}.`,
+    steps: o => [
+      { txt:'Tolkar målet och formulerar hypoteser att testa', sub:'3 hypoteser: release, säsong, enskild kund' },
+      { txt:`Analyserar ${o[0].dataset} och grupperar efter orsak`, sub:'En kategori sticker ut: inloggningsproblem +180 %' },
+      { txt:'Korsrefererar mot release-loggen', sub:'Träff: ny inloggningslösning släpptes 6 maj' },
+      { txt:'Beräknar effekt av möjliga åtgärder', sub:'Guidetext vid inloggning beräknas kapa 60 % av kategorin' },
+      { txt:'Paketerar svaret i formatet du bad om', sub:`Levererar ${o[1].lev}` }
+    ],
+    result: o => `Rotorsaken hittad: inloggningsändringen den 6 maj. Du har ${o[1].v} klart ${o[0].v} – beräknad effekt är att ärendevolymen normaliseras inom 3 veckor.`,
     actions: 5
   }
 ];
 
 const agentEls = {
   chips: document.getElementById('goalChips'),
+  setup: document.getElementById('agentSetup'),
+  opts: document.getElementById('agentOpts'),
+  start: document.getElementById('agentStart'),
   body: document.getElementById('agentBody'),
   status: document.getElementById('agentStatus')
 };
 let agentBusy = false;
+let selGoal = null;
+let selOpts = [];
 
 GOALS.forEach((g, idx)=>{
   const b = document.createElement('button');
   b.className = 'chip'; b.type = 'button'; b.textContent = g.label;
   b.addEventListener('click', ()=>{
     if (agentBusy) return;
+    selGoal = idx;
     agentEls.chips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
-    runAgent(idx);
+    renderAgentOpts(g);
   });
   agentEls.chips.appendChild(b);
 });
 
-async function runAgent(idx){
+// steg 2: anpassa uppdraget – valen styr agentens output
+function renderAgentOpts(g){
+  selOpts = new Array(g.opts.length).fill(null);
+  agentEls.opts.innerHTML = '';
+  g.opts.forEach((grp, gi)=>{
+    const lbl = document.createElement('div');
+    lbl.className = 'pick-label';
+    lbl.innerHTML = `<span class="step-num">${gi + 2}</span> ${grp.q}`;
+    agentEls.opts.appendChild(lbl);
+    const row = document.createElement('div');
+    row.className = 'chips';
+    grp.choices.forEach(ch=>{
+      const b = document.createElement('button');
+      b.className = 'chip'; b.type = 'button'; b.textContent = ch.label;
+      b.addEventListener('click', ()=>{
+        if (agentBusy) return;
+        selOpts[gi] = ch;
+        row.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel', c===b));
+        agentEls.start.disabled = selOpts.some(x=>!x);
+      });
+      row.appendChild(b);
+    });
+    agentEls.opts.appendChild(row);
+  });
+  agentEls.start.disabled = true;
+  agentEls.setup.classList.remove('hidden');
+}
+
+agentEls.start.addEventListener('click', ()=>{
+  if (agentBusy || selGoal === null || selOpts.some(x=>!x)) return;
+  runAgent(selGoal, selOpts.slice());
+});
+
+async function runAgent(idx, o){
   const g = GOALS[idx];
   agentBusy = true;
+  agentEls.start.disabled = true;
   agentEls.status.textContent = 'Arbetar …';
   agentEls.status.className = 'agent-status running';
   agentEls.body.innerHTML = '';
 
   const goalBox = document.createElement('div');
   goalBox.className = 'agent-goal';
-  goalBox.innerHTML = `<b>Ditt mål</b>${fmt(g.goal)}`;
+  goalBox.innerHTML = `<b>Ditt mål</b>${fmt(g.goal(o))}`;
   agentEls.body.appendChild(goalBox);
 
   const list = document.createElement('ul');
   list.className = 'agent-steps';
   agentEls.body.appendChild(list);
 
-  for (const step of g.steps) {
+  for (const step of g.steps(o)) {
     const li = document.createElement('li');
     li.className = 'agent-step';
     li.innerHTML = `<span class="mark"><span class="spinner"></span></span><span class="txt">${fmt(step.txt)}<span class="sub">&nbsp;</span></span>`;
@@ -1111,11 +1229,12 @@ async function runAgent(idx){
 
   const res = document.createElement('div');
   res.className = 'agent-result';
-  res.innerHTML = `<h4>Målet är uppnått</h4><p>${fmt(g.result)}</p>
-    <p class="key">Skillnaden? Du gav ett mål – inte en prompt. Det är delegering på riktigt. Och det är exakt det dina medarbetare kan lära sig.</p>`;
+  res.innerHTML = `<h4>Målet är uppnått</h4><p>${fmt(g.result(o))}</p>
+    <p class="key">Skillnaden? Du gav ett mål och dina prioriteringar – inte en prompt. Det är delegering på riktigt. Och det är exakt det dina medarbetare kan lära sig.</p>`;
   agentEls.body.appendChild(res);
   requestAnimationFrame(()=>res.classList.add('in'));
   agentBusy = false;
+  agentEls.start.disabled = false;
 }
 </script>
 
