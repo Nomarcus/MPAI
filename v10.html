@@ -739,20 +739,25 @@ const FINE = window.matchMedia('(pointer: fine)').matches;
     const cyOff = H * .46;
     const scale = Math.min(W, H) * .30;
 
-    // omgivning – svaga prickar
+    // omgivning – svaga prickar (hoppa över punkter bakom kameran)
     for (const a of AMB) {
       const pr = project(a, cy, sy, cx, sx, cxOff, cyOff, scale * 1.25);
-      const al = Math.max(0, .14 * pr.f);
+      if (pr.f <= 0.05) continue;
+      const al = .14 * pr.f;
+      const rad = a.s * pr.f;
+      if (al <= 0 || rad <= 0) continue;
       ctx.fillStyle = `rgba(26,92,52,${al})`;
-      ctx.beginPath(); ctx.arc(pr.sx, pr.sy, a.s * pr.f, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(pr.sx, pr.sy, rad, 0, 7); ctx.fill();
     }
     // knuten
     for (const pt of PTS) {
       const pr = project(pt, cy, sy, cx, sx, cxOff, cyOff, scale);
+      if (pr.f <= 0.05) continue;
       const al = Math.max(0, Math.min(.55, .55 * (pr.f - .45)));
-      if (al <= 0) continue;
+      const rad = pt.s * pr.f;
+      if (al <= 0 || rad <= 0) continue;
       ctx.fillStyle = `rgba(26,92,52,${al})`;
-      ctx.beginPath(); ctx.arc(pr.sx, pr.sy, pt.s * pr.f, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(pr.sx, pr.sy, rad, 0, 7); ctx.fill();
     }
     if (!RM) requestAnimationFrame(draw);
   }
