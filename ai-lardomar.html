@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- ================================================================
+  MPAI – ai-lardomar.html
+  Nedladdningsbar sammanfattning: "Vad jag lärt mig om AI".
+  Syntetiserad ur MPAI:s eget kunskapsmaterial (EU AI Act-talmanus,
+  tjänster, genomgångar) + generell AI-kunskap. Fristående HTML.
+  Tryck Ctrl/Cmd+P för PDF.
+================================================================ -->
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vad jag lärt mig om AI – en sammanfattning | MPAI</title>
+<meta name="description" content="En samlad sammanfattning av de viktigaste lärdomarna om generativ AI: hur verktygen fungerar, prompting, säkerhet, val av verktyg och EU AI Act."/>
+<meta name="robots" content="noindex"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<meta name="theme-color" content="#1A5C34"/>
+<style>
+:root{
+  --cream:#D8D1C4; --paper:#E4DECF; --card:#EFEAE0;
+  --ink:#141009; --ink-2:#3B3630; --muted:#7D7367;
+  --green:#1A5C34; --green-2:#266B3E; --green-pale:rgba(26,92,52,.08);
+  --line:rgba(20,16,9,.12); --line-2:rgba(20,16,9,.18);
+  --max:900px;
+  --font-h:Georgia,"Times New Roman",serif;
+  --font-b:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-b);background:var(--cream);color:var(--ink);line-height:1.75;font-size:1.03rem;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+a{color:var(--green);}
+
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(216,209,196,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.toolbar .wrap{display:flex;align-items:center;gap:16px;padding:12px 28px;max-width:var(--max);}
+.toolbar .brand{font-family:var(--font-h);font-weight:700;font-size:1.15rem;text-decoration:none;color:var(--ink);}
+.toolbar .brand span{color:var(--green);}
+.toolbar .sp{margin-left:auto;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.88rem;padding:10px 18px;border-radius:999px;
+  text-decoration:none;cursor:pointer;border:1.5px solid var(--line-2);color:var(--ink);background:none;transition:all .2s;}
+.btn:hover{border-color:var(--green);color:var(--green);}
+.btn-primary{background:var(--green);color:#F4F1E8;border-color:var(--green);}
+.btn-primary:hover{background:var(--green-2);}
+
+.cover{padding:84px 0 50px;border-bottom:2px solid var(--ink);}
+.cover .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:18px;}
+.cover h1{font-family:var(--font-h);font-weight:700;font-size:clamp(2.4rem,5.6vw,4rem);line-height:1.04;letter-spacing:-.02em;}
+.cover h1 em{font-style:italic;color:var(--green);}
+.cover .sub{font-size:1.2rem;color:var(--ink-2);margin-top:18px;max-width:640px;}
+.cover .src{margin-top:24px;font-size:.85rem;color:var(--muted);max-width:640px;}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:36px 0;}
+.toc h2{font-family:var(--font-h);font-size:1.1rem;color:var(--green);margin-bottom:12px;}
+.toc ol{margin-left:20px;columns:2;gap:24px;}
+@media(max-width:600px){.toc ol{columns:1;}}
+.toc li{margin-bottom:6px;}
+.toc a{text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+
+section{padding:46px 0;border-bottom:1px solid var(--line);}
+.s-num{font-family:var(--font-h);font-style:italic;color:var(--green);font-size:1.05rem;}
+h2{font-family:var(--font-h);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.12;margin:6px 0 16px;}
+h2 em{font-style:italic;color:var(--green);}
+h3{font-family:var(--font-h);font-weight:700;font-size:1.25rem;margin:24px 0 8px;}
+p{margin-bottom:14px;color:var(--ink-2);}
+ul,ol{margin:6px 0 16px 22px;} li{margin-bottom:8px;color:var(--ink-2);}
+strong{color:var(--ink);}
+.lead{font-size:1.14rem;color:var(--ink);}
+
+.takeaway{background:var(--green);color:#F4F1E8;border-radius:14px;padding:18px 22px;margin:22px 0;}
+.takeaway b{color:#fff;font-family:var(--font-h);font-style:italic;}
+.takeaway p{color:rgba(255,255,255,.95);margin:0;}
+
+.rule{background:var(--card);border-left:4px solid var(--green);border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0;}
+.rule p{margin:0;}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.96rem;}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{font-family:var(--font-h);color:var(--green);}
+tr:last-child td{border-bottom:none;}
+
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;}
+@media(max-width:600px){.do-dont{grid-template-columns:1fr;}}
+.dd{border-radius:14px;padding:20px;}
+.dd.do{background:var(--green-pale);border:1px solid rgba(26,92,52,.25);}
+.dd.dont{background:rgba(155,44,44,.07);border:1px solid rgba(155,44,44,.25);}
+.dd h3{margin-top:0;}
+.dd.do h3{color:var(--green);} .dd.dont h3{color:#9b2c2c;}
+
+footer{padding:40px 0;text-align:center;color:var(--muted);font-size:.88rem;}
+
+@media print{
+  .toolbar{display:none;}
+  body{background:#fff;font-size:11pt;}
+  .cover{padding:24px 0;}
+  section{padding:20px 0;page-break-inside:avoid;}
+  .takeaway,.dd,.toc,.rule{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  a{color:var(--ink);}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">MP<span>AI</span> · Lärdomar</a>
+    <span class="sp"></span>
+    <a class="btn" href="akademi.html">Till akademin</a>
+    <button class="btn btn-primary" onclick="window.print()">⬇ Spara som PDF</button>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Sammanfattning · Kunskapsunderlag</div>
+    <h1>Vad jag lärt mig<br><em>om AI.</em></h1>
+    <p class="sub">De viktigaste lärdomarna om generativ AI – samlade på ett ställe. Tänkt som en personlig
+      repetition och som underlag att dela vidare i organisationen.</p>
+    <p class="src">Sammanställt ur MPAI:s eget kunskapsmaterial (EU AI Act-talmanus, tjänsteupplägg och de
+      funktionsanpassade genomgångarna) i kombination med generell, praktisk AI-kunskap. Senast uppdaterad juni 2026.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc">
+    <h2>Innehåll</h2>
+    <ol>
+      <li><a href="#g1">Vad AI faktiskt är</a></li>
+      <li><a href="#g2">Konsten att prompta</a></li>
+      <li><a href="#g3">Verktygen och när de passar</a></li>
+      <li><a href="#g4">Säkerhet &amp; sekretess</a></li>
+      <li><a href="#g5">Faktagranskning</a></li>
+      <li><a href="#g6">EU AI Act &amp; policy</a></li>
+      <li><a href="#g7">Att bygga en AI-vana</a></li>
+      <li><a href="#g8">Mina tio viktigaste insikter</a></li>
+    </ol>
+  </nav>
+</div>
+
+<section id="g1">
+  <div class="wrap">
+    <span class="s-num">01</span>
+    <h2>Vad AI <em>faktiskt</em> är</h2>
+    <p class="lead">Den största aha-upplevelsen: generativ AI förstår inte – den förutsäger.</p>
+    <p>Verktyg som ChatGPT, Copilot, Claude och Gemini bygger på språkmodeller som lärt sig mönster i enorma
+      textmängder. När jag ställer en fråga gissar modellen, ord för ord, vad som troligast kommer härnäst.
+      Det förklarar både varför den är så imponerande och varför den ibland har fullständigt fel.</p>
+    <p>När jag slutade tänka på den som en "vetande maskin" och började se den som en extremt snabb,
+      påläst praktikant blev allt enklare: fantastisk på utkast och idéer, men jag är alltid den som ansvarar
+      och godkänner.</p>
+    <div class="takeaway"><p><b>Lärdom:</b> AI är ett verktyg som föreslår, inte en orakel som vet. Värdet uppstår i samspelet med mig.</p></div>
+  </div>
+</section>
+
+<section id="g2">
+  <div class="wrap">
+    <span class="s-num">02</span>
+    <h2>Konsten att <em>prompta</em></h2>
+    <p>Kvaliteten på svaret beror nästan helt på instruktionen. Den enskilt mest värdefulla vanan jag lärt mig
+      är att alltid ge fyra saker:</p>
+    <ul>
+      <li><strong>Roll</strong> – vem AI ska agera som ("du är en erfaren ekonom").</li>
+      <li><strong>Uppgift</strong> – exakt vad jag vill ha gjort.</li>
+      <li><strong>Sammanhang</strong> – vem det är till, varför, vad som är viktigt.</li>
+      <li><strong>Format</strong> – hur svaret ska se ut (punktlista, tabell, max 100 ord).</li>
+    </ul>
+    <p>Den andra insikten: det är en dialog. Första svaret är ett utkast. "Kortare", "mer formellt",
+      "lägg till en risk" – jag itererar tills det blir rätt, i stället för att förvänta mig perfektion direkt.</p>
+    <div class="takeaway"><p><b>Lärdom:</b> Be alltid om ett format. Det är den enklaste ändringen som lyfter resultatet mest.</p></div>
+  </div>
+</section>
+
+<section id="g3">
+  <div class="wrap">
+    <span class="s-num">03</span>
+    <h2>Verktygen och <em>när</em> de passar</h2>
+    <p>Jag behöver inte välja ett verktyg för alltid – jag väljer per uppgift. Så här ser min mentala karta ut:</p>
+    <table>
+      <thead><tr><th>Verktyg</th><th>Bäst på</th><th>Välj när…</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Copilot 365</strong></td><td>Office-vardagen, egna filer &amp; mejl</td><td>jag jobbar i Word, Excel, Outlook, Teams</td></tr>
+        <tr><td><strong>ChatGPT</strong></td><td>Bredd, idéer, snabba uppgifter</td><td>jag vill brainstorma eller lösa lite av allt</td></tr>
+        <tr><td><strong>Claude</strong></td><td>Långa dokument, noggrann text, resonemang</td><td>jag granskar avtal eller vill ha genomarbetad text</td></tr>
+        <tr><td><strong>Gemini</strong></td><td>Google-miljö, aktuell info via sök</td><td>vi kör Workspace eller jag behöver färska fakta</td></tr>
+      </tbody>
+    </table>
+    <p>Den viktigaste skillnaden i praktiken: <strong>Copilot ser min kontext</strong> (mina dokument och mejl)
+      medan de fristående verktygen är blanka blad jag matar själv. Det avgör ofta vilket som blir bäst.</p>
+  </div>
+</section>
+
+<section id="g4">
+  <div class="wrap">
+    <span class="s-num">04</span>
+    <h2>Säkerhet &amp; <em>sekretess</em></h2>
+    <p>Den viktigaste skillnaden att ha koll på: <strong>företagsversion eller gratis/privat?</strong>
+      Företagsversioner (Copilot 365, ChatGPT Team/Enterprise, Claude Team, Gemini Workspace) tränar inte
+      allmänna modeller på min data och håller den i vår miljö. Gratisversioner ska jag behandla som en öppen
+      anslagstavla.</p>
+    <div class="do-dont">
+      <div class="dd do"><h3>Gör</h3><ul><li>Använd godkända företagsverktyg för jobbdata</li><li>Ge AI underlaget i stället för att be den minnas</li><li>Fråga IT om jag är osäker på ett verktyg</li></ul></div>
+      <div class="dd dont"><h3>Gör aldrig</h3><ul><li>Lägg in personnummer, hälsa eller löner i ett oklart verktyg</li><li>Klistra in kunddata eller sekretessavtal i gratis-AI</li><li>Anta att "det är nog krypterat"</li></ul></div>
+    </div>
+    <div class="rule"><p><strong>Testfråga:</strong> "Skulle jag mejla det här till en okänd extern part?" Om nej – då lägger jag det inte i ett oklart AI-verktyg.</p></div>
+  </div>
+</section>
+
+<section id="g5">
+  <div class="wrap">
+    <span class="s-num">05</span>
+    <h2>Faktagranskning – <em>hallucinationer</em></h2>
+    <p>AI kan hitta på fakta, källor och citat som låter helt övertygande. Det här har blivit min reflex:</p>
+    <ul>
+      <li>Lita aldrig på siffror, datum, lagar eller citat utan att kontrollera.</li>
+      <li>Be om källor – och klicka faktiskt på dem.</li>
+      <li>Ge AI texten själv ("utgå från det här dokumentet") i stället för att lita på dess minne.</li>
+      <li>Be den markera vad den är osäker på.</li>
+    </ul>
+    <div class="takeaway"><p><b>Lärdom:</b> AI är pålitlig på att <i>bearbeta</i> det jag ger den, opålitlig på att <i>minnas</i> fakta ur tomma luften.</p></div>
+  </div>
+</section>
+
+<section id="g6">
+  <div class="wrap">
+    <span class="s-num">06</span>
+    <h2>EU AI Act &amp; <em>policy</em></h2>
+    <p>Jag trodde länge att lagen var något stort och skrämmande. Insikten: för de flesta organisationer som bara
+      <em>använder</em> verktyg (inte bygger egna) handlar det om sunt förnuft och struktur.</p>
+    <p>Lagen delar in AI i fyra riskklasser. Vanlig Copilot- och ChatGPT-användning hamnar i <strong>minimal risk</strong>
+      – inga särskilda systemkrav. Men varje organisation behöver ändå en intern AI-policy.</p>
+    <table>
+      <thead><tr><th>Riskklass</th><th>Exempel</th><th>Vad gäller</th></tr></thead>
+      <tbody>
+        <tr><td>🔴 Oacceptabel</td><td>Social poängsättning, manipulativ AI</td><td>Förbjudet</td></tr>
+        <tr><td>🟠 Hög</td><td>CV-screening, kreditbeslut</td><td>Strikta krav, mänsklig kontroll</td></tr>
+        <tr><td>🔵 Begränsad</td><td>Chatbottar, AI-innehåll</td><td>Måste märkas som AI</td></tr>
+        <tr><td>🟢 Minimal</td><td>Copilot, ChatGPT i vardagen</td><td>Inga särskilda krav – ha policy</td></tr>
+      </tbody>
+    </table>
+    <p>En AI-policy behöver i grunden svara på tre frågor: <strong>Vilka verktyg är okej? Vad får aldrig matas in?
+      Vem ansvarar?</strong></p>
+  </div>
+</section>
+
+<section id="g7">
+  <div class="wrap">
+    <span class="s-num">07</span>
+    <h2>Att bygga en <em>AI-vana</em></h2>
+    <p>Den sista och kanske viktigaste lärdomen: kunskapen ger ingen effekt förrän den blir en vana. Det som
+      fungerat för mig:</p>
+    <ul>
+      <li>Välj <strong>en återkommande uppgift</strong> och låt AI ta den – börja smått.</li>
+      <li>Spara mina bästa prompts och återanvänd dem.</li>
+      <li>Dela vinster med kollegor – "så här sparade jag en timme" sprider sig.</li>
+      <li>Avsätt en kvart i veckan för att testa något nytt.</li>
+    </ul>
+    <div class="takeaway"><p><b>Lärdom:</b> Målet är inte att använda AI till allt – utan att veta <i>när</i> det är rätt verktyg, och då göra det tryggt.</p></div>
+  </div>
+</section>
+
+<section id="g8" style="border-bottom:none;">
+  <div class="wrap">
+    <span class="s-num">08</span>
+    <h2>Mina tio <em>viktigaste</em> insikter</h2>
+    <ol>
+      <li>AI förutsäger – den vet inte. Jag äger ansvaret.</li>
+      <li>Tydlig prompt in = bra svar ut. Be alltid om ett format.</li>
+      <li>Det är en dialog – första svaret är ett utkast.</li>
+      <li>Välj verktyg per uppgift, inte en gång för alltid.</li>
+      <li>Copilot ser min kontext; fristående verktyg är blanka blad.</li>
+      <li>Företagsversion för jobbdata – aldrig känsligt i gratis-AI.</li>
+      <li>Granska alltid fakta, källor och citat.</li>
+      <li>Ge AI underlaget i stället för att lita på dess minne.</li>
+      <li>EU AI Act: vanlig användning = minimal risk, men ha en policy.</li>
+      <li>Effekten kommer av vanan, inte av kursen.</li>
+    </ol>
+    <div class="rule" style="margin-top:24px;">
+      <p>Vill du lära dig mer eller dela det här med teamet? Gå till
+      <a href="akademi.html">AI-akademin</a> eller hör av dig via <a href="index.html">mpai.se</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">MPAI · Marcus Petersson AI · mpai.se · Vad jag lärt mig om AI · juni 2026</div>
+</footer>
+
+</body>
+</html>

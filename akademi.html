@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<!-- ================================================================
+  MPAI – akademi.html  (AI-akademin: komplett utbildningshubb)
+  Fristående, självförsörjande HTML. Matchar index.html:s
+  redaktionella cream/green-design. Innehåll på svenska.
+  Täcker: Copilot 365, ChatGPT, Claude, Gemini, prompting,
+  AI-policy, EU AI Act, säkerhet och användningsfall per funktion.
+================================================================ -->
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI-akademin – MPAI | Lär hela företaget AI: Copilot 365, ChatGPT, Claude & Gemini</title>
+<meta name="description" content="MPAI:s AI-akademi – en komplett, praktisk utbildning i generativ AI för hela företaget. Copilot 365, ChatGPT, Claude, Gemini, prompting, AI-policy och EU AI Act. Bygg trygg och effektiv AI-användning i vardagen."/>
+<meta name="author" content="Marcus Petersson"/>
+<meta name="robots" content="index,follow,max-image-preview:large"/>
+<meta name="keywords" content="AI-utbildning, AI-akademi, Copilot 365, ChatGPT, Claude, Gemini, prompting, AI-policy, EU AI Act, generativ AI för företag"/>
+<link rel="canonical" href="https://mpai.se/akademi.html"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<meta name="theme-color" content="#1A5C34"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="sv_SE"/>
+<meta property="og:title" content="AI-akademin – MPAI"/>
+<meta property="og:description" content="Komplett, praktisk AI-utbildning för hela företaget. Copilot 365, ChatGPT, Claude, Gemini, prompting, AI-policy och EU AI Act."/>
+<meta property="og:url" content="https://mpai.se/akademi.html"/>
+<meta property="og:image" content="https://mpai.se/og-image.png"/>
+
+<style>
+/* ─ TOKENS ─────────────────────────────────────── */
+:root{
+  --cream:#D8D1C4; --cream-2:#CEC6B7; --cream-3:#C3BAA8;
+  --paper:#E4DECF; --card:#EFEAE0;
+  --ink:#141009; --ink-2:#3B3630; --muted:#7D7367; --muted-2:#A8A098;
+  --green:#1A5C34; --green-2:#266B3E; --green-pale:rgba(26,92,52,.08); --green-glow:rgba(26,92,52,.18);
+  --line:rgba(20,16,9,.09); --line-2:rgba(20,16,9,.15);
+  --max:1180px;
+  --font-h:Georgia,"Times New Roman",serif;
+  --font-b:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-b); font-size:1.02rem; background:var(--cream); color:var(--ink);
+  overflow-x:hidden; -webkit-font-smoothing:antialiased; line-height:1.7;
+}
+::selection{background:rgba(26,92,52,.18);color:var(--ink);}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px;}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+a{color:inherit;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px;}
+
+/* skip link */
+.skip-link{position:fixed;top:-60px;left:16px;z-index:999;background:var(--ink);color:var(--cream);
+  text-decoration:none;padding:10px 18px;border-radius:8px;font-size:.85rem;font-weight:600;transition:top .2s;}
+.skip-link:focus{top:12px;}
+
+/* scroll progress */
+#scrollProgress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--green);
+  transform-origin:0 50%;transform:scaleX(0);z-index:200;pointer-events:none;}
+
+/* ─ NAV ─ */
+.nav{position:sticky;top:0;z-index:100;background:rgba(216,209,196,.82);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;}
+.brand{font-family:var(--font-h);font-weight:700;font-size:1.25rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink);}
+.brand span{color:var(--green);}
+.nav-links{margin-left:auto;display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{text-decoration:none;font-size:.9rem;font-weight:600;color:var(--ink-2);
+  position:relative;padding:4px 0;transition:color .2s;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--green);transition:width .25s var(--ease);}
+.nav-links a:hover{color:var(--green);} .nav-links a:hover::after{width:100%;}
+.nav-home{font-weight:700;color:var(--green);}
+@media(max-width:760px){.nav-links{display:none;}}
+
+/* ─ HERO ─ */
+.hero{position:relative;padding:96px 0 72px;border-bottom:1px solid var(--line);overflow:hidden;}
+.hero-mark{position:absolute;right:-3%;top:8%;font-family:var(--font-h);font-weight:700;
+  font-size:clamp(8rem,22vw,20rem);color:var(--green-pale);line-height:.8;pointer-events:none;user-select:none;z-index:0;}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:.78rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--green);margin-bottom:22px;}
+.eyebrow hr{width:46px;border:0;border-top:1.5px solid var(--green);opacity:.6;}
+.hero h1{font-family:var(--font-h);font-weight:700;line-height:1.02;letter-spacing:-.02em;
+  font-size:clamp(2.6rem,6.4vw,5rem);margin-bottom:26px;position:relative;z-index:2;}
+.hero h1 em{font-style:italic;color:var(--green);}
+.hero-lead{max-width:640px;font-size:1.18rem;color:var(--ink-2);position:relative;z-index:2;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;position:relative;z-index:2;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.95rem;
+  padding:14px 26px;border-radius:999px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;
+  transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s;}
+.btn-primary{background:var(--green);color:#F4F1E8;box-shadow:0 10px 26px -12px var(--green-glow);}
+.btn-primary:hover{transform:translateY(-2px);background:var(--green-2);box-shadow:0 16px 34px -12px var(--green-glow);}
+.btn-outline{border-color:var(--line-2);color:var(--ink);} .btn-outline:hover{transform:translateY(-2px);border-color:var(--green);color:var(--green);}
+
+/* progress band */
+.progressband{background:var(--ink);color:var(--cream);}
+.progressband .wrap{padding:18px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.progressband .pb-label{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);font-weight:700;}
+.pb-track{flex:1;min-width:160px;height:8px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;}
+.pb-fill{height:100%;width:0;background:var(--green-2);transition:width .5s var(--ease);}
+.pb-pct{font-family:var(--font-h);font-weight:700;font-size:1.1rem;min-width:48px;text-align:right;}
+.pb-reset{background:none;border:1px solid rgba(255,255,255,.25);color:var(--cream);border-radius:999px;
+  padding:6px 14px;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.pb-reset:hover{background:rgba(255,255,255,.12);}
+
+/* ─ SECTION ─ */
+.section{padding:88px 0;border-bottom:1px solid var(--line);position:relative;z-index:2;}
+.section.alt{background:var(--paper);}
+.section.dark{background:var(--ink);color:var(--cream);border-bottom:none;}
+.s-label{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--green);margin-bottom:14px;}
+.section.dark .s-label{color:#86C79B;}
+.section h2{font-family:var(--font-h);font-weight:700;line-height:1.06;letter-spacing:-.02em;
+  font-size:clamp(2rem,4.4vw,3.2rem);}
+.section h2 em{font-style:italic;color:var(--green);}
+.section.dark h2 em{color:#86C79B;}
+.s-lead{max-width:680px;color:var(--ink-2);font-size:1.1rem;margin-top:14px;}
+.section.dark .s-lead{color:var(--muted-2);}
+
+/* ─ TRACKS / nivåer ─ */
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;}
+@media(max-width:820px){.tracks{grid-template-columns:1fr;}}
+.track{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;}
+.track:hover{transform:translateY(-4px);box-shadow:0 22px 44px -28px rgba(20,16,9,.4);border-color:var(--green);}
+.track .tnum{font-family:var(--font-h);font-style:italic;color:var(--green);font-size:1.1rem;}
+.track h3{font-family:var(--font-h);font-size:1.5rem;margin:8px 0 6px;}
+.track p{color:var(--ink-2);font-size:.98rem;}
+.track ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:9px;}
+.track li{padding-left:24px;position:relative;font-size:.93rem;color:var(--ink-2);}
+.track li::before{content:"→";position:absolute;left:0;color:var(--green);font-weight:700;}
+.track .tmeta{margin-top:18px;font-size:.82rem;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;}
+
+/* ─ TOOL TABS ─ */
+.tooltabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px;}
+.tooltab{display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);
+  border-radius:999px;padding:11px 20px;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .25s var(--ease);}
+.tooltab .dot{width:10px;height:10px;border-radius:50%;}
+.tooltab[data-tool="copilot"] .dot{background:#0a6ed1;}
+.tooltab[data-tool="chatgpt"] .dot{background:#10a37f;}
+.tooltab[data-tool="claude"] .dot{background:#d97757;}
+.tooltab[data-tool="gemini"] .dot{background:#4285f4;}
+.tooltab:hover{border-color:var(--green);transform:translateY(-2px);}
+.tooltab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+.toolpanel{display:none;margin-top:30px;animation:fade .4s var(--ease);}
+.toolpanel.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.toolpanel-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px;}
+.toolpanel-head h3{font-family:var(--font-h);font-size:1.9rem;}
+.toolpanel-head .tag{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);
+  background:var(--green-pale);padding:5px 12px;border-radius:999px;}
+.toolgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:760px){.toolgrid{grid-template-columns:1fr;}}
+.toolcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;}
+.toolcard h4{font-family:var(--font-h);font-size:1.15rem;margin-bottom:8px;color:var(--green);}
+.toolcard ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.toolcard li{padding-left:20px;position:relative;font-size:.94rem;color:var(--ink-2);}
+.toolcard li::before{content:"·";position:absolute;left:6px;color:var(--green);font-weight:700;font-size:1.4rem;line-height:1;}
+
+/* ─ ACCORDION (moduler) ─ */
+.modlist{margin-top:40px;border-top:1px solid var(--line);}
+.mod{border-bottom:1px solid var(--line);}
+.mod-head{width:100%;text-align:left;background:none;border:0;cursor:pointer;padding:24px 4px;
+  display:flex;align-items:center;gap:18px;font-family:var(--font-h);font-size:1.3rem;color:var(--ink);transition:color .2s;}
+.mod-head:hover{color:var(--green);}
+.mod-num{font-style:italic;color:var(--green);font-size:1.05rem;min-width:34px;}
+.mod-head .chev{margin-left:auto;transition:transform .3s var(--ease);color:var(--green);font-size:1.4rem;}
+.mod.open .chev{transform:rotate(45deg);}
+.mod-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease);}
+.mod-body-inner{padding:0 4px 28px 52px;color:var(--ink-2);}
+.mod-body-inner p{margin-bottom:12px;}
+.mod-body-inner ul{margin:10px 0 14px;padding-left:20px;}
+.mod-body-inner li{margin-bottom:7px;}
+@media(max-width:560px){.mod-body-inner{padding-left:4px;}}
+
+/* ─ PROMPT LIBRARY ─ */
+.prompts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px;}
+@media(max-width:760px){.prompts{grid-template-columns:1fr;}}
+.prompt{background:var(--ink);color:var(--cream);border-radius:14px;padding:22px;position:relative;}
+.prompt .pcat{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#86C79B;}
+.prompt h4{font-family:var(--font-h);font-size:1.15rem;margin:6px 0 12px;color:var(--cream);}
+.prompt pre{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;
+  padding:14px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.86rem;line-height:1.6;
+  white-space:pre-wrap;color:#E8E2D4;}
+.copybtn{margin-top:12px;background:var(--green-2);color:#F4F1E8;border:0;border-radius:999px;
+  padding:9px 18px;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s,transform .2s;}
+.copybtn:hover{background:#2f7d4a;transform:translateY(-1px);}
+.copybtn.copied{background:#86C79B;color:var(--ink);}
+
+/* ─ USE CASES grid ─ */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+@media(max-width:900px){.cases{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.cases{grid-template-columns:1fr;}}
+.case{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .25s var(--ease),border-color .25s;}
+.case:hover{transform:translateY(-3px);border-color:var(--green);}
+.case .cf{font-size:1.6rem;}
+.case h4{font-family:var(--font-h);font-size:1.18rem;margin:8px 0 6px;}
+.case p{font-size:.92rem;color:var(--ink-2);}
+
+/* ─ RISK pyramid ─ */
+.pyramid{margin-top:40px;display:flex;flex-direction:column;gap:10px;max-width:760px;}
+.prow{border-radius:12px;padding:18px 22px;color:#fff;}
+.prow h4{font-family:var(--font-h);font-size:1.2rem;margin-bottom:4px;}
+.prow p{font-size:.92rem;opacity:.95;}
+.prow.r1{background:#9b2c2c;margin:0 0;}
+.prow.r2{background:#b7791f;margin:0 4%;}
+.prow.r3{background:#2b6cb0;margin:0 8%;}
+.prow.r4{background:var(--green);margin:0 12%;}
+
+/* ─ QUIZ ─ */
+.quiz{max-width:760px;margin-top:40px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;}
+.quiz .qstep{display:none;} .quiz .qstep.active{display:block;animation:fade .35s var(--ease);}
+.quiz h4{font-family:var(--font-h);font-size:1.3rem;margin-bottom:18px;}
+.qopt{display:block;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--line);
+  border-radius:12px;padding:14px 18px;margin-bottom:10px;font-size:.97rem;cursor:pointer;transition:all .2s;}
+.qopt:hover{border-color:var(--green);}
+.qopt.correct{background:var(--green-pale);border-color:var(--green);color:var(--green);font-weight:600;}
+.qopt.wrong{background:rgba(155,44,44,.08);border-color:#9b2c2c;color:#9b2c2c;}
+.qfeedback{margin-top:14px;font-size:.94rem;color:var(--ink-2);min-height:24px;}
+.qnav{margin-top:18px;display:flex;align-items:center;gap:12px;}
+.qcount{font-size:.85rem;color:var(--muted);font-weight:600;}
+.quiz-result{text-align:center;}
+.quiz-result .score{font-family:var(--font-h);font-size:3rem;color:var(--green);}
+
+/* ─ GLOSSARY ─ */
+.glossary{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:760px){.glossary{grid-template-columns:1fr;}}
+.gterm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+.gterm dt{font-family:var(--font-h);font-weight:700;color:var(--green);font-size:1.05rem;margin-bottom:4px;}
+.gterm dd{font-size:.92rem;color:var(--ink-2);}
+
+/* ─ RESOURCES ─ */
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+@media(max-width:820px){.res{grid-template-columns:1fr;}}
+.rescard{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:24px;text-decoration:none;color:inherit;transition:transform .25s var(--ease),border-color .25s;}
+.rescard:hover{transform:translateY(-3px);border-color:var(--green);}
+.rescard .ricon{font-size:1.6rem;}
+.rescard h4{font-family:var(--font-h);font-size:1.2rem;color:var(--green);}
+.rescard p{font-size:.9rem;color:var(--ink-2);}
+.rescard .rcta{margin-top:auto;font-weight:700;font-size:.85rem;color:var(--green);}
+
+/* ─ CTA ─ */
+.cta-final{text-align:center;}
+.cta-final h2{margin-bottom:16px;}
+.cta-final p{max-width:560px;margin:0 auto 28px;color:var(--muted-2);font-size:1.12rem;}
+.cta-final .btn-primary{background:#86C79B;color:var(--ink);}
+.cta-final .btn-primary:hover{background:#9ad4ad;}
+.cta-final .btn-outline{border-color:rgba(255,255,255,.25);color:var(--cream);}
+.cta-final .btn-outline:hover{border-color:#86C79B;color:#86C79B;}
+
+/* footer */
+.foot{padding:40px 0;text-align:center;font-size:.88rem;color:var(--muted);}
+.foot a{color:var(--green);font-weight:600;text-decoration:none;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+<body>
+<div id="scrollProgress"></div>
+<a class="skip-link" href="#main">Hoppa till innehåll</a>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">MP<span>AI</span></a>
+    <div class="nav-links">
+      <a href="#nivaer">Nivåer</a>
+      <a href="#verktyg">Verktyg</a>
+      <a href="#moduler">Moduler</a>
+      <a href="#prompts">Promptbibliotek</a>
+      <a href="#policy">Policy &amp; lag</a>
+      <a href="#quiz">Kunskapskoll</a>
+      <a class="nav-home" href="index.html">← Startsidan</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-mark" aria-hidden="true">AI</div>
+  <div class="wrap">
+    <div class="eyebrow reveal"><hr/> MPAI AI-akademin</div>
+    <h1 class="reveal">Lär <em>hela företaget</em><br>att använda AI – på riktigt.</h1>
+    <p class="hero-lead reveal">En komplett, praktisk utbildning i generativ AI. Från första prompten till trygg
+      vardagsanvändning – Copilot 365, ChatGPT, Claude och Gemini, plus policy och lagkrav.
+      Inga tekniska förkunskaper krävs.</p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#nivaer">Börja här →</a>
+      <a class="btn btn-outline" href="#prompts">Till promptbiblioteket</a>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS BAND -->
+<div class="progressband">
+  <div class="wrap">
+    <span class="pb-label">Din kunskapsresa</span>
+    <div class="pb-track"><div class="pb-fill" id="pbFill"></div></div>
+    <span class="pb-pct" id="pbPct">0%</span>
+    <button class="pb-reset" id="pbReset">Nollställ</button>
+  </div>
+</div>
+
+<!-- NIVÅER -->
+<section class="section" id="nivaer">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 1 · Hitta din nivå</span>
+    <h2 class="reveal">Tre spår – välj <em>där du står.</em></h2>
+    <p class="s-lead reveal">AI-akademin är byggd så att alla i organisationen hittar rätt. Börja på din nivå,
+      gå vidare i din takt. Du kan bocka av varje del längst ned – din progress sparas i webbläsaren.</p>
+    <div class="tracks">
+      <article class="track reveal" data-track="ny">
+        <div class="tnum">Spår 01</div>
+        <h3>Nybörjaren</h3>
+        <p>Aldrig skrivit en prompt? Här bygger vi tryggheten från grunden.</p>
+        <ul>
+          <li>Vad generativ AI faktiskt är</li>
+          <li>Din första prompt steg för steg</li>
+          <li>Skillnaden på verktygen</li>
+          <li>Vad du aldrig får mata in</li>
+        </ul>
+        <div class="tmeta">Ca 45 min</div>
+      </article>
+      <article class="track reveal" data-track="van">
+        <div class="tnum">Spår 02</div>
+        <h3>Vana användaren</h3>
+        <p>Du kör redan AI – nu höjer vi kvaliteten och farten rejält.</p>
+        <ul>
+          <li>Promptmönster som ger proffsresultat</li>
+          <li>Copilot i Word, Excel, Teams &amp; Outlook</li>
+          <li>Bygga egna arbetsflöden</li>
+          <li>Faktagranska och undvika hallucinationer</li>
+        </ul>
+        <div class="tmeta">Ca 90 min</div>
+      </article>
+      <article class="track reveal" data-track="ledare">
+        <div class="tnum">Spår 03</div>
+        <h3>Ledaren</h3>
+        <p>Ansvar, strategi och regelverk – för chefer och ledningsgrupp.</p>
+        <ul>
+          <li>AI-strategi och nyttofall</li>
+          <li>AI-policy som faktiskt följs</li>
+          <li>EU AI Act i praktiken</li>
+          <li>Förändringsledning &amp; mätning</li>
+        </ul>
+        <div class="tmeta">Ca 60 min</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VERKTYG -->
+<section class="section alt" id="verktyg">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 2 · Verktygen</span>
+    <h2 class="reveal">Fyra verktyg – <em>en logik.</em></h2>
+    <p class="s-lead reveal">Alla stora AI-verktyg fungerar enligt samma princip: du beskriver vad du vill ha,
+      de svarar. Skillnaderna ligger i var de bor, vilken data de når och vad de är bäst på. Klicka dig fram.</p>
+
+    <div class="tooltabs reveal" role="tablist">
+      <button class="tooltab active" data-tool="copilot" role="tab"><span class="dot"></span>Copilot 365</button>
+      <button class="tooltab" data-tool="chatgpt" role="tab"><span class="dot"></span>ChatGPT</button>
+      <button class="tooltab" data-tool="claude" role="tab"><span class="dot"></span>Claude</button>
+      <button class="tooltab" data-tool="gemini" role="tab"><span class="dot"></span>Gemini</button>
+    </div>
+
+    <!-- COPILOT -->
+    <div class="toolpanel active" data-tool="copilot">
+      <div class="toolpanel-head"><h3>Microsoft Copilot 365</h3><span class="tag">Bäst i Office-vardagen</span></div>
+      <div class="toolgrid">
+        <div class="toolcard"><h4>Vad det är</h4><ul>
+          <li>AI inbyggt i Word, Excel, PowerPoint, Outlook och Teams</li>
+          <li>Når dina egna dokument, mejl och möten (med behörighet)</li>
+          <li>Data stannar i er Microsoft 365-miljö</li>
+          <li>Tränar inte allmänna modeller på ert innehåll</li>
+        </ul></div>
+        <div class="toolcard"><h4>Använd det till</h4><ul>
+          <li>Sammanfatta långa mejltrådar och Teams-möten</li>
+          <li>Första utkast på dokument och presentationer</li>
+          <li>Formler, pivåer och analys i Excel</li>
+          <li>"Vad sa vi om X?" – sök i din egen historik</li>
+        </ul></div>
+        <div class="toolcard"><h4>Styrkor</h4><ul>
+          <li>Företagssäkert – byggt för organisationer</li>
+          <li>Ser din kontext: rätt person, rätt fil, rätt möte</li>
+          <li>Ingen ny inloggning – finns där du redan jobbar</li>
+        </ul></div>
+        <div class="toolcard"><h4>Tänk på</h4><ul>
+          <li>Kräver licens (Microsoft 365 Copilot)</li>
+          <li>Kvaliteten beror på hur välordnad er data är</li>
+          <li>Granska alltid – det kan missa nyanser</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- CHATGPT -->
+    <div class="toolpanel" data-tool="chatgpt">
+      <div class="toolpanel-head"><h3>ChatGPT (OpenAI)</h3><span class="tag">Mest mångsidig</span></div>
+      <div class="toolgrid">
+        <div class="toolcard"><h4>Vad det är</h4><ul>
+          <li>Fristående chatt-AI i webbläsare och app</li>
+          <li>Kan analysera bilder, filer och söka på webben</li>
+          <li>Egna "GPT:er" för återkommande uppgifter</li>
+          <li>Röstläge och bildgenerering</li>
+        </ul></div>
+        <div class="toolcard"><h4>Använd det till</h4><ul>
+          <li>Idéarbete, brainstorming och bollplank</li>
+          <li>Skriva och skriva om texter i olika tonlägen</li>
+          <li>Förklara svåra ämnen enkelt</li>
+          <li>Snabb analys av en uppladdad fil</li>
+        </ul></div>
+        <div class="toolcard"><h4>Styrkor</h4><ul>
+          <li>Snabbast på allmänna uppgifter</li>
+          <li>Stort ekosystem och många funktioner</li>
+          <li>Bra gratisnivå att lära sig på</li>
+        </ul></div>
+        <div class="toolcard"><h4>Tänk på</h4><ul>
+          <li>Gratisversionen: lägg ALDRIG in känslig data</li>
+          <li>Välj företagsversion (Team/Enterprise) för jobb</li>
+          <li>Kontrollera fakta – kan låta säker men ha fel</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- CLAUDE -->
+    <div class="toolpanel" data-tool="claude">
+      <div class="toolpanel-head"><h3>Claude (Anthropic)</h3><span class="tag">Bäst på text &amp; resonemang</span></div>
+      <div class="toolgrid">
+        <div class="toolcard"><h4>Vad det är</h4><ul>
+          <li>Chatt-AI med fokus på genomtänkta, nyanserade svar</li>
+          <li>Hanterar väldigt långa dokument i ett svep</li>
+          <li>"Projekt" som håller koll på sammanhang</li>
+          <li>Stark på struktur, kod och noggrann analys</li>
+        </ul></div>
+        <div class="toolcard"><h4>Använd det till</h4><ul>
+          <li>Granska och sammanfatta långa avtal och rapporter</li>
+          <li>Skriva genomarbetade, nyanserade texter</li>
+          <li>Resonemang där noggrannhet är viktig</li>
+          <li>Strukturera röriga underlag</li>
+        </ul></div>
+        <div class="toolcard"><h4>Styrkor</h4><ul>
+          <li>Ofta bäst på längre, sammanhängande text</li>
+          <li>Tydlig med osäkerhet i stället för att gissa</li>
+          <li>Designat med säkerhet och ansvar i fokus</li>
+        </ul></div>
+        <div class="toolcard"><h4>Tänk på</h4><ul>
+          <li>Använd företags-/teamversion för jobbdata</li>
+          <li>Färre kringfunktioner än ChatGPT</li>
+          <li>Granska fakta även här</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- GEMINI -->
+    <div class="toolpanel" data-tool="gemini">
+      <div class="toolpanel-head"><h3>Google Gemini</h3><span class="tag">Bäst i Google-miljö</span></div>
+      <div class="toolgrid">
+        <div class="toolcard"><h4>Vad det är</h4><ul>
+          <li>Googles AI, inbyggt i Workspace (Docs, Gmail, Sheets)</li>
+          <li>Kopplad till Google Sök för färska fakta</li>
+          <li>Stark på bild, ljud och video</li>
+          <li>Finns som app och i webbläsaren</li>
+        </ul></div>
+        <div class="toolcard"><h4>Använd det till</h4><ul>
+          <li>AI direkt i Gmail och Google Docs</li>
+          <li>Frågor som kräver aktuell information</li>
+          <li>Sammanfatta YouTube och webbsidor</li>
+          <li>Research med källor</li>
+        </ul></div>
+        <div class="toolcard"><h4>Styrkor</h4><ul>
+          <li>Naturligt val om ni kör Google Workspace</li>
+          <li>Bra på aktuell information via sök</li>
+          <li>Stark multimodal förmåga</li>
+        </ul></div>
+        <div class="toolcard"><h4>Tänk på</h4><ul>
+          <li>Välj Workspace-versionen för företagsdata</li>
+          <li>Skilj på privat Google-konto och jobbkonto</li>
+          <li>Granska fakta som alltid</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULER -->
+<section class="section" id="moduler">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 3 · Kärnmoduler</span>
+    <h2 class="reveal">Sju moduler – <em>klicka och lär.</em></h2>
+    <p class="s-lead reveal">Det här är hjärtat i akademin. Varje modul är kort, konkret och går rakt på vad du
+      behöver i vardagen. Öppna en modul, läs igenom – bocka sedan av den längst ned.</p>
+
+    <div class="modlist">
+      <div class="mod reveal" data-mod="m1">
+        <button class="mod-head"><span class="mod-num">01</span> Så fungerar generativ AI – utan teknikprat <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>Generativ AI är program som lärt sig mönster i enorma mängder text. När du ställer en fråga
+          gissar den, ord för ord, vad som troligast kommer härnäst. Den "förstår" inte som en människa –
+          den är extremt skicklig på att fortsätta ett mönster.</p>
+          <p>Tre saker att ta med sig:</p>
+          <ul>
+            <li><strong>Den kan ha fel.</strong> Den låter ofta säker även när den gissar (kallas hallucination). Granska alltid fakta.</li>
+            <li><strong>Den minns inte mellan chattar</strong> om du inte aktivt sparar – varje ny chatt börjar ofta på ny kula.</li>
+            <li><strong>Den blir bara så bra som din instruktion.</strong> Tydlig prompt in = bra svar ut.</li>
+          </ul>
+          <p>Tänk på den som en otroligt snabb och påläst praktikant: fantastisk på utkast och idéer,
+          men du är fortfarande den som ansvarar och godkänner.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m2">
+        <button class="mod-head"><span class="mod-num">02</span> Din första prompt – och hur du gör den bra <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>En bra prompt har oftast fyra delar. Lär dig den här ryggraden så lyfter alla dina resultat:</p>
+          <ul>
+            <li><strong>Roll:</strong> "Du är en erfaren ekonomichef…"</li>
+            <li><strong>Uppgift:</strong> "…sammanfatta den här rapporten."</li>
+            <li><strong>Sammanhang:</strong> "Mottagaren är vår styrelse, de har ont om tid."</li>
+            <li><strong>Format:</strong> "Ge mig 5 punkter och en mening med rekommendation."</li>
+          </ul>
+          <p>Knepet att alltid komma ihåg: <em>be om ett format</em>. "Skriv en tabell", "ge tre alternativ",
+          "max 100 ord", "i punktform". Då slipper du långa svar du inte kan använda.</p>
+          <p>Och var inte rädd att be om ändringar. AI är en dialog – "kortare", "mer formellt",
+          "lägg till en risk" – fortsätt tills det blir rätt.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m3">
+        <button class="mod-head"><span class="mod-num">03</span> Copilot 365 i vardagen – Word, Excel, Outlook, Teams <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>Copilot lyser där du redan jobbar. De vanligaste vinsterna direkt:</p>
+          <ul>
+            <li><strong>Outlook:</strong> "Sammanfatta den här tråden och föreslå ett svar." Sparar minuter varje dag.</li>
+            <li><strong>Teams:</strong> Missade mötet? "Vad bestämdes och vad ska jag göra?"</li>
+            <li><strong>Word:</strong> "Skriv ett utkast till offert utifrån de här punkterna."</li>
+            <li><strong>Excel:</strong> "Förklara den här datan och visa trenden" – utan att kunna formler.</li>
+            <li><strong>PowerPoint:</strong> "Gör en presentation av det här Word-dokumentet."</li>
+          </ul>
+          <p>Den stora skillnaden mot fristående verktyg: Copilot ser <em>din</em> kontext – dina filer,
+          mejl och möten. Det gör svaren relevanta för just ditt jobb, samtidigt som datan stannar hos er.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m4">
+        <button class="mod-head"><span class="mod-num">04</span> Faktagranskning – så undviker du hallucinationer <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>AI kan hitta på fakta, källor och citat som låter helt övertygande. Din viktigaste vana:</p>
+          <ul>
+            <li><strong>Lita aldrig på siffror, datum, lagar eller citat</strong> utan att kontrollera.</li>
+            <li><strong>Be om källor</strong> – och klicka faktiskt på dem.</li>
+            <li><strong>Ge AI underlaget själv</strong> i stället för att be den minnas. "Utgå från det här dokumentet" är mycket säkrare än "vad vet du om…".</li>
+            <li><strong>Be om osäkerhet:</strong> "Markera det du är osäker på."</li>
+          </ul>
+          <p>Tumregel: AI är fantastisk på att <em>bearbeta</em> information du ger den, men mindre pålitlig
+          när den ska <em>minnas</em> fakta ur tomma luften.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m5">
+        <button class="mod-head"><span class="mod-num">05</span> Säkerhet &amp; sekretess – vad får jag mata in? <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>Den enklaste regeln: <strong>känn skillnad på företagsverktyg och privatverktyg.</strong></p>
+          <ul>
+            <li><strong>Företagsversioner</strong> (Copilot 365, ChatGPT Team/Enterprise, Claude Team, Gemini Workspace): din data tränar inte allmänna modeller och stannar i din miljö.</li>
+            <li><strong>Gratis-/privatversioner:</strong> behandla som en öppen anslagstavla. Inget känsligt.</li>
+          </ul>
+          <p>Mata <strong>aldrig</strong> in i ett verktyg som inte är godkänt av arbetsgivaren:</p>
+          <ul>
+            <li>Personuppgifter (personnummer, hälsa, löner)</li>
+            <li>Kunddata och avtal under sekretess</li>
+            <li>Affärshemligheter, källkod, opublicerade siffror</li>
+          </ul>
+          <p>Osäker? Fråga: "Skulle jag mejla det här till en okänd extern part?" Om nej – lägg det inte i ett oklart AI-verktyg.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m6">
+        <button class="mod-head"><span class="mod-num">06</span> Välj rätt verktyg för uppgiften <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>Du behöver inte välja "ett" verktyg för alltid. Välj per uppgift:</p>
+          <ul>
+            <li><strong>Jobba i Office, nå egna filer/mejl?</strong> → Copilot 365</li>
+            <li><strong>Bredd, idéer, snabba allmänna uppgifter?</strong> → ChatGPT</li>
+            <li><strong>Långa dokument, noggrann text, resonemang?</strong> → Claude</li>
+            <li><strong>Google Workspace, aktuell info via sök?</strong> → Gemini</li>
+          </ul>
+          <p>Bästa rådet: prova samma uppgift i två verktyg en vecka. Du märker snabbt vilket som passar
+          ditt sätt att arbeta – och magkänslan blir din bästa guide.</p>
+        </div></div>
+      </div>
+
+      <div class="mod reveal" data-mod="m7">
+        <button class="mod-head"><span class="mod-num">07</span> Bygg en AI-vana som håller <span class="chev">+</span></button>
+        <div class="mod-body"><div class="mod-body-inner">
+          <p>Det är inte kursen som ger effekt – det är vanan. Så får du den att fastna:</p>
+          <ul>
+            <li><strong>Välj en återkommande uppgift</strong> du gör varje vecka och låt AI ta den. Börja smått.</li>
+            <li><strong>Spara dina bästa prompts</strong> i ett gemensamt dokument – återanvänd och förbättra.</li>
+            <li><strong>Dela vinster i teamet.</strong> "Så här sparade jag en timme" sprider sig snabbt.</li>
+            <li><strong>Sätt av 15 min/vecka</strong> för att testa något nytt.</li>
+          </ul>
+          <p>Mål: inte att använda AI till allt, utan att veta <em>när</em> det är rätt verktyg – och då
+          göra det tryggt och snabbt.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMPTBIBLIOTEK -->
+<section class="section alt" id="prompts">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 4 · Promptbiblioteket</span>
+    <h2 class="reveal">Färdiga prompts att <em>kopiera.</em></h2>
+    <p class="s-lead reveal">Testade mallar för vanliga uppgifter. Kopiera, klistra in i valfritt verktyg och
+      byt ut det som står i [hakparenteser]. Det här är den snabbaste vägen till bra resultat.</p>
+
+    <div class="prompts">
+      <div class="prompt reveal"><span class="pcat">Mejl &amp; kommunikation</span>
+        <h4>Svar på krångligt mejl</h4>
+        <pre>Du är en professionell och artig kommunikatör.
+Skriv ett svar på mejlet nedan.
+Ton: vänlig men tydlig. Längd: max 120 ord.
+Avsluta med en konkret nästa-steg-fråga.
+
+Mejl:
+[klistra in mejlet här]</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+
+      <div class="prompt reveal"><span class="pcat">Möten</span>
+        <h4>Mötesanteckningar → beslut</h4>
+        <pre>Sammanfatta anteckningarna nedan i tre delar:
+1. Beslut som fattades
+2. Att-göra-punkter (vem + vad + när)
+3. Öppna frågor
+
+Var kort. Hitta inte på något som inte står i texten.
+
+Anteckningar:
+[klistra in här]</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+
+      <div class="prompt reveal"><span class="pcat">Analys</span>
+        <h4>Sammanfatta lång rapport</h4>
+        <pre>Du är en analytiker. Sammanfatta dokumentet nedan för
+en ledningsgrupp som har ont om tid.
+
+Ge mig:
+- 5 viktigaste punkterna
+- 2 risker
+- 1 rekommendation
+
+Markera tydligt om något är osäkert.
+
+Dokument:
+[klistra in eller bifoga]</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+
+      <div class="prompt reveal"><span class="pcat">Skrivande</span>
+        <h4>Tre tonlägen att välja på</h4>
+        <pre>Skriv en text om [ämne] för [målgrupp].
+Ge mig tre versioner:
+A) Kort och rakt
+B) Varmt och personligt
+C) Formellt och professionellt
+
+Max 100 ord per version.</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+
+      <div class="prompt reveal"><span class="pcat">Idéarbete</span>
+        <h4>Bollplank som utmanar</h4>
+        <pre>Jag funderar på [idé/beslut].
+Agera bollplank. Ställ först tre frågor för att förstå
+sammanhanget. Ge sedan:
+- Tre starka argument för
+- Tre risker eller invändningar
+- Vad du skulle göra och varför</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+
+      <div class="prompt reveal"><span class="pcat">Excel &amp; data</span>
+        <h4>Förklara data utan formler</h4>
+        <pre>Här är data från ett kalkylark.
+Förklara vad den visar på enkel svenska.
+Lyft de tre tydligaste trenderna och en sak
+som ser udda ut och bör kontrolleras.
+
+Data:
+[klistra in tabellen]</pre>
+        <button class="copybtn">Kopiera prompt</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="section" id="funktion">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 5 · AI per funktion</span>
+    <h2 class="reveal">Var AI gör <em>nytta i din roll.</em></h2>
+    <p class="s-lead reveal">Konkreta startpunkter beroende på vad du jobbar med. Plocka det som passar dig
+      och börja där i veckan.</p>
+    <div class="cases">
+      <div class="case reveal"><div class="cf">👥</div><h4>Ledning</h4><p>Sammanfatta beslutsunderlag, scenarioanalys, snabb omvärldsbevakning och utkast till styrelsetexter.</p></div>
+      <div class="case reveal"><div class="cf">💼</div><h4>HR</h4><p>Utkast till annonser och policyer, strukturera intervjuunderlag, sammanfatta medarbetarenkäter.</p></div>
+      <div class="case reveal"><div class="cf">📊</div><h4>Ekonomi</h4><p>Förklara avvikelser i siffror, bygga Excel-formler, utkast till månadsrapportens kommentarer.</p></div>
+      <div class="case reveal"><div class="cf">📣</div><h4>Marknad</h4><p>Idéer och utkast till inlägg, anpassa text till kanaler, sammanfatta kampanjresultat.</p></div>
+      <div class="case reveal"><div class="cf">🤝</div><h4>Sälj</h4><p>Förbered kundmöten, skräddarsy offerter, sammanfatta CRM-anteckningar och nästa steg.</p></div>
+      <div class="case reveal"><div class="cf">🛠️</div><h4>Support &amp; drift</h4><p>Svarsmallar, sammanfatta ärenden, ta fram lathundar och felsökningssteg.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICY & LAG -->
+<section class="section alt" id="policy">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 6 · Policy &amp; lagkrav</span>
+    <h2 class="reveal">Trygg AI: <em>policy</em> &amp; EU AI Act.</h2>
+    <p class="s-lead reveal">Du behöver inte bli jurist. Men varje organisation behöver två saker: en intern
+      AI-policy och en grundkoll på vad lagen säger. Här är kortversionen.</p>
+
+    <h3 style="font-family:var(--font-h);font-size:1.5rem;margin:40px 0 4px;">EU AI Act – fyra riskklasser</h3>
+    <p style="color:var(--ink-2);">Tänk på det som en pyramid. De flesta verktyg ni använder ligger längst ned, i minimal risk.</p>
+    <div class="pyramid">
+      <div class="prow r1"><h4>🔴 Oacceptabel risk – förbjudet</h4><p>T.ex. social poängsättning, manipulativ AI. Ingen seriös organisation berörs.</p></div>
+      <div class="prow r2"><h4>🟠 Hög risk – strikta krav</h4><p>T.ex. CV-screening, kreditbeslut, medicinsk diagnos. Kräver dokumentation och mänsklig kontroll.</p></div>
+      <div class="prow r3"><h4>🔵 Begränsad risk – transparens</h4><p>T.ex. chatbottar och AI-genererat innehåll. Måste tydligt märkas som AI.</p></div>
+      <div class="prow r4"><h4>🟢 Minimal risk – inga särskilda krav</h4><p>Copilot 365, ChatGPT, Claude, Gemini i vardagen. Här hamnar de flesta – men ha en intern policy.</p></div>
+    </div>
+
+    <h3 style="font-family:var(--font-h);font-size:1.5rem;margin:44px 0 8px;">Vad en AI-policy ska svara på</h3>
+    <div class="toolgrid">
+      <div class="toolcard"><h4>Godkända verktyg</h4><ul><li>Vilka AI-verktyg får användas i jobbet?</li><li>Vem godkänner nya verktyg?</li></ul></div>
+      <div class="toolcard"><h4>Förbjudet innehåll</h4><ul><li>Vad får ALDRIG matas in? (kunddata, personnummer, affärshemligheter)</li></ul></div>
+      <div class="toolcard"><h4>Ansvar &amp; transparens</h4><ul><li>Vem ansvarar för vad?</li><li>När berättar vi för kunder att AI använts?</li></ul></div>
+      <div class="toolcard"><h4>Uppföljning</h4><ul><li>Hur ofta ses policyn över?</li><li>Hur hanteras incidenter?</li></ul></div>
+    </div>
+    <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
+      <a class="btn btn-outline" href="EU_AI_ACT_TALMANUS.pdf" download>EU AI Act – talmanus (PDF)</a>
+      <a class="btn btn-outline" href="AI-policy-mall.docx" download>AI-policy-mall (Word)</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="section" id="quiz">
+  <div class="wrap">
+    <span class="s-label reveal">Steg 7 · Kunskapskoll</span>
+    <h2 class="reveal">Testa vad du <em>kan.</em></h2>
+    <p class="s-lead reveal">Fem snabba frågor. Inga rätt eller fel inför någon annan – bara du och din egen koll.</p>
+
+    <div class="quiz reveal" id="quiz">
+      <!-- steps injected/managed by JS -->
+      <div class="qstep active" data-q="0">
+        <span class="qcount">Fråga 1 av 5</span>
+        <h4>Vad är en "hallucination" i AI-sammanhang?</h4>
+        <button class="qopt" data-correct="false">När AI svarar för långsamt</button>
+        <button class="qopt" data-correct="true">När AI hittar på fakta som låter trovärdiga men är fel</button>
+        <button class="qopt" data-correct="false">När AI vägrar svara</button>
+        <div class="qfeedback"></div>
+      </div>
+      <div class="qstep" data-q="1">
+        <span class="qcount">Fråga 2 av 5</span>
+        <h4>Vilket verktyg är bäst när du vill nå dina egna mejl och Office-filer?</h4>
+        <button class="qopt" data-correct="false">Gratisversionen av ChatGPT</button>
+        <button class="qopt" data-correct="true">Copilot 365</button>
+        <button class="qopt" data-correct="false">En privat chatbot</button>
+        <div class="qfeedback"></div>
+      </div>
+      <div class="qstep" data-q="2">
+        <span class="qcount">Fråga 3 av 5</span>
+        <h4>Vad får du lägga in i en gratis-/privatversion av ett AI-verktyg?</h4>
+        <button class="qopt" data-correct="true">Inget känsligt – behandla det som en öppen anslagstavla</button>
+        <button class="qopt" data-correct="false">Vad som helst, det är krypterat</button>
+        <button class="qopt" data-correct="false">Kunddata, bara inte personnummer</button>
+        <div class="qfeedback"></div>
+      </div>
+      <div class="qstep" data-q="3">
+        <span class="qcount">Fråga 4 av 5</span>
+        <h4>I vilken riskklass enligt EU AI Act hamnar vanlig Copilot/ChatGPT-användning?</h4>
+        <button class="qopt" data-correct="false">Hög risk</button>
+        <button class="qopt" data-correct="false">Oacceptabel risk</button>
+        <button class="qopt" data-correct="true">Minimal risk</button>
+        <div class="qfeedback"></div>
+      </div>
+      <div class="qstep" data-q="4">
+        <span class="qcount">Fråga 5 av 5</span>
+        <h4>Vilken del lyfter oftast en prompt mest?</h4>
+        <button class="qopt" data-correct="false">Att skriva väldigt artigt</button>
+        <button class="qopt" data-correct="true">Att be om ett tydligt format på svaret</button>
+        <button class="qopt" data-correct="false">Att skriva så kort som möjligt</button>
+        <div class="qfeedback"></div>
+      </div>
+
+      <div class="qstep quiz-result" data-q="result">
+        <h4>Klart!</h4>
+        <div class="score"><span id="qScore">0</span>/5</div>
+        <p id="qMsg" style="color:var(--ink-2);margin-top:10px;"></p>
+        <button class="btn btn-primary" id="qRestart" style="margin-top:18px;">Gör om testet</button>
+      </div>
+
+      <div class="qnav" id="qNav"><button class="btn btn-outline" id="qNext" disabled>Nästa fråga →</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="section alt" id="ordlista">
+  <div class="wrap">
+    <span class="s-label reveal">Uppslagsdel</span>
+    <h2 class="reveal">Ordlista – <em>AI på svenska.</em></h2>
+    <dl class="glossary">
+      <div class="gterm reveal"><dt>Prompt</dt><dd>Instruktionen du ger AI. Tydlig prompt in = bra svar ut.</dd></div>
+      <div class="gterm reveal"><dt>Generativ AI</dt><dd>AI som skapar nytt innehåll – text, bild, kod – utifrån mönster den lärt sig.</dd></div>
+      <div class="gterm reveal"><dt>LLM</dt><dd>Large Language Model. Den sortens AI som driver ChatGPT, Claude, Copilot och Gemini.</dd></div>
+      <div class="gterm reveal"><dt>Hallucination</dt><dd>När AI självsäkert hittar på fakta som inte stämmer.</dd></div>
+      <div class="gterm reveal"><dt>Token</dt><dd>Bitar av text som AI räknar i. Påverkar hur mycket den kan läsa åt gången.</dd></div>
+      <div class="gterm reveal"><dt>Kontext</dt><dd>Allt AI har tillgång till i stunden – din fråga, bifogade filer, tidigare meddelanden.</dd></div>
+      <div class="gterm reveal"><dt>Multimodal</dt><dd>AI som hanterar flera format: text, bild, ljud och video.</dd></div>
+      <div class="gterm reveal"><dt>AI-policy</dt><dd>Organisationens interna regler för hur AI får användas.</dd></div>
+      <div class="gterm reveal"><dt>EU AI Act</dt><dd>EU:s lag som reglerar AI-användning utifrån risk – ungefär som GDPR fast för AI.</dd></div>
+      <div class="gterm reveal"><dt>Agent</dt><dd>AI som inte bara svarar utan kan utföra flera steg åt dig mot ett mål.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- RESURSER -->
+<section class="section" id="resurser">
+  <div class="wrap">
+    <span class="s-label reveal">Ladda ned</span>
+    <h2 class="reveal">Ta med dig <em>materialet.</em></h2>
+    <div class="res">
+      <a class="rescard reveal" href="ai-lardomar.html"><span class="ricon">📘</span><h4>AI – vad vi lärt oss</h4><p>Sammanfattning av de viktigaste lärdomarna om AI, samlat på ett ställe.</p><span class="rcta">Öppna →</span></a>
+      <a class="rescard reveal" href="affarsplan.html"><span class="ricon">📈</span><h4>MPAI affärsplan</h4><p>Affärsplanen bakom utbildningen – mål, erbjudande och tillväxt.</p><span class="rcta">Öppna →</span></a>
+      <a class="rescard reveal" href="MPAI_Genomgangar_AI.pdf" download><span class="ricon">📂</span><h4>Genomgångskatalog</h4><p>Tio funktionsanpassade AI-genomgångar i en PDF-katalog.</p><span class="rcta">Ladda ned →</span></a>
+      <a class="rescard reveal" href="EU_AI_ACT_TALMANUS.pdf" download><span class="ricon">⚖️</span><h4>EU AI Act – talmanus</h4><p>Kunskapsunderlag och färdiga svar om EU AI Act och AI-policy.</p><span class="rcta">Ladda ned →</span></a>
+      <a class="rescard reveal" href="AI-policy-mall.docx" download><span class="ricon">📝</span><h4>AI-policy-mall</h4><p>Mall i Word att utgå från för er egna interna AI-policy.</p><span class="rcta">Ladda ned →</span></a>
+      <a class="rescard reveal" href="demo.html"><span class="ricon">🎬</span><h4>AI-demon</h4><p>Se vad AI kan göra på en minut – interaktiv demo.</p><span class="rcta">Öppna →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section dark cta-final">
+  <div class="wrap">
+    <span class="s-label reveal">Nästa steg</span>
+    <h2 class="reveal">Vill ni köra det här <em>live i teamet?</em></h2>
+    <p class="reveal">Akademin är gratis att använda på egen hand. Vill ni ha en skräddarsydd genomgång,
+      workshop eller hjälp med AI-policy – hör av er, så lägger vi upp det efter er verklighet.</p>
+    <div class="hero-actions reveal" style="justify-content:center;">
+      <a class="btn btn-primary" href="index.html#tjanster">Se tjänster</a>
+      <a class="btn btn-outline" href="mailto:marcus.mpai@gmail.com">Kontakta MPAI</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    MPAI · Marcus Petersson AI · <a href="index.html">mpai.se</a> · AI-akademin
+  </div>
+</footer>
+
+<script>
+/* scroll progress */
+const sp=document.getElementById('scrollProgress');
+addEventListener('scroll',()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;
+  sp.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';},{passive:true});
+
+/* reveal */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* tool tabs */
+document.querySelectorAll('.tooltab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    const tool=t.dataset.tool;
+    document.querySelectorAll('.tooltab').forEach(x=>x.classList.toggle('active',x===t));
+    document.querySelectorAll('.toolpanel').forEach(p=>p.classList.toggle('active',p.dataset.tool===tool));
+  });
+});
+
+/* modules accordion + progress */
+const STORE='mpai_akademi_progress';
+const total=document.querySelectorAll('.mod').length;
+function loadProg(){try{return JSON.parse(localStorage.getItem(STORE))||{};}catch(e){return {};}}
+function saveProg(p){localStorage.setItem(STORE,JSON.stringify(p));}
+let prog=loadProg();
+
+function renderProg(){
+  const done=Object.values(prog).filter(Boolean).length;
+  const pct=Math.round(done/total*100);
+  document.getElementById('pbFill').style.width=pct+'%';
+  document.getElementById('pbPct').textContent=pct+'%';
+}
+document.querySelectorAll('.mod').forEach(mod=>{
+  const id=mod.dataset.mod;
+  const head=mod.querySelector('.mod-head');
+  const body=mod.querySelector('.mod-body');
+  // add a done-checkbox row inside body
+  const row=document.createElement('label');
+  row.style.cssText='display:flex;align-items:center;gap:10px;margin-top:8px;font-weight:600;color:var(--green);cursor:pointer;';
+  const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!prog[id];
+  cb.style.cssText='width:18px;height:18px;accent-color:var(--green);';
+  row.appendChild(cb);row.appendChild(document.createTextNode(' Markera modulen som klar'));
+  body.querySelector('.mod-body-inner').appendChild(row);
+  cb.addEventListener('change',()=>{prog[id]=cb.checked;saveProg(prog);renderProg();});
+  head.addEventListener('click',()=>{
+    const open=mod.classList.toggle('open');
+    body.style.maxHeight=open?body.scrollHeight+'px':'0px';
+  });
+});
+document.getElementById('pbReset').addEventListener('click',()=>{
+  prog={};saveProg(prog);document.querySelectorAll('.mod input[type=checkbox]').forEach(c=>c.checked=false);renderProg();
+});
+renderProg();
+
+/* copy buttons */
+document.querySelectorAll('.copybtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const txt=b.previousElementSibling.textContent;
+    navigator.clipboard.writeText(txt).then(()=>{
+      const o=b.textContent;b.textContent='✓ Kopierat';b.classList.add('copied');
+      setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},1600);
+    });
+  });
+});
+
+/* quiz */
+(function(){
+  const quiz=document.getElementById('quiz');
+  const steps=[...quiz.querySelectorAll('.qstep')];
+  const nextBtn=document.getElementById('qNext');
+  const nav=document.getElementById('qNav');
+  let cur=0,score=0,answered=false;
+  function show(i){steps.forEach((s,n)=>s.classList.toggle('active',n===i));}
+  quiz.querySelectorAll('.qstep[data-q]').forEach(step=>{
+    if(step.dataset.q==='result')return;
+    step.querySelectorAll('.qopt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        if(answered)return;answered=true;
+        const ok=opt.dataset.correct==='true';
+        if(ok){opt.classList.add('correct');score++;}
+        else{opt.classList.add('wrong');step.querySelector('[data-correct="true"]').classList.add('correct');}
+        step.querySelector('.qfeedback').textContent=ok?'Rätt! ✓':'Inte riktigt – rätt svar är markerat i grönt.';
+        nextBtn.disabled=false;
+      });
+    });
+  });
+  nextBtn.addEventListener('click',()=>{
+    cur++;answered=false;nextBtn.disabled=true;
+    if(cur<5){show(cur);nextBtn.textContent=cur===4?'Visa resultat →':'Nästa fråga →';}
+    else{
+      nav.style.display='none';
+      document.getElementById('qScore').textContent=score;
+      const msg=document.getElementById('qMsg');
+      msg.textContent = score>=4?'Starkt! Du har koll på grunderna och kan börja hjälpa kollegor.'
+        : score>=2?'Bra start. Repetera modulerna ovan så sitter det.'
+        : 'Inga problem – gå igenom modulerna en gång till, det lossnar snabbt.';
+      steps.find(s=>s.dataset.q==='result').classList.add('active');
+    }
+  });
+  document.getElementById('qRestart').addEventListener('click',()=>{
+    cur=0;score=0;answered=false;
+    quiz.querySelectorAll('.qopt').forEach(o=>o.classList.remove('correct','wrong'));
+    quiz.querySelectorAll('.qfeedback').forEach(f=>f.textContent='');
+    steps.forEach(s=>s.classList.remove('active'));
+    nav.style.display='flex';nextBtn.disabled=true;nextBtn.textContent='Nästa fråga →';
+    show(0);
+  });
+})();
+</script>
+</body>
+</html>
