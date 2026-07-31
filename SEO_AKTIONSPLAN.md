@@ -1,6 +1,24 @@
 # MPAI – SEO-aktionsplan
 
-Status: **kod-delen är nu faktiskt klar (uppdaterad 2026-04-27)**. HTTPS är aktiverat på GitHub Pages. Kvarstår 3 steg som måste göras i Google/Bing/LinkedIn.
+Status: **kod-delen är nu faktiskt klar (uppdaterad 2026-04-27, lokal SEO tillagd 2026-07-31)**. HTTPS är aktiverat på GitHub Pages. Kvarstår 3 steg som måste göras i Google/Bing/LinkedIn.
+
+---
+
+## ✅ Klart 2026-07-31 – Lokal SEO för "AI Ljungby" / "AI Småland"
+
+Sajten nämnde tidigare Ljungby/Småland bara i en enda punktlista och ett FAQ-svar – inget i `<title>`, meta-taggar eller strukturerad data. Åtgärdat:
+
+- Title, meta description, keywords, Open Graph och Twitter Card uppdaterade med "Ljungby" och "Småland"
+- `ProfessionalService`-schemat utökat med `LocalBusiness`-typ, riktig `address` (Ljungby, Kronoberg), `geo`-koordinater och `areaServed` (Ljungby, Småland, Kronobergs län, Sverige) i stället för bara `{Country: Sverige}`
+- Samma `areaServed`-utökning på alla tre `Service`-scheman
+- `Person`- och `WebSite`-schemana nämner nu Ljungby/Småland i beskrivningen
+- Hero-ingressen och första stycket i "Om mig" nämner nu Ljungby/Småland i löptext (inte bara i en punktlista), vilket ger starkare on-page-relevans för lokala sökningar
+- `sitemap.xml` lastmod + footerns "Senast uppdaterad" uppdaterat till 2026-07-31
+
+**Kvarstår för full lokal SEO-effekt (kräver handpåläggning utanför koden):**
+- Skapa en Google Business Profile för MPAI med adress/område Ljungby – det är den enskilt starkaste signalen för att synas i lokala sökningar och Google Maps/local pack
+- Se till att NAP (namn, adress, telefon) är konsekvent där företaget nämns externt (Hitta.se, Allabolag, eventuell branschkatalog)
+- Lokala baklänkar, t.ex. Ljungby kommun/näringsliv, lokal handelskammare eller nyhetsartiklar, hjälper mer än ytterligare on-page-ändringar
 
 > **Notering:** Tidigare version av detta dokument hävdade att kod-delen var klar redan 2026-04-21, men `<head>` i `index.html` saknade i praktiken alla meta-taggar och JSON-LD-block. Det är åtgärdat 2026-04-27.
 
