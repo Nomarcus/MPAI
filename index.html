@@ -8,13 +8,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>MPAI – AI-rådgivning i Ljungby & Småland | Copilot 365</title>
+<title>MPAI – AI-bollplank i Ljungby & Småland | AI för alla</title>
 
 <!-- Primär SEO-metadata -->
-<meta name="description" content="AI-rådgivning och Copilot 365-utbildning för chefer och team i Ljungby, Småland och övriga Sverige. Praktisk Generativ AI, ChatGPT och AI-policy."/>
+<meta name="description" content="Prata AI med en människa. AI-bollplank, rådgivning och hjälp med Copilot 365 och ChatGPT för alla i Ljungby, Småland och hela Sverige."/>
 <meta name="author" content="Marcus Petersson"/>
 <meta name="robots" content="index,follow,max-image-preview:large"/>
-<meta name="keywords" content="AI-rådgivning, AI Ljungby, AI Småland, AI-konsult Ljungby, Copilot 365, ChatGPT-utbildning, generativ AI, AI-policy, AI för ledning, AI-konsult Sverige"/>
+<meta name="keywords" content="AI Ljungby, AI Småland, AI-konsult Ljungby, AI-bollplank, AI-rådgivning, AI för alla, Copilot 365, ChatGPT-utbildning, generativ AI, AI-hjälp, AI-konsult Sverige"/>
 <link rel="canonical" href="https://mpai.se/"/>
 
 <!-- Favicons + PWA-manifest -->
@@ -29,8 +29,8 @@
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="sv_SE"/>
 <meta property="og:site_name" content="MPAI – Marcus Petersson AI"/>
-<meta property="og:title" content="MPAI – AI-rådgivning i Ljungby & Småland | Copilot 365"/>
-<meta property="og:description" content="AI-rådgivning och Copilot 365-utbildning för chefer och team i Ljungby, Småland och övriga Sverige. Praktisk Generativ AI, ChatGPT och AI-policy."/>
+<meta property="og:title" content="MPAI – AI-bollplank i Ljungby & Småland | AI för alla"/>
+<meta property="og:description" content="Prata AI med en människa. AI-bollplank, rådgivning och hjälp med Copilot 365 och ChatGPT för alla i Ljungby, Småland och hela Sverige."/>
 <meta property="og:url" content="https://mpai.se/"/>
 <meta property="og:image" content="https://mpai.se/og-image.png"/>
 <meta property="og:image:width" content="1200"/>
@@ -39,8 +39,8 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="MPAI – AI-rådgivning i Ljungby & Småland"/>
-<meta name="twitter:description" content="Praktisk AI för chefer, ledning och team i Ljungby, Småland och hela Sverige. Copilot 365 och ChatGPT."/>
+<meta name="twitter:title" content="MPAI – AI-bollplank i Ljungby & Småland"/>
+<meta name="twitter:description" content="Prata AI med en människa – fika i Ljungby eller digitalt i hela Sverige."/>
 <meta name="twitter:image" content="https://mpai.se/og-image.png"/>
 
 <!-- Freshness-signaler -->
@@ -420,6 +420,37 @@ textarea { min-height:110px; resize:vertical; }
   html { scroll-behavior:auto; }
   .js .reveal { opacity:1; transform:none; }
 }
+
+/* ─ PERSONLIG PROFIL (v2) ───────────────────────── */
+.hero-grid { display:grid; grid-template-columns:1.3fr .7fr; gap:48px; align-items:center; }
+.hero-chat {
+  display:flex; flex-direction:column; gap:12px; background:var(--surface);
+  border:1px solid var(--line); border-radius:22px; padding:22px; box-shadow:0 20px 50px rgba(17,23,19,.09);
+}
+.hc-user { align-self:flex-end; max-width:90%; background:var(--green); color:#fff; padding:12px 16px; border-radius:16px 16px 4px 16px; font-size:1rem; line-height:1.45; }
+.hc-me { align-self:flex-start; max-width:96%; background:var(--bg); border:1px solid var(--line); padding:13px 16px; border-radius:16px 16px 16px 4px; color:var(--ink-2); font-size:1rem; line-height:1.55; }
+.hc-name { display:block; font-size:.75rem; font-weight:700; color:var(--green); margin-bottom:3px; letter-spacing:.06em; text-transform:uppercase; }
+.personas { margin-top:34px; display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.persona {
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:22px 24px; text-decoration:none; font-size:1.15rem; font-weight:650; line-height:1.35;
+  transition:transform .25s var(--ease), border-color .25s, box-shadow .25s;
+}
+.persona b { color:var(--green); font-size:1.4rem; flex-shrink:0; transition:transform .25s var(--ease); }
+.persona:hover { border-color:var(--green); transform:translateY(-3px); box-shadow:0 14px 32px rgba(17,23,19,.08); }
+.persona:hover b { transform:translateX(4px); }
+.cards.cards-4 { grid-template-columns:repeat(2,1fr); }
+@media (max-width:900px) {
+  .hero-grid { grid-template-columns:1fr; gap:28px; }
+  .personas { grid-template-columns:1fr; }
+  .cards.cards-4 { grid-template-columns:1fr; }
+}
+@media (max-width:768px) {
+  .persona { padding:18px 20px; font-size:1.08rem; }
+  .hero-chat { padding:16px; }
+  .hero-tools { margin-top:32px; }
+}
 </style>
 <script>document.documentElement.className+=" js";</script>
 
@@ -434,7 +465,7 @@ textarea { min-height:110px; resize:vertical; }
   "url": "https://mpai.se/",
   "logo": "https://mpai.se/og-image.png",
   "image": "https://mpai.se/og-image.png",
-  "description": "AI-rådgivning och Copilot 365-utbildning för chefer, ledningsgrupper och team i Ljungby, Småland och övriga Sverige. Specialist på generativ AI, ChatGPT och AI-policy.",
+  "description": "AI-bollplank, rådgivning och utbildning i Copilot 365 och ChatGPT för privatpersoner, företag, föreningar och organisationer i Ljungby, Småland och övriga Sverige.",
   "founder": { "@id": "https://mpai.se/#marcus" },
   "telephone": "+46-79-356-29-46",
   "email": "marcus.mpai@gmail.com",
@@ -475,7 +506,7 @@ textarea { min-height:110px; resize:vertical; }
   "jobTitle": "AI-konsult och utbildare",
   "url": "https://mpai.se/",
   "image": "https://mpai.se/og-image.png",
-  "description": "AI-konsult i Ljungby, Småland, specialiserad på generativ AI, Copilot 365 och ChatGPT i praktiken. Hjälper ledningsgrupper, chefer och team i Småland och övriga Sverige att förstå och använda AI på ett tryggt sätt.",
+  "description": "AI-konsult i Ljungby, Småland – ditt bollplank för AI. Hjälper privatpersoner, företag och organisationer att förstå och använda AI på ett tryggt sätt, över en fika eller digitalt.",
   "homeLocation": { "@type": "City", "name": "Ljungby" },
   "knowsAbout": [
     "Generativ AI",
@@ -498,7 +529,7 @@ textarea { min-height:110px; resize:vertical; }
   "@id": "https://mpai.se/#website",
   "url": "https://mpai.se/",
   "name": "MPAI – Marcus Petersson AI",
-  "description": "AI-rådgivning och Copilot 365-utbildning för ledare och team i Ljungby, Småland och hela Sverige.",
+  "description": "AI-bollplank och AI-hjälp för alla i Ljungby, Småland och hela Sverige.",
   "inLanguage": "sv-SE",
   "publisher": { "@id": "https://mpai.se/#organization" }
 }
@@ -511,26 +542,34 @@ textarea { min-height:110px; resize:vertical; }
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "Måste jag kunna något om AI sedan tidigare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nej. Vi börjar där du är – oavsett om du aldrig har provat eller använder AI varje dag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Är det här bara för företag?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nej. Jag hjälper privatpersoner, egenföretagare, föreningar, skolor och företag. AI är till för alla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kan vi bara ta en fika och prata?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, gärna. Jag bor i Ljungby och träffar dig gärna där eller hos dig i Småland. Annars tar vi ett samtal eller ett videomöte. Hör av dig så hittar vi ett upplägg som passar."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Vad är skillnaden mellan ChatGPT och Copilot?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "ChatGPT är en fristående AI-tjänst. Copilot 365 är Microsofts AI som finns inbyggd i Word, Excel, Outlook och Teams. För arbete internt är Copilot oftast tryggast, eftersom informationen stannar hos er i Microsoft 365."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Hur kommer vi igång med AI?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Börja smått. Välj 2–3 uppgifter där AI kan spara tid, till exempel mötesanteckningar och mejlutkast. Vi tar fram en enkel AI-policy och tränar teamet. Efter 4–6 veckor utvärderar ni."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Var håller du till – kan vi träffas?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Jag bor i Ljungby i Småland. Jag kommer gärna till er i regionen, eller så kör vi digitalt – det som passar er bäst."
       }
     },
     {
@@ -546,10 +585,26 @@ textarea { min-height:110px; resize:vertical; }
       "name": "Hur betalar jag?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Med Swish eller faktura. Inga kortuppgifter, inga abonnemang och inga bindningstider. Priset får ni i offerten."
+        "text": "Med Swish eller faktura. Inga kortuppgifter, inga abonnemang och inga bindningstider. Vi kommer överens om upplägg och pris innan vi startar."
       }
     }
   ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "AI-bollplank – prata AI",
+  "serviceType": "AI-rådgivning",
+  "provider": { "@id": "https://mpai.se/#organization" },
+  "areaServed": [
+    { "@type": "City", "name": "Ljungby" },
+    { "@type": "Place", "name": "Småland" },
+    { "@type": "Country", "name": "Sverige" }
+  ],
+  "description": "Prata AI med en människa. Ställ frågor, bolla idéer och få koll på vad som är på gång – över en fika i Ljungby, hos dig i Småland eller digitalt."
 }
 </script>
 
@@ -565,7 +620,7 @@ textarea { min-height:110px; resize:vertical; }
     { "@type": "Place", "name": "Småland" },
     { "@type": "Country", "name": "Sverige" }
   ],
-  "description": "Praktisk genomgång av Copilot 365 och ChatGPT med fokus på hur verktygen faktiskt används i er vardag. Konkreta exempel, bättre prompts, digitalt eller på plats."
+  "description": "Lär dig använda Copilot 365, ChatGPT och Claude steg för steg med dina egna uppgifter. Enskilt, i grupp eller hos er – digitalt eller på plats."
 }
 </script>
 
@@ -581,7 +636,7 @@ textarea { min-height:110px; resize:vertical; }
     { "@type": "Place", "name": "Småland" },
     { "@type": "Country", "name": "Sverige" }
   ],
-  "description": "Ett kort, konkret tillfälle för ledning eller team. Aktuella AI-trender förklarat på riktigt och vad de betyder för er bransch. Cirka 60 minuter, digitalt."
+  "description": "Ett fokuserat pass på cirka 60 minuter om vad som faktiskt är nytt inom AI och vad det betyder för dig eller din verksamhet."
 }
 </script>
 
@@ -597,7 +652,7 @@ textarea { min-height:110px; resize:vertical; }
     { "@type": "Place", "name": "Småland" },
     { "@type": "Country", "name": "Sverige" }
   ],
-  "description": "Skräddarsydd AI-genomgång utan fast agenda. Ni berättar om er situation – innehållet anpassas helt efter er verksamhet. Konkreta slutsatser och nästa steg."
+  "description": "Skräddarsytt AI-upplägg för företag, förening eller skola. Ni berättar vad ni behöver – innehållet anpassas helt efter er."
 }
 </script>
 
@@ -623,35 +678,47 @@ textarea { min-height:110px; resize:vertical; }
   <nav>
     <a class="brand" href="#">MPAI <small>Marcus Petersson AI</small></a>
     <div class="nav-links" id="navLinks">
-      <a href="#tjanster" data-nav>Tjänster</a>
-      <a href="#genomgangar" data-nav>Genomgångar</a>
+      <a href="#tjanster" data-nav>Så hjälper jag</a>
+      <a href="#genomgangar" data-nav>Färdiga upplägg</a>
       <a href="#om-mig" data-nav>Om mig</a>
       <a href="#faq" data-nav>Vanliga frågor</a>
-      <a href="#kontakta-mig" class="nav-cta">Kontakt</a>
+      <a href="#kontakta-mig" class="nav-cta">Hör av dig</a>
     </div>
-    <a class="nav-mobile-cta" href="#" onclick="openModal(); return false;">Be om offert</a>
+    <a class="nav-mobile-cta" href="#" onclick="openModal('bollplank'); return false;">Hör av dig</a>
   </nav>
 </div>
 
 <main>
 <!-- ── HERO ── -->
 <header class="hero">
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <div>
     <div class="hero-tag reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
       Ljungby, Småland · digitalt i hela Sverige
     </div>
-    <h1 class="reveal d1">AI som fungerar för <em>chefer och team.</em></h1>
-    <p class="hero-lead reveal d2">Jag lär er använda Copilot och ChatGPT i vardagen – enkelt, utan teknikprat.</p>
+    <h1 class="reveal d1">AI för alla. <em>Prata med en människa.</em></h1>
+    <p class="hero-lead reveal d2">Nyfiken, osäker eller redan igång? Jag är ditt AI-bollplank – över en fika i Ljungby eller ett samtal på distans.</p>
     <div class="hero-actions reveal d3">
       <a class="btn btn-primary" href="tel:+46793562946">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
         Ring 079-356 29 46
       </a>
-      <a class="btn btn-outline" href="#" onclick="openModal(); return false;">Be om offert</a>
+      <a class="btn btn-outline" href="#" onclick="openModal('bollplank'); return false;">Boka en pratstund</a>
     </div>
+    </div>
+
+    <div class="hero-chat reveal d2" aria-label="Exempel på ett samtal">
+      <div class="hc-user">Jag har hört så mycket om AI. Var ska jag börja?</div>
+      <div class="hc-me">
+        <span class="hc-name">Marcus</span>
+        Vi tar en fika – i Ljungby eller över video. Du frågar, jag förklarar. Inga dumma frågor.
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
     <div class="hero-tools reveal d3">
-      <span class="hero-tools-label">Jag utbildar i:</span>
+      <span class="hero-tools-label">Vi kan gå igenom:</span>
       <span class="tool"><img src="logo-copilot-clean.png" alt="" loading="lazy" onerror="this.style.display='none'"/>Copilot</span>
       <span class="tool"><img src="logo-chatgpt-clean.png" alt="" loading="lazy" onerror="this.style.display='none'"/>ChatGPT</span>
       <span class="tool"><img src="logo-claude-mark.png" alt="" loading="lazy" onerror="this.style.display='none'"/>Claude</span>
@@ -660,75 +727,111 @@ textarea { min-height:110px; resize:vertical; }
   </div>
 </header>
 
-<!-- ── TJÄNSTER ── -->
-<section class="section section-tint" id="tjanster">
+<!-- ── LÅTER DET SOM DIG? ── -->
+<section class="section section-tint" id="for-vem">
   <div class="wrap">
-    <div class="eyebrow reveal">Tjänster</div>
-    <h2 class="reveal d1">Så kan jag <em>hjälpa er.</em></h2>
-    <p class="lead reveal d2">Tre sätt att komma igång. Hittar ni inte rätt – hör av er, så gör vi ett eget upplägg.</p>
+    <div class="eyebrow reveal">För vem?</div>
+    <h2 class="reveal d1">Låter något av det här <em>som dig?</em></h2>
+    <p class="lead reveal d2">Då är du rätt. AI är till för alla – inte bara för tekniker.</p>
 
-    <div class="cards">
+    <div class="personas">
+      <a class="persona reveal" href="#" onclick="openModal('bollplank'); return false;">
+        <span>”Jag är nyfiken, men vet inte var jag ska börja.”</span>
+        <b aria-hidden="true">→</b>
+      </a>
+      <a class="persona reveal d1" href="#" onclick="openModal('bollplank'); return false;">
+        <span>”Jag driver eget och vill spara tid.”</span>
+        <b aria-hidden="true">→</b>
+      </a>
+      <a class="persona reveal d2" href="#" onclick="openModal('ai-strategi'); return false;">
+        <span>”Vi är en förening, skola eller kommun.”</span>
+        <b aria-hidden="true">→</b>
+      </a>
+      <a class="persona reveal d3" href="#" onclick="openModal('copilot'); return false;">
+        <span>”Vi är ett team som vill använda AI på riktigt.”</span>
+        <b aria-hidden="true">→</b>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SÅ HJÄLPER JAG ── -->
+<section class="section" id="tjanster">
+  <div class="wrap">
+    <div class="eyebrow reveal">Så hjälper jag</div>
+    <h2 class="reveal d1">Fyra sätt att <em>komma igång.</em></h2>
+    <p class="lead reveal d2">Börja med ett samtal – eller gå direkt på utbildning. Du väljer.</p>
+
+    <div class="cards cards-4">
       <article class="card reveal">
         <div class="card-num">1</div>
-        <h3>Utbildning i Copilot 365 &amp; ChatGPT</h3>
-        <p>Lär er använda AI-verktygen ni redan har – med exempel från er egen vardag.</p>
-        <div class="card-meta">Halvdag · digitalt eller på plats</div>
-        <a class="btn btn-outline" href="#" onclick="openModal('copilot'); return false;">Kontakta mig</a>
+        <h3>Prata AI – ditt bollplank</h3>
+        <p>Har du frågor, en idé du vill bolla eller vill bara förstå vad som händer? Vi tar en fika eller ett samtal. Ingen fråga är för liten.</p>
+        <div class="card-meta">Fika i Ljungby · hos dig · digitalt</div>
+        <a class="btn btn-primary" href="#" onclick="openModal('bollplank'); return false;">Boka en pratstund</a>
       </article>
 
       <article class="card reveal d1">
         <div class="card-num">2</div>
-        <h3>AI just nu</h3>
-        <p>60 minuter om vad som händer inom AI – och vad det betyder för er.</p>
-        <div class="card-meta">Ca 60 minuter · digitalt</div>
-        <a class="btn btn-outline" href="#" onclick="openModal('ai-just-nu'); return false;">Kontakta mig</a>
+        <h3>Lär dig använda AI</h3>
+        <p>Copilot 365, ChatGPT och Claude – steg för steg, med dina egna uppgifter. Ensam eller tillsammans med kollegorna.</p>
+        <div class="card-meta">Enskilt · i grupp · hos er</div>
+        <a class="btn btn-outline" href="#" onclick="openModal('copilot'); return false;">Berätta mer</a>
       </article>
 
-      <article class="card reveal d2">
+      <article class="card reveal">
         <div class="card-num">3</div>
-        <h3>Anpassad AI-genomgång</h3>
-        <p>Ni berättar hur ni jobbar – jag bygger upplägget efter det.</p>
-        <div class="card-meta">Skräddarsytt för er verksamhet</div>
-        <a class="btn btn-outline" href="#" onclick="openModal('ai-strategi'); return false;">Kontakta mig</a>
+        <h3>Håll dig uppdaterad</h3>
+        <p>AI går fort. Jag berättar vad som faktiskt är nytt – och vad du kan strunta i. Ett fokuserat pass på ca 60 minuter.</p>
+        <div class="card-meta">Ca 60 minuter · digitalt eller på plats</div>
+        <a class="btn btn-outline" href="#" onclick="openModal('ai-just-nu'); return false;">Berätta mer</a>
+      </article>
+
+      <article class="card reveal d1">
+        <div class="card-num">4</div>
+        <h3>Ett upplägg för just er</h3>
+        <p>Företag, förening eller skola – berätta vad ni behöver, så bygger jag något som passar er.</p>
+        <div class="card-meta">Skräddarsytt</div>
+        <a class="btn btn-outline" href="#" onclick="openModal('ai-strategi'); return false;">Berätta mer</a>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ── SÅ GÅR DET TILL ── -->
-<section class="section" id="sa-gar-det-till">
+<!-- ── SÅ ENKELT ÄR DET ── -->
+<section class="section section-tint" id="sa-gar-det-till">
   <div class="wrap">
     <div class="eyebrow reveal">Så går det till</div>
-    <h2 class="reveal d1">Tre steg. <em>Inget krångel.</em></h2>
+    <h2 class="reveal d1">Så <em>enkelt</em> är det.</h2>
     <div class="steps">
       <div class="step reveal">
-        <h3>Ni berättar</h3>
-        <p>Beskriv kort vad ni vill komma vidare med.</p>
+        <h3>Hör av dig</h3>
+        <p>Ring, mejla eller skriv några rader. Ingen fråga är för liten.</p>
       </div>
       <div class="step reveal d1">
-        <h3>Ni får ett förslag</h3>
-        <p>Jag återkommer inom 24 timmar med ett enkelt upplägg.</p>
+        <h3>Vi pratar</h3>
+        <p>Fika i Ljungby, hos dig, telefon eller video – det som passar.</p>
       </div>
       <div class="step reveal d2">
-        <h3>Vi kör igång</h3>
-        <p>Digitalt eller hos er. Betala med Swish eller faktura.</p>
+        <h3>Du får något du kan använda</h3>
+        <p>Konkreta tips direkt. Vill du fortsätta gör vi det.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── GENOMGÅNGAR ── -->
-<section class="section section-tint" id="genomgangar">
+<!-- ── FÄRDIGA UPPLÄGG ── -->
+<section class="section" id="genomgangar">
   <div class="wrap">
-    <div class="eyebrow reveal">Genomgångar</div>
-    <h2 class="reveal d1">AI för <em>varje</em> roll.</h2>
-    <p class="lead reveal d2">Tio färdiga upplägg – anpassas efter er verksamhet. Inga förkunskaper krävs.</p>
+    <div class="eyebrow reveal">Färdiga upplägg</div>
+    <h2 class="reveal d1">AI för olika <em>yrken.</em></h2>
+    <p class="lead reveal d2">Jobbar ni i grupp? Här är tio upplägg som anpassas efter er. Inga förkunskaper krävs.</p>
 
     <button class="clps-toggle reveal d2" aria-expanded="false" aria-controls="ggCollapse"
-            data-show="Visa alla tio genomgångar" data-hide="Dölj genomgångarna"
+            data-show="Visa alla tio upplägg" data-hide="Dölj upplägg"
             onclick="toggleCollapse(this)">
       <span class="tgl-icon" aria-hidden="true">+</span>
-      <span class="tgl-label">Visa alla tio genomgångar</span>
+      <span class="tgl-label">Visa alla tio upplägg</span>
     </button>
 
     <div class="clps" id="ggCollapse">
@@ -747,7 +850,7 @@ textarea { min-height:110px; resize:vertical; }
         </div>
         <div class="gg-cta">
           <a class="btn btn-outline" href="MPAI_Genomgangar_AI.pdf" download>Ladda ned som PDF</a>
-          <a class="btn btn-primary" href="#" onclick="openModal(); return false;">Be om offert</a>
+          <a class="btn btn-primary" href="#" onclick="openModal('ai-strategi'); return false;">Hör av dig</a>
         </div>
       </div>
     </div>
@@ -755,13 +858,13 @@ textarea { min-height:110px; resize:vertical; }
 </section>
 
 <!-- ── TESTA AI ── -->
-<section class="section" id="testa-ai">
+<section class="section section-tint" id="testa-ai">
   <div class="wrap">
     <div class="demo-teaser">
       <div class="reveal">
         <div class="eyebrow">Testa själv</div>
         <h2>Se vad AI kan göra – på <em>en minut.</em></h2>
-        <p class="lead">Välj din roll och en vardagsuppgift, så ser du AI:n lösa den. Ingen inloggning.</p>
+        <p class="lead">Välj en vardagsuppgift, så ser du AI:n lösa den. Ingen inloggning.</p>
         <a class="btn btn-primary" href="demo.html">Öppna AI-demon <span aria-hidden="true">→</span></a>
       </div>
       <div class="reveal d1">
@@ -785,48 +888,57 @@ textarea { min-height:110px; resize:vertical; }
 </section>
 
 <!-- ── OM MIG ── -->
-<section class="section section-tint" id="om-mig">
+<section class="section" id="om-mig">
   <div class="wrap about">
     <div class="reveal">
       <div class="eyebrow">Om mig</div>
-      <h2>Jag är <em>Marcus.</em></h2>
-      <p>Jag driver MPAI från Ljungby i Småland. Jag hjälper chefer och team att förstå vad AI kan göra för just deras arbete – utan teknikprat, och med övningar ni kan använda redan i morgon.</p>
+      <h2>Hej, jag är <em>Marcus.</em></h2>
+      <p>Jag bor i Ljungby och gör AI begripligt. Jag säljer inga dyra system – jag är den du ringer när du undrar ”kan AI hjälpa mig med det här?”.</p>
+      <p>Jag följer utvecklingen varje dag, så att du slipper. Vi kan ta det över en fika i Ljungby, hos dig i Småland eller över video.</p>
     </div>
     <ul class="about-list reveal d1">
-      <li>Bor i Ljungby – träffas på plats i Småland eller digitalt i hela Sverige</li>
-      <li>Inga förkunskaper krävs</li>
-      <li>Fokus på vardagsnytta, inte teknik</li>
+      <li>Fika i Ljungby eller möte hos dig i Småland</li>
+      <li>Digitalt i hela Sverige</li>
+      <li>Inga förkunskaper – inga dumma frågor</li>
+      <li>Vardagsnytta före teknikprat</li>
     </ul>
   </div>
 </section>
 
 <!-- ── FAQ ── -->
-<section class="section" id="faq">
+<section class="section section-tint" id="faq">
   <div class="wrap">
     <div class="eyebrow reveal">Vanliga frågor</div>
-    <h2 class="reveal d1">Har ni <em>frågor?</em></h2>
+    <h2 class="reveal d1">Undrar du <em>något?</em></h2>
 
     <div class="faq-list reveal d2" style="margin-top:32px;">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Måste jag kunna något om AI sedan tidigare?
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Nej. Vi börjar där du är – oavsett om du aldrig har provat eller använder AI varje dag.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Är det här bara för företag?
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Nej. Jag hjälper privatpersoner, egenföretagare, föreningar, skolor och företag. AI är till för alla.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+          Kan vi bara ta en fika och prata?
+          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Ja, gärna. Jag bor i Ljungby och träffar dig gärna där eller hos dig i Småland. Annars tar vi ett samtal eller ett videomöte. Hör av dig så hittar vi ett upplägg som passar.</div></div>
+      </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
           Vad är skillnaden mellan ChatGPT och Copilot?
           <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">ChatGPT är en fristående AI-tjänst. Copilot 365 är Microsofts AI som finns inbyggd i Word, Excel, Outlook och Teams. För arbete internt är Copilot oftast tryggast, eftersom informationen stannar hos er i Microsoft 365.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
-          Hur kommer vi igång med AI?
-          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Börja smått. Välj 2–3 uppgifter där AI kan spara tid, till exempel mötesanteckningar och mejlutkast. Vi tar fram en enkel AI-policy och tränar teamet. Efter 4–6 veckor utvärderar ni.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
-          Var håller du till – kan vi träffas?
-          <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Jag bor i Ljungby i Småland. Jag kommer gärna till er i regionen, eller så kör vi digitalt – det som passar er bäst.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
@@ -840,7 +952,7 @@ textarea { min-height:110px; resize:vertical; }
           Hur betalar jag?
           <span class="faq-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Med Swish eller faktura. Inga kortuppgifter, inga abonnemang och inga bindningstider. Priset får ni i offerten.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Med Swish eller faktura. Inga kortuppgifter, inga abonnemang och inga bindningstider. Vi kommer överens om upplägg och pris innan vi startar.</div></div>
       </div>
     </div>
   </div>
@@ -850,8 +962,8 @@ textarea { min-height:110px; resize:vertical; }
 <section class="contact" id="kontakta-mig">
   <div class="wrap">
     <div class="eyebrow reveal">Kontakt</div>
-    <h2 class="reveal d1">Vill ni komma igång?</h2>
-    <p class="lead reveal d2">Ring, mejla eller be om en offert. Jag svarar normalt inom 24 timmar.</p>
+    <h2 class="reveal d1">Ta en pratstund?</h2>
+    <p class="lead reveal d2">Ring, skriv eller boka en fika. Jag svarar normalt inom 24 timmar.</p>
     <div class="contact-grid reveal d2">
       <a class="contact-item" href="tel:+46793562946">
         <span class="contact-label">Telefon</span>
@@ -862,12 +974,12 @@ textarea { min-height:110px; resize:vertical; }
         <span class="contact-value">marcus.mpai@gmail.com</span>
       </a>
       <div class="contact-item">
-        <span class="contact-label">Plats</span>
-        <span class="contact-value">Ljungby, Småland</span>
+        <span class="contact-label">Träffas</span>
+        <span class="contact-value">Ljungby, Småland – eller digitalt</span>
       </div>
     </div>
     <div class="contact-actions reveal d3">
-      <a class="btn btn-light" href="#" onclick="openModal(); return false;">Be om offert</a>
+      <a class="btn btn-light" href="#" onclick="openModal('bollplank'); return false;">Boka en pratstund</a>
       <a class="btn btn-ghost-light" href="tel:+46793562946">Ring mig</a>
     </div>
   </div>
@@ -897,34 +1009,32 @@ textarea { min-height:110px; resize:vertical; }
 <div id="kontaktModal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()" aria-label="Stäng">&times;</button>
-    <h2 id="modalTitle">Be om offert</h2>
-    <p class="modal-sub">Berätta kort om er situation, så återkommer jag med ett förslag.</p>
+    <h2 id="modalTitle">Hör av dig</h2>
+    <p class="modal-sub">Berätta kort vad du undrar över eller vill ha hjälp med – så tar vi det därifrån.</p>
     <form id="contactForm">
-      <label for="f-foretag">Företag</label>
-      <input type="text" id="f-foretag" name="foretag" placeholder="Företagsnamn" autocomplete="organization">
       <label for="f-namn">Namn</label>
       <input type="text" id="f-namn" name="namn" placeholder="Ditt namn" autocomplete="name" required>
       <label for="f-email">E-post</label>
-      <input type="email" id="f-email" name="email" placeholder="namn@foretag.se" autocomplete="email" required>
+      <input type="email" id="f-email" name="email" placeholder="namn@exempel.se" autocomplete="email" required>
+      <label for="f-foretag">Företag eller förening <span style="color:var(--muted);font-weight:400;">(valfritt)</span></label>
+      <input type="text" id="f-foretag" name="foretag" placeholder="Om det gäller er" autocomplete="organization">
       <label for="amneSelect">Vad gäller det?</label>
       <select name="amne" id="amneSelect">
         <option value="">Välj ämne (valfritt)</option>
-        <option value="ai-intro-workshop">AI-introduktion halvdag</option>
-        <option value="ai-ledning">AI-introduktion för ledning</option>
-        <option value="ai-workshop">AI-workshop för team</option>
-        <option value="ai-strategi">Anpassad AI-genomgång / rådgivning</option>
-        <option value="ai-just-nu">AI just nu</option>
-        <option value="copilot">Utbildning i Copilot 365 och ChatGPT</option>
+        <option value="bollplank">Prata AI / bolla idéer (fika eller samtal)</option>
+        <option value="copilot">Lära mig eller vårt team använda Copilot, ChatGPT m.fl.</option>
+        <option value="ai-just-nu">AI just nu – vad är på gång</option>
+        <option value="ai-strategi">Ett upplägg för förening, skola eller företag</option>
         <option value="annat">Annat / vet ej än</option>
       </select>
-      <label for="f-meddelande">Vad vill ni komma vidare med?</label>
-      <textarea id="f-meddelande" name="meddelande" placeholder="Beskriv kort situationen"></textarea>
-      <button class="submit" type="submit">Skicka förfrågan</button>
-      <p style="margin-top:12px;font-size:.88rem;color:var(--muted);text-align:center;">Jag återkommer normalt inom 24 timmar.</p>
+      <label for="f-meddelande">Vad funderar du på?</label>
+      <textarea id="f-meddelande" name="meddelande" placeholder="Skriv fritt – några rader räcker"></textarea>
+      <button class="submit" type="submit">Skicka</button>
+      <p style="margin-top:12px;font-size:.88rem;color:var(--muted);text-align:center;">Jag svarar normalt inom 24 timmar.</p>
     </form>
     <div class="form-success" id="formSuccess">
-      <h3>Tack – förfrågan är skickad!</h3>
-      <p>Den är på väg till mig nu.<br>Jag återkommer normalt inom 24 timmar.</p>
+      <h3>Tack – meddelandet är skickat!</h3>
+      <p>Det är på väg till mig nu.<br>Jag svarar normalt inom 24 timmar.</p>
       <p style="margin-top:18px;font-size:.9rem;">
         Brådskande? Ring
         <a href="tel:+46793562946" style="color:var(--green);font-weight:700;">079-356 29 46</a>
@@ -951,7 +1061,7 @@ textarea { min-height:110px; resize:vertical; }
   </div>
   <form id="chatForm">
     <label for="chat-email">Din e-post</label>
-    <input type="email" id="chat-email" name="email" placeholder="namn@foretag.se" autocomplete="email" required>
+    <input type="email" id="chat-email" name="email" placeholder="namn@exempel.se" autocomplete="email" required>
     <label for="chat-meddelande">Din fråga</label>
     <textarea id="chat-meddelande" name="meddelande" placeholder="Vad undrar du?" required></textarea>
     <button class="submit" type="submit">Skicka</button>
@@ -1048,7 +1158,7 @@ function openModal(p){
   lastFocused=document.activeElement;
   document.getElementById('kontaktModal').classList.add('open');document.body.style.overflow='hidden';document.body.classList.add('modal-open');
   if(p){const s=document.getElementById('amneSelect');if(s)s.value=p;}
-  const first=document.getElementById('f-foretag');
+  const first=document.getElementById('f-namn');
   if(first)first.focus();
 }
 // Öppna offertformuläret direkt vid länk hit med #kontakt (t.ex. från demo-sidan)

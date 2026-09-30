@@ -4,6 +4,14 @@ Status: **kod-delen är nu faktiskt klar (uppdaterad 2026-04-27, lokal SEO 2026-
 
 ---
 
+## ✅ Klart 2026-09-30 (v2) – Personligare budskap: "AI för alla, prata med en människa"
+
+- Ny positionering: AI för alla (privatpersoner, egenföretagare, föreningar, skolor, företag) – inte bara chefer/team
+- Nytt fokus på **AI-bollplank**: fika i Ljungby, möte hos dig i Småland eller digitalt; utbildning är en av fyra tjänster
+- Ny sektion "Låter något av det här som dig?", personligare "Om mig", nya FAQ, samtalsruta i hero
+- Title/meta/OG/JSON-LD uppdaterade (AI-bollplank, AI för alla); nytt Service-schema "AI-bollplank"; FAQPage matchar synliga frågor
+- Formuläret ändrat från "Be om offert" till "Hör av dig" med ämnet "Prata AI / bolla idéer"
+
 ## ✅ Klart 2026-09-30 – Ny, enklare design (mobil först)
 
 - Ljus, modern stil (systemfont, vit bakgrund, grön accent) i stället för serif/krämfärgat
