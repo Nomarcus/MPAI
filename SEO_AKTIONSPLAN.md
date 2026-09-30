@@ -1,8 +1,17 @@
 # MPAI – SEO-aktionsplan
 
-Status: **kod-delen är nu faktiskt klar (uppdaterad 2026-04-27, lokal SEO tillagd 2026-07-31)**. HTTPS är aktiverat på GitHub Pages. Kvarstår 3 steg som måste göras i Google/Bing/LinkedIn.
+Status: **kod-delen är nu faktiskt klar (uppdaterad 2026-04-27, lokal SEO 2026-07-31, ny design 2026-09-30)**. HTTPS är aktiverat på GitHub Pages. Kvarstår 3 steg som måste göras i Google/Bing/LinkedIn.
 
 ---
+
+## ✅ Klart 2026-09-30 – Ny, enklare design (mobil först)
+
+- Ljus, modern stil (systemfont, vit bakgrund, grön accent) i stället för serif/krämfärgat
+- Mycket mindre text: ny struktur Hero → 3 tjänstekort → 3 steg → genomgångar (hopfällbar) → testa AI → om mig → 5 FAQ → kontakt
+- Borttaget: ticker, marquee, statistikrad, cursor-effekter, pappersbrus
+- Fast **Ring / Mejla**-fält längst ned på mobil; tydlig kontaktsektion före sidfoten; chatt-bubblan visas bara på dator
+- Inga priser på sidan – `offers`-priset borttaget ur Service-schemat; FAQPage-schemat matchar de 5 synliga frågorna
+- Ljungby/Småland finns kvar i hero, om mig, FAQ, kontakt och alla scheman
 
 ## ✅ Klart 2026-07-31 – Lokal SEO för "AI Ljungby" / "AI Småland"
 
