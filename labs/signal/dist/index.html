@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171b22"><meta name="description" content="Lär en egen AI genom exempel. Sortera text, rätta osäkra fall och exportera din egen specialist. All inlärning sker lokalt i din webbläsare.">
+  <title>MPAI Signal — Din egen specialist</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Till innehållet</a>
+  <aside class="sidebar">
+    <a class="brand" href="#home" aria-label="MPAI Signal, startsida"><span class="brand-icon" aria-hidden="true">s<span>•</span></span><span>MPAI <b>Signal</b><small>PERSONLIG MASKININLÄRNING</small></span></a>
+    <div class="sidebar-caption">DIN VERKSTAD</div>
+    <nav aria-label="Huvudmeny">
+      <button data-nav="home"><span aria-hidden="true">◈</span> Överblick</button>
+      <button data-nav="sort"><span aria-hidden="true">≋</span> Sortera text <i id="queue-count"></i></button>
+      <button data-nav="discover"><span aria-hidden="true">⠿</span> Upptäck teman</button>
+      <button data-nav="teach"><span aria-hidden="true">✳</span> Lär AI:n</button>
+      <button data-nav="results"><span aria-hidden="true">▥</span> Se resultaten</button>
+      <button data-nav="guide"><span aria-hidden="true">?</span> Så fungerar det</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="local-mark"><i></i> Din data stannar här</div><p>Träning och analys sker i din webbläsare. Inga AI-API:er.</p><a href="https://mpai.se" target="_blank" rel="noopener">En idé från MPAI ↗</a></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div><span class="mobile-brand">MPAI <b>Signal</b></span><span class="project-label" id="project-label">Min specialist</span><button class="icon-button" data-action="rename" aria-label="Byt projektnamn">↗</button></div><div class="top-actions"><span class="save-status" id="save-status" role="status">Lokalt projekt</span><button class="button subtle" data-action="files"><span aria-hidden="true">↥</span> <span>Spara & exportera</span></button></div></header>
+    <div id="storage-warning" class="storage-warning" hidden role="alert"></div>
+    <div id="training" class="training-banner" hidden role="status"><span class="spinner"></span><div><strong>Din specialist lär sig</strong><span id="training-text">Jämför modeller…</span></div><progress id="training-progress" max="7" value="0"></progress><button class="button subtle" data-action="cancel-train">Avbryt</button></div>
+    <main id="main" tabindex="-1"></main>
+    <footer class="footer"><span>MPAI SIGNAL <span class="version">/ 01</span></span><span>Byggd för att lära. Gjord för att användas.</span></footer>
+  </div>
+  <dialog id="modal"><div id="modal-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input hidden id="import-file" type="file" accept=".json,.csv,text/csv,application/json">
+  <script type="module" src="./app.js"></script>
+  <noscript>MPAI Signal behöver JavaScript för att träna och använda din lokala AI.</noscript>
+</body>
+</html>
